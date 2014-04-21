@@ -1,0 +1,10 @@
+*.project
+*.classpath
+*.jar
+*.class
+*.settings
+target/*
+*.csv
+*.tmp
+*.DS_Store
+

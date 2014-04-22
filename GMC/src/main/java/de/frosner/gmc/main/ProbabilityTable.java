@@ -41,10 +41,10 @@ public class ProbabilityTable extends ProbabilitySource {
 		return _probabilities;
 	}
 
-	public ProbabilityTable groupSum(Variable by) {
+	public ProbabilityTable groupSumBy(Variable groupBy) {
 		Map<Integer, Double> groupSummedProbabilities = _probabilities.parallelStream().collect(
-				groupingBy(new GetObservationFunction(by), summingDouble(Row::getProbability)));
-		return ProbabilityTable.withOneVariable(by, groupSummedProbabilities);
+				groupingBy(new GetObservationFunction(groupBy), summingDouble(Row::getProbability)));
+		return ProbabilityTable.withOneVariable(groupBy, groupSummedProbabilities);
 	}
 
 }

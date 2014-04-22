@@ -11,9 +11,9 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class FactorTest {
+public class StreamFactorTest {
 
-	private Factor _table;
+	private StreamFactor _table;
 	private Variable _x;
 	private Variable _y;
 
@@ -32,18 +32,18 @@ public class FactorTest {
 				observations.clear();
 			}
 		}
-		_table = new Factor(rawTable);
+		_table = new StreamFactor(rawTable);
 	}
 
 	@Test
 	public void testGroupSum() {
-		Factor groupedByX = _table.groupSumBy(_x);
+		StreamFactor groupedByX = _table.groupSumBy(_x);
 		assertThat(groupedByX.getRows()).containsExactly(Row.withOneVariable(1, _x, 0), Row.withOneVariable(1, _x, 1));
 	}
 
 	@Test
 	public void testJoinWith() {
-		Factor toBeJoined = new Factor(Lists.newArrayList(Row.withOneVariable(0.2, _x, 0),
+		StreamFactor toBeJoined = new StreamFactor(Lists.newArrayList(Row.withOneVariable(0.2, _x, 0),
 				Row.withOneVariable(0.8, _x, 1)));
 
 		List<Row> expected = Lists.newArrayList();
@@ -51,8 +51,8 @@ public class FactorTest {
 		expected.add(Row.builder(0.18).withColumn(_x, 0).withColumn(_y, 1).build());
 		expected.add(Row.builder(0.32).withColumn(_x, 1).withColumn(_y, 0).build());
 		expected.add(Row.builder(0.48).withColumn(_x, 1).withColumn(_y, 1).build());
-		assertThat(_table.joinWith(toBeJoined, _x)).isEqualTo(new Factor(expected));
-		assertThat(toBeJoined.joinWith(_table, _x)).isEqualTo(new Factor(expected));
+		assertThat(_table.joinWith(toBeJoined, _x)).isEqualTo(new StreamFactor(expected));
+		assertThat(toBeJoined.joinWith(_table, _x)).isEqualTo(new StreamFactor(expected));
 	}
 
 }

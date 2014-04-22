@@ -36,8 +36,8 @@ public class ProbabilityTableTest {
 	}
 
 	@Test
-	public void testGroupBySum() {
-		ProbabilityTable groupedByX = _table.groupBySum(_x);
+	public void testGroupSum() {
+		ProbabilityTable groupedByX = _table.groupSum(_x);
 		assertThat(groupedByX.getRows()).containsExactly(Row.withOneVariable(0.4, _x, 0),
 				Row.withOneVariable(0.6, _x, 1));
 	}

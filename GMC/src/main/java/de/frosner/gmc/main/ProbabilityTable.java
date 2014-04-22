@@ -15,6 +15,21 @@ import com.google.common.collect.Maps;
 
 public class ProbabilityTable extends ProbabilitySource {
 
+	public static ProbabilityTable withOneVariable(Variable variable, Map<Integer, Double> probabilities) {
+		Check.notNull(variable, "variable");
+		Check.notEmpty(probabilities);
+
+		List<Row> rawTable = Lists.newArrayList();
+		for (Entry<Integer, Double> row : probabilities.entrySet()) {
+			Map<Variable, Integer> observations = Maps.newHashMap();
+			observations.put(variable, row.getKey());
+			rawTable.add(new Row(row.getValue(), observations));
+		}
+
+		return new ProbabilityTable(rawTable);
+
+	}
+
 	private final List<Row> _probabilities;
 
 	public ProbabilityTable(List<Row> table) {
@@ -26,18 +41,10 @@ public class ProbabilityTable extends ProbabilitySource {
 		return _probabilities;
 	}
 
-	public ProbabilityTable groupBySum(Variable by) {
-		Map<Integer, Double> result = _probabilities.parallelStream().collect(
+	public ProbabilityTable groupSum(Variable by) {
+		Map<Integer, Double> groupSummedProbabilities = _probabilities.parallelStream().collect(
 				groupingBy(new GetObservationFunction(by), summingDouble(Row::getProbability)));
-
-		List<Row> groupedByTable = Lists.newArrayList();
-		for (Entry<Integer, Double> row : result.entrySet()) {
-			Map<Variable, Integer> groupedByObservations = Maps.newHashMap();
-			groupedByObservations.put(by, row.getKey());
-			groupedByTable.add(new Row(row.getValue(), groupedByObservations));
-		}
-
-		return new ProbabilityTable(groupedByTable);
+		return ProbabilityTable.withOneVariable(by, groupSummedProbabilities);
 	}
 
 }

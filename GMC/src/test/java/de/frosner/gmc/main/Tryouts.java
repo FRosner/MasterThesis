@@ -29,6 +29,7 @@ public class Tryouts {
 			_salary = salary;
 		}
 
+		@SuppressWarnings("unused")
 		public String getName() {
 			return _name;
 		}

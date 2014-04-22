@@ -1,6 +1,8 @@
 package de.frosner.gmc.main;
 
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import net.sf.qualitycheck.Check;
 
@@ -10,6 +12,31 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
 public class Row {
+
+	public static class RowBuilder {
+
+		private final double _probability;
+		private final Map<Variable, Integer> _observations;
+
+		public RowBuilder(double probability) {
+			_probability = probability;
+			_observations = Maps.newHashMap();
+		}
+
+		public RowBuilder withColumn(Variable variable, Integer value) {
+			_observations.put(variable, value);
+			return this;
+		}
+
+		public Row build() {
+			return new Row(_probability, _observations);
+		}
+
+	}
+
+	public static RowBuilder builder(double probability) {
+		return new RowBuilder(probability);
+	}
 
 	public static Row withOneVariable(double probability, Variable variable, Integer observation) {
 		Map<Variable, Integer> observations = Maps.newHashMap();
@@ -34,6 +61,10 @@ public class Row {
 	public Integer getObservation(Variable of) {
 		Check.contains(_observations.keySet(), of);
 		return _observations.get(of);
+	}
+
+	public Set<Entry<Variable, Integer>> getVariableObservations() {
+		return _observations.entrySet();
 	}
 
 	@Override

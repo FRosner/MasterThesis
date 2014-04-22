@@ -13,6 +13,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import de.frosner.gmc.main.Row.RowBuilder;
+
 public class ProbabilityTable extends ProbabilitySource {
 
 	public static ProbabilityTable withOneVariable(Variable variable, Map<Integer, Double> probabilities) {
@@ -47,4 +49,52 @@ public class ProbabilityTable extends ProbabilitySource {
 		return ProbabilityTable.withOneVariable(groupBy, groupSummedProbabilities);
 	}
 
+	public ProbabilityTable joinWith(ProbabilityTable toBeJoined, Variable key) {
+		List<Row> rawResult = Lists.newArrayList();
+		for (Row thisRow : _probabilities) {
+			for (Row toBeJoinedRow : toBeJoined._probabilities) {
+				if (thisRow.getObservation(key).equals(toBeJoinedRow.getObservation(key))) {
+					RowBuilder joinedRow = Row.builder(thisRow.getProbability() * toBeJoinedRow.getProbability());
+					for (Entry<Variable, Integer> entry : thisRow.getVariableObservations()) {
+						joinedRow.withColumn(entry.getKey(), entry.getValue());
+					}
+					for (Entry<Variable, Integer> entry : toBeJoinedRow.getVariableObservations()) {
+						if (!entry.getKey().equals(key)) {
+							joinedRow.withColumn(entry.getKey(), entry.getValue());
+						}
+					}
+					rawResult.add(joinedRow.build());
+				}
+			}
+		}
+		return new ProbabilityTable(rawResult);
+	}
+
+	@Override
+	public String toString() {
+		return _probabilities.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_probabilities == null) ? 0 : _probabilities.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof ProbabilityTable)) {
+			return false;
+		}
+		ProbabilityTable other = (ProbabilityTable) obj;
+		return _probabilities.equals(other._probabilities);
+	}
 }

@@ -29,16 +29,6 @@ public class ProbabilityTable extends ProbabilitySource {
 	public ProbabilityTable groupBySum(Variable by) {
 		Map<Integer, Double> result = _probabilities.parallelStream().collect(
 				groupingBy(new GetObservationFunction(by), summingDouble(Row::getProbability)));
-		Map<Integer, List<Row>> esult = _probabilities.parallelStream().collect(
-				groupingBy(new GetObservationFunction(by)));
-		result = Maps.newHashMap();
-		for (Entry<Integer, List<Row>> entry : esult.entrySet()) {
-			double sum = 0d;
-			for (Row row : entry.getValue()) {
-				sum += row.getProbability();
-			}
-			result.put(entry.getKey(), sum);
-		}
 
 		List<Row> groupedByTable = Lists.newArrayList();
 		for (Entry<Integer, Double> row : result.entrySet()) {

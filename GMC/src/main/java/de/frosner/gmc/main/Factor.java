@@ -15,9 +15,9 @@ import com.google.common.collect.Maps;
 
 import de.frosner.gmc.main.Row.RowBuilder;
 
-public class ProbabilityTable extends ProbabilitySource {
+public class Factor extends ProbabilitySource {
 
-	public static ProbabilityTable withOneVariable(Variable variable, Map<Integer, Double> probabilities) {
+	public static Factor withOneVariable(Variable variable, Map<Integer, Double> probabilities) {
 		Check.notNull(variable, "variable");
 		Check.notEmpty(probabilities);
 
@@ -28,13 +28,13 @@ public class ProbabilityTable extends ProbabilitySource {
 			rawTable.add(new Row(row.getValue(), observations));
 		}
 
-		return new ProbabilityTable(rawTable);
+		return new Factor(rawTable);
 
 	}
 
 	private final List<Row> _probabilities;
 
-	public ProbabilityTable(List<Row> table) {
+	public Factor(List<Row> table) {
 		Check.notEmpty(Check.noNullElements(table, "table"), "table");
 		_probabilities = ImmutableList.copyOf(table);
 	}
@@ -43,13 +43,13 @@ public class ProbabilityTable extends ProbabilitySource {
 		return _probabilities;
 	}
 
-	public ProbabilityTable groupSumBy(Variable groupBy) {
+	public Factor groupSumBy(Variable groupBy) {
 		Map<Integer, Double> groupSummedProbabilities = _probabilities.parallelStream().collect(
 				groupingBy(new GetObservationFunction(groupBy), summingDouble(Row::getProbability)));
-		return ProbabilityTable.withOneVariable(groupBy, groupSummedProbabilities);
+		return Factor.withOneVariable(groupBy, groupSummedProbabilities);
 	}
 
-	public ProbabilityTable joinWith(ProbabilityTable toBeJoined, Variable key) {
+	public Factor joinWith(Factor toBeJoined, Variable key) {
 		List<Row> rawResult = Lists.newArrayList();
 		for (Row thisRow : _probabilities) {
 			for (Row toBeJoinedRow : toBeJoined._probabilities) {
@@ -67,7 +67,7 @@ public class ProbabilityTable extends ProbabilitySource {
 				}
 			}
 		}
-		return new ProbabilityTable(rawResult);
+		return new Factor(rawResult);
 	}
 
 	@Override
@@ -91,10 +91,10 @@ public class ProbabilityTable extends ProbabilitySource {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof ProbabilityTable)) {
+		if (!(obj instanceof Factor)) {
 			return false;
 		}
-		ProbabilityTable other = (ProbabilityTable) obj;
+		Factor other = (Factor) obj;
 		return _probabilities.equals(other._probabilities);
 	}
 }

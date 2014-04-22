@@ -11,14 +11,14 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class ProbabilityTableTest {
+public class FactorTest {
 
-	private ProbabilityTable _table;
+	private Factor _table;
 	private Variable _x;
 	private Variable _y;
 
 	@Before
-	public void createProbabilityTable() {
+	public void createFactor() {
 		_x = new Variable("X");
 		_y = new Variable("Y");
 		List<Double> probabilities = Lists.newArrayList(0.1, 0.9, 0.4, 0.6);
@@ -32,18 +32,18 @@ public class ProbabilityTableTest {
 				observations.clear();
 			}
 		}
-		_table = new ProbabilityTable(rawTable);
+		_table = new Factor(rawTable);
 	}
 
 	@Test
 	public void testGroupSum() {
-		ProbabilityTable groupedByX = _table.groupSumBy(_x);
+		Factor groupedByX = _table.groupSumBy(_x);
 		assertThat(groupedByX.getRows()).containsExactly(Row.withOneVariable(1, _x, 0), Row.withOneVariable(1, _x, 1));
 	}
 
 	@Test
 	public void testJoinWith() {
-		ProbabilityTable toBeJoined = new ProbabilityTable(Lists.newArrayList(Row.withOneVariable(0.2, _x, 0),
+		Factor toBeJoined = new Factor(Lists.newArrayList(Row.withOneVariable(0.2, _x, 0),
 				Row.withOneVariable(0.8, _x, 1)));
 
 		List<Row> expected = Lists.newArrayList();
@@ -51,8 +51,8 @@ public class ProbabilityTableTest {
 		expected.add(Row.builder(0.18).withColumn(_x, 0).withColumn(_y, 1).build());
 		expected.add(Row.builder(0.32).withColumn(_x, 1).withColumn(_y, 0).build());
 		expected.add(Row.builder(0.48).withColumn(_x, 1).withColumn(_y, 1).build());
-		assertThat(_table.joinWith(toBeJoined, _x)).isEqualTo(new ProbabilityTable(expected));
-		assertThat(toBeJoined.joinWith(_table, _x)).isEqualTo(new ProbabilityTable(expected));
+		assertThat(_table.joinWith(toBeJoined, _x)).isEqualTo(new Factor(expected));
+		assertThat(toBeJoined.joinWith(_table, _x)).isEqualTo(new Factor(expected));
 	}
 
 }

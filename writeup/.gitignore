@@ -1,0 +1,10 @@
+*.gz
+*.run.xml
+*.aux
+*.bbl
+*.blg
+*.bib.bak
+*.log
+*-blx.bib
+*.pdf
+!img/*.pdf

@@ -42,6 +42,7 @@
 
 \section{Machine Learning Applications}
 
+\textbf{Roles}
 \begin{itemize}
 \item Traditional roles
 	\begin{itemize}
@@ -55,6 +56,21 @@
 	\item Application programmer (uses standard inference algorithm implementation, can perform arbitrary analysis on data and inference results using simple queries, provides visualization)
 	\end{itemize}
 	$\Rightarrow$ Machine learning scientist provides standard inference algorithm implementations
+\end{itemize}
+
+\textbf{Data models}
+\begin{itemize}
+\item Statistical model formulation often flat (graphical models)
+\item Data model is structured / hierarchical / relational
+\item Input data heavily depend on application (text, gene, geo, images, ...)\\
+$\Rightarrow$ how to analyze them?
+	\begin{enumerate}
+	\item Develop custom statistical model that makes use of all available features\\
+	$\Rightarrow$ machine learning expert needed
+	\item Use pre-built standard model (clustering, topic models, HMM, ...)\\
+	$\Rightarrow$ meta data needs to be joined with the inference algorithm results\\
+	$\Rightarrow$ pre-built inference algorithms output don't always output all model variables
+	\end{enumerate}
 \end{itemize}
 
 \begin{figure}

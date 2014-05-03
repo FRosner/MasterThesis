@@ -14,6 +14,7 @@
 \usepackage{color}
 \usepackage{enumitem}
 \usepackage{amsmath}
+\usepackage{tikz}
 \usepackage{amssymb}
 \usepackage{subfig}
 \usepackage{graphicx}
@@ -39,6 +40,25 @@
 
 \section{Introduction}
 
-\cite{friedman1999learning}
+\section{Machine Learning Applications}
+
+\begin{itemize}
+\item Traditional roles
+	\begin{itemize}
+	\item Domain expert (provides data, does hypothesis testing using analysis result and visualization)
+	\item Machine learning scientist (provides inference algorithm, data analysis, transformation and visualization)
+	\end{itemize}
+\item New roles
+	\begin{itemize}
+	\item Domain expert (provides data, does hypothesis testing using analysis result and visualization)
+	\item Application programmer (uses standard inference algorithm implementation, can perform arbitrary analysis on data and inference results using simple queries, provides visualization)
+	\item Machine learning scientist (provides standard inference algorithm implementations)
+	\end{itemize}
+\end{itemize}
+
+\begin{figure}
+\resizebox{1\linewidth}{!}{\input{img/MLApplication.tex}}
+\caption{Common machine learning application architecture.}\label{fig:ml-application-architecture}
+\end{figure}
 
 \end{document}

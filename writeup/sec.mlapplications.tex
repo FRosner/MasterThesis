@@ -1,0 +1,64 @@
+\section{Machine Learning Applications}
+
+\textbf{Machine learning application architecture}
+\begin{itemize}
+\item There are data and a problem that needs to be solved (explorative analysis, hypothesis testing, ...)
+\item Select a statistical model and a corresponding implementation
+\item Get the inferred variables from the inference algorithm
+\item Enrich given data with inference results
+\item Gain insight by performing analysis on the enriched data
+\item Visualize results
+\end{itemize}
+
+\textbf{Roles}
+\begin{itemize}
+\item Traditional roles
+	\begin{itemize}
+	\item Domain expert (provides data, does hypothesis testing using analysis result and visualization)
+	\item Machine learning scientist (provides inference algorithm, data analysis, transformation and visualization)
+	\end{itemize}
+	$\Rightarrow$ Problem: Machine learning scientists are rare and expensive
+\item Solution: New roles
+	\begin{itemize}
+	\item Domain expert (provides data, does hypothesis testing using analysis result and visualization)
+	\item Application programmer (uses standard inference algorithm implementation, can perform arbitrary analysis on data and inference results using simple queries, provides visualization)
+	\end{itemize}
+	$\Rightarrow$ Machine learning scientist provides standard inference algorithm implementations
+\end{itemize}
+
+\begin{figure}
+\resizebox{1\linewidth}{!}{\input{img/MLApplication.tex}}
+\caption{Common machine learning application architecture.}\label{fig:ml-application-architecture}
+\end{figure}
+
+\textbf{Challenges}
+\begin{enumerate}
+\item[A] Data needs to be converted to the required inference algorithm input format
+	\begin{description}
+	\item[Traditional solution] Consult the documentation of the inference algorithm implementation and convert the data into the required input format
+	\item[New solution] Conversion under the hood given the matched data model because the implementation is known
+	\end{description}
+\item[B] Optimized implementations may not explicitly calculate all missing variables
+	\begin{description}
+	\item[Traditional solution] Manually calculating the missing values and distributions
+	\item[New solution] Application of sum-product and max-sum algorithm on the given results and the model
+	\end{description}
+\item[C] Integration of given data and inference results
+	\begin{description}
+	\item[Traditional solution] Consult the documentation of the inference algorithm output format, understand it and load it back to your original data integrating it manually
+	\item[New solution] Data integration by model integration: match the statistical model and the model of the given data so that integration is just a matter of writing data corresponding to the combined schema. Output format is known by the framework developer.
+	\end{description}
+\item[D] Analysis of data having partly probabilistic relationships (common queries)
+	\begin{description}
+	\item[Traditional solution] Calculating group-by aggregations, filters and transformations (sometimes representing computing marginals on filtered data $rightarrow$ normalization required)
+	\item[New solution] POLAP offering common transformation operations on entities and normal or probabilistic relationships.
+	\end{description}
+\end{enumerate}
+
+\subsection*{A}
+
+\subsection*{B}
+
+\subsection*{C}
+
+\subsection*{D}

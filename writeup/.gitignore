@@ -6,5 +6,8 @@
 *.bib.bak
 *.log
 *-blx.bib
+*.bak
+*.autosave
+*.*~
 *.pdf
 !img/*.pdf

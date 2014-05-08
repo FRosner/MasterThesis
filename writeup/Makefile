@@ -1,8 +1,6 @@
 DOKUMENT = main
 
-all: $(DOKUMENT).pdf
-
-$(DOKUMENT).pdf: $(DOKUMENT).tex
+all:
 	./dia2tex.sh
 	pdflatex $(DOKUMENT).tex > /dev/null
 	bibtex $(DOKUMENT) > /dev/null

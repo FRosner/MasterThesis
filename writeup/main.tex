@@ -40,6 +40,19 @@
 
 \section{Introduction}
 
+\begin{itemize}
+\item Statistical model formulation often flat (graphical models)
+\item Data model is structured / hierarchical / relational
+\item Input data heavily depend on application (text, gene, geo, images, ...)\\
+$\Rightarrow$ how to analyze them?
+	\begin{enumerate}
+	\item Develop custom statistical model that makes use of all available features\\
+	$\Rightarrow$ machine learning expert needed
+	\item Use pre-built standard model (clustering, topic models, HMM, ...)\\
+	$\Rightarrow$ meta data needs to be joined with the inference algorithm results\\
+	\end{enumerate}
+\end{itemize}
+
 \section{Machine Learning Applications}
 
 \textbf{Machine learning application architecture}
@@ -73,19 +86,36 @@
 \caption{Common machine learning application architecture.}\label{fig:ml-application-architecture}
 \end{figure}
 
-\textbf{Data models}
-\begin{itemize}
-\item Statistical model formulation often flat (graphical models)
-\item Data model is structured / hierarchical / relational
-\item Input data heavily depend on application (text, gene, geo, images, ...)\\
-$\Rightarrow$ how to analyze them?
-	\begin{enumerate}
-	\item Develop custom statistical model that makes use of all available features\\
-	$\Rightarrow$ machine learning expert needed
-	\item Use pre-built standard model (clustering, topic models, HMM, ...)\\
-	$\Rightarrow$ meta data needs to be joined with the inference algorithm results\\
-	$\Rightarrow$ pre-built inference algorithms output don't always output all model variables
-	\end{enumerate}
-\end{itemize}
+\textbf{Challenges}
+\begin{enumerate}
+\item[A] Data needs to be converted to the required inference algorithm input format
+	\begin{description}
+	\item[Traditional solution] Consult the documentation of the inference algorithm implementation and convert the data into the required input format
+	\item[New solution] Conversion under the hood given the matched data model because the implementation is known
+	\end{description}
+\item[B] Optimized implementations may not explicitly calculate all missing variables
+	\begin{description}
+	\item[Traditional solution] Manually calculating the missing values and distributions
+	\item[New solution] Application of sum-product and max-sum algorithm on the given results and the model
+	\end{description}
+\item[C] Integration of given data and inference results
+	\begin{description}
+	\item[Traditional solution] Consult the documentation of the inference algorithm output format, understand it and load it back to your original data integrating it manually
+	\item[New solution] Data integration by model integration: match the statistical model and the model of the given data so that integration is just a matter of writing data corresponding to the combined schema. Output format is known by the framework developer.
+	\end{description}
+\item[D] Analysis of data having partly probabilistic relationships (common queries)
+	\begin{description}
+	\item[Traditional solution] Calculating group-by aggregations, filters and transformations (sometimes representing computing marginals on filtered data $rightarrow$ normalization required)
+	\item[New solution] POLAP offering common transformation operations on entities and normal or probabilistic relationships.
+	\end{description}
+\end{enumerate}
+
+\subsection*{A}
+
+\subsection*{B}
+
+\subsection*{C}
+
+\subsection*{D}
 
 \end{document}

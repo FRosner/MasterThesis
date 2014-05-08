@@ -42,6 +42,16 @@
 
 \section{Machine Learning Applications}
 
+\textbf{Machine learning application architecture}
+\begin{itemize}
+\item There are data and a problem that needs to be solved (explorative analysis, hypothesis testing, ...)
+\item Select a statistical model and a corresponding implementation
+\item Get the inferred variables from the inference algorithm
+\item Enrich given data with inference results
+\item Gain insight by performing analysis on the enriched data
+\item Visualize results
+\end{itemize}
+
 \textbf{Roles}
 \begin{itemize}
 \item Traditional roles
@@ -58,6 +68,11 @@
 	$\Rightarrow$ Machine learning scientist provides standard inference algorithm implementations
 \end{itemize}
 
+\begin{figure}
+\resizebox{1\linewidth}{!}{\input{img/MLApplication.tex}}
+\caption{Common machine learning application architecture.}\label{fig:ml-application-architecture}
+\end{figure}
+
 \textbf{Data models}
 \begin{itemize}
 \item Statistical model formulation often flat (graphical models)
@@ -72,20 +87,5 @@ $\Rightarrow$ how to analyze them?
 	$\Rightarrow$ pre-built inference algorithms output don't always output all model variables
 	\end{enumerate}
 \end{itemize}
-
-\textbf{Machine learning application architecture}
-\begin{itemize}
-\item There is data and a problem that needs to be solved (explorative analysis, hypothesis testing, ...)
-\item Select a statistical model and a corresponding implementation
-\item Get the inferred variables from the inference algorithm
-\item Enrich given data with inference results
-\item Gain insight by performing analysis on the enriched data
-\item Visualize results
-\end{itemize}
-
-\begin{figure}
-\resizebox{1\linewidth}{!}{\input{img/MLApplication.tex}}
-\caption{Common machine learning application architecture.}\label{fig:ml-application-architecture}
-\end{figure}
 
 \end{document}

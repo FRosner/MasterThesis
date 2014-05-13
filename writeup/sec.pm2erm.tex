@@ -1,0 +1,23 @@
+\section{Translation of Plate Models to Entity Relationship Models}
+
+\textbf{Translation procedure}
+\begin{enumerate}
+\item make constraints explicit
+\item remove variable dependencies (arrows)
+\item convert vector variables to atomic ones
+\item translate this atomic plate model (APM) to an entity relationship model (ERM)
+\item adjust cardinalities and weak relationships of observed variables according to the given constraints (optional)
+\end{enumerate}
+
+\textbf{APM $\Rightarrow$ ERM}
+\begin{itemize}
+\item variables $\Rightarrow$ attributes\footnote{Variables that are not inside of a plate need to be assigned to an artificial entity type called "Global" [CITATION NEEDED].}
+\item plates $\Rightarrow$ entity types
+\item plate intersections $\Rightarrow$ relationships (association entitites)\\
+	(plates that are covered completely will have (1,1) cardinality to the association entity)
+\end{itemize}
+
+\textbf{Observed variables}
+\begin{itemize}
+\item Observed multinomial variables $x \in \{0,1\}$ with a constraint over the domain $V$, e.g. $\sum_{v \in V} x_v = 1,$ that are association entity attributes affect the relation between this association entity and the entity type of $V$. By observing them the relationship is not weak anymore and the observed variable can be removed as an attribute.
+\end{itemize}

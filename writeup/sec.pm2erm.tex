@@ -1,4 +1,6 @@
-\section{Translation of Plate Models to Entity Relationship Models}
+\section{Integration of Plate Models and Entity Relationship Models}
+
+\subsection{Translation of Plate Models to Entity Relationship Models}
 
 \textbf{Translation procedure}
 \begin{enumerate}
@@ -24,5 +26,25 @@
 
 \begin{figure}
 \resizebox{1\linewidth}{!}{\input{img/pm2erm.tex}}
-\caption{Translation of different plate model constructs to entity relation ship models.}\label{fig:pm2erm}
+\caption{Translation of different plate model constructs to entity relationship models.}\label{fig:pm2erm}
+\end{figure}
+
+\subsection{Clustering Example}
+
+\begin{figure}[t]
+\begin{minipage}[t]{0.49\linewidth}
+	\begin{center}
+		\subfloat[Original clustering plate model]{\label{fig:clustering_platemodel_original}
+    	\resizebox{1\linewidth}{!}{\input{img/clustering_transformation_platemodel.tex}}}
+	\end{center}
+\end{minipage}
+\hspace{0.0cm}
+\begin{minipage}[t]{0.49\linewidth}
+	\begin{center}
+		\subfloat[Expanded clustering plate model]{\label{fig:clustering_platemodel_expanded}
+		\resizebox{1\linewidth}{!}{\input{img/clustering_transformation_platemodel_expanded.tex}}}
+	\end{center}
+\end{minipage}\\
+\caption{Transformation of the plate model for Dirichlet multinomial clustering of text documents from implicit vector variables to an expanded version containing only atomic variables.}
+\label{img:clustering_platemodels}
 \end{figure}

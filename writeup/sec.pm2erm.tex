@@ -11,6 +11,12 @@
 \item adjust cardinalities and weak relationships of observed variables according to the given constraints and reduce the resulting ERM (optional)
 \end{enumerate}
 
+\begin{figure}
+\centering
+\resizebox{.9\linewidth}{!}{\input{img/pm2erm.tex}}
+\caption{Translation of different plate model constructs to entity relationship models.}\label{fig:pm2erm}
+\end{figure}
+
 \textbf{APM $\Rightarrow$ ERM}
 \begin{itemize}
 \item variables $\Rightarrow$ attributes\footnote{Variables that are not inside of a plate need to be assigned to an artificial entity type called "Global" [CITATION NEEDED].}
@@ -24,13 +30,23 @@
 \item Observed multinomial variables $x \in \{0,1\}$ with a constraint over the domain $V$, e.g. $\sum_{v \in V} x_v = 1,$ that are association entity attributes affect the relation between this association entity and the entity type of $V$. By observing them the relationship is not weak anymore and the observed variable can be removed as an attribute.
 \end{itemize}
 
-\begin{figure}
-\centering
-\resizebox{.9\linewidth}{!}{\input{img/pm2erm.tex}}
-\caption{Translation of different plate model constructs to entity relationship models.}\label{fig:pm2erm}
-\end{figure}
+\subsection{Dirichlet Multinomial Text Clustering Example}
 
-\subsection{Dirichlet Multinomial Clustering Example}
+\textbf{Generative process}
+\begin{enumerate}
+\item draw cluster proportions $\vec \pi \sim \text{Dir}(\vec \alpha)$
+\item draw word proportions per cluster $\forall k \in K: \vec \mu_k \sim \text{Dir}(\vec \beta_k)$
+\item draw cluster assignments per document $\forall n \in N: \vec z_n \sim \text{Mult}(\vec \pi)$
+\item draw token assignments per token $\forall n \in N, m \in M_n: \vec d_{nm} \sim \text{Mult}(\vec \mu_k)$, where $k$ is the cluster selected by $\vec z_n$
+\end{enumerate}
+
+\textbf{Constraints}
+\begin{align}
+\sum_{k \in K} z_{nk} &= 1\\
+\sum_{v \in V} d_{nmv} &= 1\\
+\sum_{k \in K} \pi_{k} &= 1\\
+\sum_{v \in V} \mu_{kv} &= 1
+\end{align}
 
 \begin{figure}[t]
 \begin{minipage}[t]{0.49\linewidth}

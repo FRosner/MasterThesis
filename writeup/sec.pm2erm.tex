@@ -24,7 +24,7 @@
 
 \begin{figure}
 \centering
-\resizebox{.9\linewidth}{!}{\input{img/apm_vectors.tex}}
+\resizebox{.9\linewidth}{!}{\adjustTikzSize \input{img/apm_vectors.tex}}
 \caption{Converting plate models to atomic plate models. Vector variables will be repeated for each component and arrows are left out.}\label{fig:pm2apm}
 \end{figure}
 
@@ -80,14 +80,14 @@
 \begin{minipage}[t]{0.49\linewidth}
 	\begin{center}
 		\subfloat[Original clustering plate model]{\label{fig:clustering_platemodel_original}
-    	\resizebox{1\linewidth}{!}{\input{img/clustering_transformation_platemodel.tex}}}
+    	\resizebox{1\linewidth}{!}{\adjustTikzSize \input{img/clustering_transformation_platemodel.tex}}}
 	\end{center}
 \end{minipage}
 \hspace{0.0cm}
 \begin{minipage}[t]{0.49\linewidth}
 	\begin{center}
 		\subfloat[Expanded clustering plate model]{\label{fig:clustering_platemodel_expanded}
-		\resizebox{1\linewidth}{!}{\input{img/clustering_transformation_platemodel_expanded.tex}}}
+		\resizebox{1\linewidth}{!}{\adjustTikzSize \input{img/clustering_transformation_platemodel_expanded.tex}}}
 	\end{center}
 \end{minipage}\\
 \caption{Transformation of the plate model for Dirichlet multinomial clustering of text documents from implicit vector variables to an expanded version containing only atomic variables.}
@@ -100,14 +100,14 @@
 \begin{minipage}[t]{0.49\linewidth}
 	\begin{center}
 		\subfloat[Original LDA plate model]{\label{fig:topic_platemodel_original}
-    	\resizebox{1\linewidth}{!}{\input{img/topic_transformation_platemodel.tex}}}
+    	\resizebox{1\linewidth}{!}{\adjustTikzSize \input{img/topic_transformation_platemodel.tex}}}
 	\end{center}
 \end{minipage}
 \hspace{0.0cm}
 \begin{minipage}[t]{0.49\linewidth}
 	\begin{center}
 		\subfloat[Expanded LDA plate model]{\label{fig:topic_platemodel_expanded}
-		\resizebox{1\linewidth}{!}{\input{img/topic_transformation_platemodel_expanded.tex}}}
+		\resizebox{1\linewidth}{!}{\adjustTikzSize \input{img/topic_transformation_platemodel_expanded.tex}}}
 	\end{center}
 \end{minipage}\\
 \caption{Transformation of the plate model for latent Dirichlet allocation topic models from implicit vector variables to an expanded version containing only atomic variables.}

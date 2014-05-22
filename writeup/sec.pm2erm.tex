@@ -16,7 +16,7 @@
 \item vector variables lead to ERMs having bad style
 \end{itemize}
 
-\textbf{PM $\Rightarrow$ APM}
+\textbf{PM $\Rightarrow$ APM} (Figure~\ref{fig:pm2apm})
 \begin{itemize}
 \item explicitly represent vector domains as plates
 \item remove arrows because they do not express independence assumptions anymore
@@ -25,7 +25,7 @@
 \begin{figure}
 \centering
 \resizebox{.9\linewidth}{!}{\adjustTikzSize \input{img/apm_vectors.tex}}
-\caption{Converting plate models to atomic plate models. Vector variables will be repeated for each component and arrows are left out.}\label{fig:pm2apm}
+\caption{Conversion of a plate model containing two variables $\alpha$ and $\vec x$ to an atomic plate model. The components $x_n$ of the $N$ dimensional vector variable $\vec x$ are represented as individual variables. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
 \end{figure}
 
 \subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}

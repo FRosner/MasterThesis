@@ -11,18 +11,22 @@
 
 \subsubsection{Atomic Plate Models}
 
-\textbf{Problems with traditional plate models}
+\textbf{Problems with non-atomic plate model translation}
 \begin{itemize}
-\item vector variables
-\item implicit constraints (\cite{heckerman2007probabilistic})
+\item vector variables lead to ERMs having bad style
 \end{itemize}
 
 \textbf{PM $\Rightarrow$ APM}
 \begin{itemize}
-\item explicitly represent constraints (arrow constraints in nested plates and variable constraints)
-\item remove arrows because they do not express independence assumptions anymore
 \item explicitly represent vector domains as plates
+\item remove arrows because they do not express independence assumptions anymore
 \end{itemize}
+
+\begin{figure}
+\centering
+\resizebox{.9\linewidth}{!}{\input{img/apm_vectors.tex}}
+\caption{Converting plate models to atomic plate models. Vector variables will be repeated for each component and arrows are left out.}\label{fig:pm2apm}
+\end{figure}
 
 \subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}
 

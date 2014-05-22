@@ -24,17 +24,23 @@
 
 \begin{figure}
 \centering
-\resizebox{.9\linewidth}{!}{\adjustTikzSize \input{img/apm_vectors.tex}}
+\scalebox{.9}{\adjustTikzSize \input{img/apm_vectors.tex}}
 \caption{Conversion of a plate model containing two variables $\alpha$ and $\vec x$ to an atomic plate model. The components $x_n$ of the $N$ dimensional vector variable $\vec x$ are represented as individual variables. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
 \end{figure}
 
 \subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}
 
-%\begin{figure}
-%\centering
-%\resizebox{.9\linewidth}{!}{\input{img/pm2erm.tex}}
-%\caption{Translation of different plate model constructs to entity relationship models.}\label{fig:pm2erm}
-%\end{figure}
+\begin{figure}
+\centering
+\scalebox{.9}{\adjustTikzSize \input{img/pm2erm_uno_local.tex}}
+\caption{Conversion of a plate containing a single variable to a single entity type having the corresponding attribute.}\label{fig:pm2erm_uno_local}
+\end{figure}
+
+\begin{figure}
+\centering
+\scalebox{.9}{\adjustTikzSize \input{img/pm2erm_uno_global.tex}}
+\caption{Conversion of a single variable that is not located in any plate. It will be associated with an artificial entity type called Global.}\label{fig:pm2erm_uno_global}
+\end{figure}
 
 \textbf{APM $\Rightarrow$ ERM}
 \begin{itemize}

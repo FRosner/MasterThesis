@@ -2,7 +2,7 @@
 
 \begin{itemize}
 \item analysis on integrated data model containing results from statistical model inference and domain specific meta data
-\item aggregation, ranking, filtering
+\item aggregation, ranking, filtering possibly depending on hidden variables
 \end{itemize}
 
 \textbf{Questions}
@@ -10,4 +10,29 @@
 \item how is the analysis related to the statistical model or similar ones?
 \item what are the assumptions made when new probabilities are computed?
 \item when can OLAP / POLAP be applied?
+\end{itemize}
+
+\textbf{Filtering operations}\\
+Select entities that have certain properties. Properties may be either domain specific meta data, inferred variables or both.
+\begin{itemize}
+\item documents belonging to specific cluster $c$ (\texttt{WHERE $z = c$})
+\item documents having specific author $a$ (\texttt{WHERE $\textrm{Author} = a$})
+\item clusters assigning at least 50\,\% probability to word $w$
+\end{itemize}
+
+\textbf{Ranking operations}\\
+Order entities by atomic or aggregated variables (inferred or given).
+\begin{itemize}
+\item top documents of author
+\item top words of clusters (\texttt{GROUP BY \textrm{Cluster.ID} ORDER BY $\mu$})
+\item top clusters per word (\texttt{GROUP BY \textrm{Word.ID} ORDER BY $\mu$})
+\end{itemize}
+
+\textbf{Aggregation operations}\\
+Counting, averaging, max / min operations on entities and relationships.
+\begin{itemize}
+\item number of documents per cluster
+\item number of tokens per document
+\item average number of tokens of documents per cluster
+\item cluster with maximum prior probability ($\pi$)
 \end{itemize}

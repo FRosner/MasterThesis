@@ -10,5 +10,6 @@
 *.bak
 *.autosave
 *.*~
+*.thm
 *.pdf
 !img/*.pdf

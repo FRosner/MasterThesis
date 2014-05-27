@@ -19,6 +19,12 @@
 	\newcommand{\tikzScale}[0]{0.75}
 \usepackage{amssymb}
 \usepackage{subfig}
+\usepackage{ntheorem}
+	\theoremstyle{plain}
+	\theorembodyfont{\upshape}
+	\theoremsymbol{\ensuremath{\ast}}
+	\theoremseparator{}
+\newtheorem{Example}{Example}
 \usepackage{graphicx}
 	\graphicspath{{img/}}
 \usepackage{nicefrac}
@@ -75,6 +81,10 @@
 \newpage
 
 \input{sec.analysis.tex}
+
+\newpage
+
+\input{sec.casestudy.tex}
 
 \newpage
 

@@ -28,6 +28,24 @@
 \caption{Conversion of a plate model containing two variables $\alpha$ and $\vec x$ to an atomic plate model. The components $x_n$ of the $N$ dimensional vector variable $\vec x$ are represented as individual variables. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
 \end{figure}
 
+\begin{figure}[t]
+\begin{minipage}[t]{0.49\linewidth}
+	\begin{center}
+		\subfloat[Original clustering plate model]{\label{fig:clustering_platemodel_original}
+    	\scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_transformation_platemodel.tex}}}
+	\end{center}
+\end{minipage}
+\hspace{0.0cm}
+\begin{minipage}[t]{0.49\linewidth}
+	\begin{center}
+		\subfloat[Atomic clustering plate model]{\label{fig:clustering_platemodel_expanded}
+		\scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_transformation_platemodel_expanded.tex}}}
+	\end{center}
+\end{minipage}\\
+\caption{Transformation of the plate model for Dirichlet multinomial clustering of text documents from implicit vector variables to an atomic version.}
+\label{img:clustering_platemodels}
+\end{figure}
+
 \subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}
 
 \textbf{APM $\Rightarrow$ ERM}
@@ -74,20 +92,9 @@
 
 \subsection{Matching Domain Data Models and Translated Entity Relationship Models}
 
-\begin{figure}[t]
-\begin{minipage}[t]{0.49\linewidth}
-	\begin{center}
-		\subfloat[Original clustering plate model]{\label{fig:clustering_platemodel_original}
-    	\scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_transformation_platemodel.tex}}}
-	\end{center}
-\end{minipage}
-\hspace{0.0cm}
-\begin{minipage}[t]{0.49\linewidth}
-	\begin{center}
-		\subfloat[Atomic clustering plate model]{\label{fig:clustering_platemodel_expanded}
-		\scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_transformation_platemodel_expanded.tex}}}
-	\end{center}
-\end{minipage}\\
-\caption{Transformation of the plate model for Dirichlet multinomial clustering of text documents from implicit vector variables to an atomic version.}
-\label{img:clustering_platemodels}
-\end{figure}
+\begin{itemize}
+\item domain data model given
+\item set of machine learning algorithm data models available
+\item match generic machine learning algorithm data model template
+\item framework will select corresponding implementation and fill out the missing data (statistical inference)
+\end{itemize}

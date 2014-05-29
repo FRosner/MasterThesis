@@ -34,12 +34,6 @@
 \caption{Common machine learning application architecture.}\label{fig:ml-application-architecture}
 \end{figure}
 
-\begin{figure}
-\centering
-\scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_dmdriven.tex}}
-\caption{Data model driven machine learning application architecture.}\label{fig:ml-application-architecture-dm}
-\end{figure}
-
 \textbf{Challenges}
 \begin{enumerate}
 \item[(A)] Data needs to be converted to the required inference algorithm input format
@@ -68,8 +62,14 @@
 
 \begin{itemize}
 \item provide domain specific data model
-\item match machine learning algorithm model template
-\item framework performs inference (custom implementation or standard inference algorithm)
+\item match machine learning algorithm model template (C)
+\item framework performs inference (custom implementation or standard inference algorithm) (A+B)
 \item combined data model has inference results in it
-\item perform analysis on combined model
+\item perform analysis on combined model (D)
 \end{itemize}
+
+\begin{figure}
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_dmdriven.tex}}
+\caption{Data model driven machine learning application architecture.}\label{fig:ml-application-architecture-dm}
+\end{figure}

@@ -2,14 +2,20 @@
 
 \subsection{Directed Graphical Models}
 
-\textbf{Plate models}
 \begin{itemize}
-\item developed by \textcite{buntine1994operations} / \textcite{gilks1994language}, now common in graphical models ([CITATION NEEDED] for graphical models, esp. baysian networks)
+\item aka Bayesian networks
+\item factorization of joint distribution in product of conditionals
 \item variables = circles
 \item dependencies = arrows / independence assumptions = lack of arrows
 \item repeated variables = plates
 \item shaded circles = observed variables [CITATION NEEDED (Bishop?)]
 \item small dark circles = parameters [CITATION NEEDED (Bishop?)]
+\end{itemize}
+
+\textbf{Plate models}
+\begin{itemize}
+\item developed by \textcite{buntine1994operations} / \textcite{gilks1994language}, now common in graphical models ([CITATION NEEDED] for graphical models, esp. baysian networks)
+\item plates for repeated variables of the same type
 \end{itemize}
 
 \textbf{Problems with traditional plate models}
@@ -46,4 +52,35 @@
 
 \end{Example}
 
-\subsection{Undirected Graphical Models and Factor Graphs}
+\subsection{Other Probabilstic Modeling Languages}
+
+\subsubsection*{Directed Graphical Models}
+
+\begin{itemize}
+\item aka Markov random fields
+\item similar to Bayesian networks but with undirected edges
+\item factorization of joint distribution in normalized product of factors, one per maximal clique
+\end{itemize}
+
+\subsubsection*{Factor Graphs}
+
+\begin{itemize}
+\item developed by \textcite{kschischang2001factor} and extended by \textcite{frey2002extending}
+\item generalize directed and undirected graphical models
+\item bipartite graph with variables and factors
+\item can naturally express inference algorithms for arbitrary graphs
+\end{itemize}
+
+\subsubsection*{Probabilistic Relational Models}
+
+\begin{itemize}
+\item relational database model having probabilistic relationships between attributes (\cite{friedman1999learning})
+\end{itemize}
+
+\subsubsection*{Probabilistic Entity-Relationship Models}
+
+\begin{itemize}
+\item extension of entity-relationship model with probabilstic relationships between attributes of entity types
+\item \cite{heckerman2007probabilistic} describe directed acyclic probabilistic entity-relationship model (DAPER)
+\item special focus on relationships between entities (restricted, self and probabilistic relationships)
+\end{itemize}

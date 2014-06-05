@@ -16,13 +16,13 @@ Multidimensional variables are split into their components such that there is on
 
 Multidimensional variables are often used as parameters for conditional probability distributions.\footnote{Consider the probabilities of a multinomial distribution $\vec \mu$ that contains the probability for each possible outcome or the covariance matrix $\Sigma$ of a multivariate gaussian distribution.} In that case one cannot decompose those variables without losing the relationship between their components concerning the generative process of the model. However, it is not necessary to preserve this relationship in the conversion process to a database model as it will not be used as a generative model anymore. We thus leave out all the arrows after the conversion process to explicitly state that they may not represent conditional probability distributions in the APM.
 
-\begin{figure}
+\begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/apm_vectors.tex}}
 \caption{Conversion of plate models containing multidimensional variables to atomic plate models by modeling the components as indivual variables. Subfigure (a) shows the conversion of an $N$ dimensional vector variable $\vec x$ to its components $x_n$. In (b), the $N \times M$ matrix $X$ is converted into a variable inside of two plates, one for each dimension. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[p]
 \begin{minipage}[t]{0.49\linewidth}
 	\begin{center}
 		\subfloat[Original clustering plate model]{\label{fig:clustering_platemodel_original}
@@ -36,9 +36,11 @@ Multidimensional variables are often used as parameters for conditional probabil
 		\scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_transformation_platemodel_expanded.tex}}}
 	\end{center}
 \end{minipage}\\
-\caption{Transformation of the plate model for Dirichlet multinomial clustering of text documents from implicit vector variables to an atomic version.}
-\label{img:clustering_platemodels}
+\caption{Transformation of the plate model for Dirichlet multinomial text clustering to the corresponding APM. The 'Words' plate represents the $V$ dimensional vocabulary domain of $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$. The 'Clusters' plate is extended to $\vec z_n$, $\vec \pi$ and $\vec \alpha$.}
+\label{fig:clustering_platemodels}
 \end{figure}
+
+Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on the plate model for Dirichlet Multinomial text clustering (see Example~\ref{ex:clustering-pm}, page~\pageref{ex:clustering-pm}). The $V$ dimensional vocabulary domain 'Words' of the vector variables $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$ is now made explicit and the 'Clusters' plate is extended to the $K$ dimensional vector variables $\vec z_n$, $\vec \pi$ and $\vec \alpha$.
 
 \subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}
 

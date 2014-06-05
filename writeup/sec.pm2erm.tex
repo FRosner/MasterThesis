@@ -2,12 +2,13 @@
 
 \subsection{Translation of Plate Models to Entity Relationship Models}
 
-\textbf{Translation procedure}
+In this section we propose a technique to transform a given directed graphical model in plate notation into a well-formed database model. This will be done in three steps:
 \begin{enumerate}
-\item PM $\Rightarrow$ APM
-\item APM $\Rightarrow$ ERM
-\item reduce ERM
+\item Transform multidimensional variables such as vectors or matrices into multiple variables for their components. The resulting model is called an atomic plate model (APM).
+\item\label{itm:apm2erm} Convert the APM into an ERM.
+\item Reduce the ERM to avoid translation artifacts in edge cases.
 \end{enumerate}
+In step~\ref{itm:apm2erm}, the ERM is converted from the APM and not the original plate model to ensure that it is well-formed. Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes or having implicit relationships by adding foreign key attributes [TODO: explain better, mb example or separate section?]. 
 
 \subsubsection{Atomic Plate Models}
 

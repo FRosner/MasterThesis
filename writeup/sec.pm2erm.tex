@@ -5,16 +5,16 @@
 In this section we propose a technique to transform a given directed graphical model in plate notation into a well-formed database model. This is done in three steps:
 \begin{enumerate}
 \item Transform multidimensional variables into their components. The resulting model is called an atomic plate model (APM).
-\item\label{itm:apm2erm} Convert the APM into an ERM.\footnote{The ERM is converted from the APM and not the original plate model to ensure that it is well-formed. Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes or having implicit relationships by adding foreign key attributes [TODO: explain better, mb example or separate section?]}
+\item\label{itm:apm2erm} Convert the APM into an ERM.
 \item Reduce the ERM to avoid translation artifacts.
 \end{enumerate}
-The following sections offer detailed explanations for all steps.
+The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors showed that the mapping is possible for every plate model, they did not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs are often not well-formed.\footnote{Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes or having implicit relationships by adding foreign key attributes. [TODO: explain better, mb example or separate section?]}
+
+We ensure to produce well-formed ERMs by extending the translation procedure by converting the plate model into an APM first, then map the APM to an ERM, and reduce the ERM afterwards. The following sections offer detailed explanations for all steps.
 
 \subsubsection{Atomic Plate Models}
 
 Multidimensional variables are split into their components such that there is one variable for each component. A plate containing an indexed component variable represents the multidimensional variable in the APM. Figure~\ref{fig:pm2apm} shows the conversion of plate models containing a vector and a matrix variable, respectively. The multidimensional variables $\vec x$ and $X$ are converted into individual component variables $x_n$ and $x_{nm}$, surrounded by plates of the corresponding dimensionality.
-
-Multidimensional variables are often used as parameters for conditional probability distributions.\footnote{Consider the parameter $\vec \mu$ of a multinomial distribution that contains the probability for each possible outcome or the covariance matrix $\Sigma$ of a multivariate gaussian distribution.} In that case one cannot decompose those variables without losing the relationship between their components concerning the generative process of the model. However, it is not necessary to preserve this relationship in the conversion process to a database model as it will not be used as a generative model anymore. We thus leave out all the arrows after the conversion process to explicitly state that they may not represent conditional probability distributions in the APM.
 
 \begin{figure}[p]
 \centering
@@ -40,13 +40,24 @@ Multidimensional variables are often used as parameters for conditional probabil
 \label{fig:clustering_platemodels}
 \end{figure}
 
+Multidimensional variables are often used as parameters for conditional probability distributions.\footnote{Consider the parameter $\vec \mu$ of a multinomial distribution that contains the probability for each possible outcome or the covariance matrix $\Sigma$ of a multivariate gaussian distribution.} In that case one cannot decompose those variables without losing the relationship between their components concerning the generative process of the model. However, it is not necessary to preserve this relationship in the conversion process to a database model as it will not be used as a generative model anymore. We thus leave out all the arrows after the conversion process to explicitly state that they may not represent conditional probability distributions in the APM.
+
 Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on the plate model for Dirichlet Multinomial text clustering (see Example~\ref{ex:clustering-pm}, page~\pageref{ex:clustering-pm}). The $V$ dimensional vocabulary domain 'Words' of the vector variables $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$ is now made explicit and the 'Clusters' plate is extended to the $K$ dimensional vector variables $\vec z_n$, $\vec \pi$ and $\vec \alpha$.
 
 \subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}
 
+\textcite{heckerman2007probabilistic} proposed a mapping from plate models to DAPER models. DAPER models are essentially ERMs that may contain probabilistic dependencies between attributes of entity classes. They can be expanded to a directed graphical model given a skeleton\footnote{A skeleton of an ERM is a specification of the entity and relationship classes associated with a specific database.}.
+
+We adopt this mapping to produce ERMs instead of DAPER models by leaving out the probabilistic dependencies between attributes during the translation process. Additionally we show some special cases of model constraints and their influence on the resulting ERM. The mapping is as follows:
+
+\begin{description}
+\item[Convert plates into entity types.] Each plate is represented as an entity type. The name of the entity type should reflect what the plate expressed. Usually there is an index set associated with each plate. The cardinality of this set states how many entities of the given type will be present in the database.
+\end{description}
+
 \textbf{APM $\Rightarrow$ ERM}
 \begin{itemize}
-\item variables $\Rightarrow$ attributes\footnote{Variables that are not inside of a plate need to be assigned to an artificial entity type called "Global" [CITATION NEEDED].}
+\item variables $\Rightarrow$ attributes
+\item Variables that are not inside of a plate need to be assigned to an artificial entity type called 'Global' (\cite{heckerman2007probabilistic})
 \item plates $\Rightarrow$ entity types
 \item plate intersections $\Rightarrow$ relationships (association entitites)
 \item nested plates and constraints affect translation

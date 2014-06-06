@@ -52,17 +52,18 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 
 \begin{description}
 \item[Convert plates into entity types.] Each plate is represented as an entity type. The name of the entity type should reflect what the plate expressed. Usually there is an index set associated with each plate. The cardinality of this set states how many entities of the given type will be present in the database.
+\item[Convert plate intersections to relationships.] In general, plate intersections represent many to many relationships between the corresponding entity types. [TODO: exact cardinality? see \#14] In contrast to the original mapping we translate all relationships into association entities. This allows a generic translation procedure for not only binary relationships.
 \end{description}
 
 \textbf{APM $\Rightarrow$ ERM}
-\begin{itemize}
-\item variables $\Rightarrow$ attributes
-\item Variables that are not inside of a plate need to be assigned to an artificial entity type called 'Global' (\cite{heckerman2007probabilistic})
-\item plates $\Rightarrow$ entity types
-\item plate intersections $\Rightarrow$ relationships (association entitites)
-\item nested plates and constraints affect translation
-\item covered / overlapping with the same index range / name are translated as many to many self relationships
-\end{itemize}
+\begin{enumerate}
+\item[$\bullet$] variables $\Rightarrow$ attributes 
+\item[$\bullet$] Variables that are not inside of a plate need to be assigned to an artificial entity type called 'Global' (\cite{heckerman2007probabilistic})
+\item[$\checkmark$] plates $\Rightarrow$ entity types 
+\item[$\checkmark$] plate intersections $\Rightarrow$ relationships (association entitites)
+\item[$\bullet$] nested plates and constraints affect translation
+\item[$\bullet$] covered / overlapping with the same index range / name are translated as many to many self relationships
+\end{enumerate}
 
 \begin{figure}
 \centering

@@ -51,38 +51,43 @@ Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on 
 We adopt this mapping to produce ERMs instead of DAPER models by leaving out the probabilistic dependencies between attributes during the translation process. Additionally we show some special cases of model constraints and their influence on the resulting ERM. The mapping is as follows:
 
 \begin{description}
-\item[Translate plates to entity types.] Each plate is represented as an entity type. The name of the entity type should reflect what the plate expressed. Usually there is an index set associated with each plate. The cardinality of this set states how many entities of the given type will be present in the database. Each entity type gets an artificial key (ID).
-\item[Translate plate intersections to relationships.] In general, plate intersections represent many to many relationships between the corresponding entity types. [TODO: exact cardinality? see \#14] In contrast to the original mapping we translate all relationships into association entities. This allows a generic translation procedure for n-ary relationships.
-\item[Translate variables to attributes.] Variables will be translated to attributes of either entity types or relationships, depending on the number of plates surrounding them. If a variable is surrounded by exactly one plate, the entity type of that plate gets an additional attribute representing this variable. If a variable lies inside multiple plates, it becomes an attribute of the corresponding association entity. Variables that are associated with no plate are assigned to an artificial entity type called 'Global'. As the 'Global' entity type does not have a primary key, there is only one entity of that type. [TODO: are entity types w/o keys possible?]
-\end{description}
+\item[Translate plates to entity types.] Each plate is represented as an entity type. Usually there is an index set associated with each plate. The cardinality of this set states how many entities of the given type will be present in the database. Each entity type gets an artificial key (ID). Figure~\ref{fig:pm2erm_uno_local} illustrates the translation of a plate representing $n$ Objects to the 'Object' entity type.
 
-\textbf{APM $\Rightarrow$ ERM}
-\begin{enumerate}
-\item[$\checkmark$] variables $\Rightarrow$ attributes 
-\item[$\bullet$] Variables that are not inside of a plate need to be assigned to an artificial entity type called 'Global' (\cite{heckerman2007probabilistic})
-\item[$\checkmark$] plates $\Rightarrow$ entity types 
-\item[$\checkmark$] plate intersections $\Rightarrow$ relationships (association entitites)
-\item[$\bullet$] nested plates and constraints affect translation
-\item[$\bullet$] covered / overlapping with the same index range / name are translated as many to many self relationships
-\end{enumerate}
+\item[Translate plate intersections to relationships.] In general, plate intersections represent many to many relationships between the corresponding entity types. [TODO: exact cardinality? see \#14] In contrast to the original mapping we translate all relationships into association entities. This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
+
+\item[Translate variables to attributes.] Variables will be translated to attributes of either entity types or relationships, depending on the number of plates surrounding them. If a variable is surrounded by exactly one plate, the entity type of that plate gets an additional attribute representing this variable (see Figure~\ref{fig:pm2erm_uno_local}). If a variable lies inside multiple plates, it becomes an attribute of the corresponding association entity (see Figure~\ref{fig:pm2erm_bi_noconstraints}). Variables that are associated with no plate are assigned to an artificial entity type called 'Global' (see Figure~\ref{fig:pm2erm_uno_global}). As 'Global' does not have a primary key, there is only one entity. [TODO: are entity types w/o keys possible?]
+
+\item[Translate nested plates to one to many relationships.] If a plate is nested in another plate, the resulting relationship has a one to many cardinality instead of many to many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entity types as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity type.\footnote{In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the original entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}).} It then does no longer extend the key of the association entity.
+\end{description}
 
 \begin{figure}
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_uno_local.tex}}
-\caption{Conversion of a plate containing a single variable to a single entity type having the corresponding attribute.}\label{fig:pm2erm_uno_local}
-\end{figure}
-
-\begin{figure}
-\centering
-\scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_uno_global.tex}}
-\caption{Conversion of a single variable that is not located in any plate. It will be associated with an artificial entity type called Global.}\label{fig:pm2erm_uno_global}
+\caption{Conversion of a plate containing a variable $x_n$ to an entity type having an artificial key ID and an attribute $x$.}\label{fig:pm2erm_uno_local}
 \end{figure}
 
 \begin{figure}
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_bi_noconstraints.tex}}
-\caption{Conversion of a plate intersection to an association entity.}\label{fig:pm2erm_bi_noconstraints}
+\caption{Conversion of a plate intersection to an association entity of a many to many relationship. The variable $z_{nm}$ residing in the intersection is represented as the attribute $z$ of the association entity.}\label{fig:pm2erm_bi_noconstraints}
 \end{figure}
+
+\begin{figure}
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_uno_global.tex}}
+\caption{Conversion of a single variable that is not located in any plate. It will be associated with an artificial entity type called 'Global'.}\label{fig:pm2erm_uno_global}
+\end{figure}
+
+\textbf{APM $\Rightarrow$ ERM}
+\begin{enumerate}
+\item[$\checkmark$] variables $\Rightarrow$ attributes 
+\item[$\checkmark$] Variables that are not inside of a plate need to be assigned to an artificial entity type called 'Global' (\cite{heckerman2007probabilistic})
+\item[$\checkmark$] plates $\Rightarrow$ entity types 
+\item[$\checkmark$] plate intersections $\Rightarrow$ relationships (association entitites)
+\item[$\checkmark$] nested plates affect translation
+\item[$\bullet$] constraints affect translation
+\item[$\bullet$] covered / overlapping with the same index range / name are translated as many to many self relationships
+\end{enumerate}
 
 \begin{figure}
 \centering
@@ -97,6 +102,7 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \end{figure}
 
 \subsubsection{Reduction of Translated Entity Relationship Models}
+\label{sec:erm_reduction}
 
 \begin{itemize}
 \item convert association entitites w/o attributes to relationships

@@ -86,18 +86,9 @@ In addition to the above rules we propose two additional transformation rules th
 Given a binary variable that is bound to an association entity and a constraint that requires it to sum to one over either index set of the surrounding plates, this affects the cardinality of the resulting relationship in the same way that nested plates do. The entity type which is summed over will not have a weak relationship to the association entity. The attribute of the association entity is then removed.
 
 In case of two overlapping plates this yields a malformed\footnote{Like in Figure~\ref{fig:pm2erm_covered_1} this malformed relationship is merged in the reduction step.} one to many relationship like shown in Figure~\ref{fig:pm2erm_bi_constraints}. It correctly expresses the fact that a given instance of B is only connected to one instance of A, while a given instance of A may be connected to many Bs.
-\end{description}
 
-\textbf{APM $\Rightarrow$ ERM}
-\begin{enumerate}
-\item[$\checkmark$] variables $\Rightarrow$ attributes 
-\item[$\checkmark$] Variables that are not inside of a plate need to be assigned to an artificial entity type called 'Global' (\cite{heckerman2007probabilistic})
-\item[$\checkmark$] plates $\Rightarrow$ entity types 
-\item[$\checkmark$] plate intersections $\Rightarrow$ relationships (association entitites)
-\item[$\checkmark$] nested plates affect translation
-\item[$\checkmark$] constraints affect translation
-\item[$\bullet$] covered / overlapping with the same index range / name are translated as many to many self relationships
-\end{enumerate}
+\item[Translate overlapping plates with same index set to self relationships.] When converting plate models with matrix or tensor variables to APMs, the translation procedure will produce overlapping plates as illustrated in Figure~\ref{fig:pm2apm}b. Given a matrix with equal dimensions $N = M$, this will result in two overlapping plates of the same index set. These are simply translated as a many to many self relationships.
+\end{description}
 
 \begin{figure}
 \centering

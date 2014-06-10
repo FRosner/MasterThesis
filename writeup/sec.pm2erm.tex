@@ -10,11 +10,11 @@ In this section we propose a technique to transform a given directed graphical m
 \end{enumerate}
 The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors showed that the mapping is possible for every plate model, they did not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs are often not well-formed.\footnote{Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes or having implicit relationships by adding foreign key attributes. [TODO: explain better, mb example or separate section?]}
 
-We ensure to produce well-formed ERMs by extending the translation procedure by converting the plate model into an APM first, then map the APM to an ERM, and reduce the ERM afterwards. The following sections offer detailed explanations for all steps.
+We extend the translation procedure by converting the plate model into an APM first, then map the APM to an ERM, and reduce the ERM afterwards. Applying this extended procedure produces well-formed ERMs. The following sections offer detailed explanations for all steps.
 
 \subsubsection{Atomic Plate Models}
 
-Multidimensional variables are split into their components such that there is one variable for each component. A plate containing an indexed component variable represents the multidimensional variable in the APM. Figure~\ref{fig:pm2apm} shows the conversion of plate models containing a vector and a matrix variable, respectively. The multidimensional variables $\vec x$ and $X$ are converted into individual component variables $x_n$ and $x_{nm}$, surrounded by plates of the corresponding dimensionality.
+Plate models may contain multidimensional variables, such as vectors or matrices. To receive an APM, multidimensional variables are split into their components such that there is one variable for each component. A plate containing an indexed component variable represents the multidimensional variable in the APM. Figure~\ref{fig:pm2apm} shows the conversion of plate models containing a vector and a matrix variable, respectively. The multidimensional variables $\vec x$ and $X$ are converted into individual component variables $x_n$ and $x_{nm}$, surrounded by plates of the corresponding dimensionality.
 
 \begin{figure}[p]
 \centering

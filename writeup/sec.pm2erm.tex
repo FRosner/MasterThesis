@@ -78,6 +78,16 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \caption{Conversion of a single variable that is not located in any plate. It will be associated with an artificial entity type called 'Global'.}\label{fig:pm2erm_uno_global}
 \end{figure}
 
+In addition to the above rules we propose two additional transformation rules that define the effect of variable contraints on the resulting ERM and cope with self relationships as a result of matrix or tensor variable translation:
+
+\begin{description}
+\item[Adjust cardinalities depending on variable constraints.] In some applications there are variables that solely express probabilistic or uncertain relationships. Those are often coded as multidimensional binary variables whose components follow certain summation constraints. \textcite{bishop2006pattern} refers to this as the 1-of-K coding scheme.
+
+Given a binary variable that is bound to an association entity and a constraint that requires it to sum to one over either index set of the surrounding plates, this affects the cardinality of the resulting relationship in the same way that nested plates do. The entity type which is summed over will not have a weak relationship to the association entity. The attribute of the association entity is then removed.
+
+In case of two overlapping plates this yields a malformed\footnote{Like in Figure~\ref{fig:pm2erm_covered_1} this malformed relationship is merged in the reduction step.} one to many relationship like shown in Figure~\ref{fig:pm2erm_bi_constraints}. It correctly expresses the fact that a given instance of B is only connected to one instance of A, while a given instance of A may be connected to many Bs.
+\end{description}
+
 \textbf{APM $\Rightarrow$ ERM}
 \begin{enumerate}
 \item[$\checkmark$] variables $\Rightarrow$ attributes 
@@ -85,7 +95,7 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \item[$\checkmark$] plates $\Rightarrow$ entity types 
 \item[$\checkmark$] plate intersections $\Rightarrow$ relationships (association entitites)
 \item[$\checkmark$] nested plates affect translation
-\item[$\bullet$] constraints affect translation
+\item[$\checkmark$] constraints affect translation
 \item[$\bullet$] covered / overlapping with the same index range / name are translated as many to many self relationships
 \end{enumerate}
 

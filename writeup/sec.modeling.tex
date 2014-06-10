@@ -1,6 +1,8 @@
 \section{Probabilistic Models}
 
-\subsection{Directed Graphical Models}
+\subsection{Probabilistic Modeling Languages}
+
+\subsubsection{Directed Graphical Models}
 
 \begin{itemize}
 \item aka Bayesian networks
@@ -53,18 +55,17 @@
 
 \end{Example}
 
-\subsection{Other Probabilistic Modeling Languages}
+\subsubsection{Other Probabilistic Modeling Languages}
 
-\subsubsection*{Directed Graphical Models}
-
+\begin{description}
+\item[Directed Graphical Models]\ 
 \begin{itemize}
 \item aka Markov random fields
 \item similar to Bayesian networks but with undirected edges
 \item factorization of joint distribution in normalized product of factors, one per maximal clique
 \end{itemize}
 
-\subsubsection*{Factor Graphs}
-
+\item[Factor Graphs]\ 
 \begin{itemize}
 \item developed by \textcite{kschischang2001factor} and extended by \textcite{frey2002extending}
 \item generalize directed and undirected graphical models
@@ -72,16 +73,34 @@
 \item can naturally express inference algorithms for arbitrary graphs
 \end{itemize}
 
-\subsubsection*{Probabilistic Relational Models}
-
+\item[Probabilistic Relational Models]\ 
 \begin{itemize}
 \item relational database model having probabilistic relationships between attributes (\cite{friedman1999learning})
 \end{itemize}
 
-\subsubsection*{Probabilistic Entity-Relationship Models}
-
+\item[Probabilistic Entity-Relationship Models]\ 
 \begin{itemize}
 \item extension of entity-relationship model with probabilstic relationships between attributes of entity types
 \item \cite{heckerman2007probabilistic} describe directed acyclic probabilistic entity-relationship model (DAPER)
 \item special focus on relationships between entities (restricted, self and probabilistic relationships)
 \end{itemize}
+\end{description}
+
+\subsection{Inference on Probabilistic Models}
+
+\subsubsection{Inference Algorithms for Arbitrary Graphical Models}
+
+\begin{itemize}
+\item Belief propagation / Sum-product algorithm
+\item Max-sum algorithm
+\item Variational message passing
+\end{itemize}
+
+\subsubsection{Custom Inference Algorithm Implementations}
+
+\begin{itemize}
+\item Weka, Mallet, Mahout, Shark, Spark, ...
+\item highly optimized inference algorithm implementations\\
+$\Rightarrow$ [ALEX FRAGEN] was hier optimiert wird im Vergleich zu Infer.NET
+\end{itemize}
+

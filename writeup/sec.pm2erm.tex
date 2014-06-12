@@ -53,30 +53,30 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \begin{description}
 \item[Translate plates to entity types.] Each plate is represented as an entity type. Usually there is an index set associated with each plate. The cardinality of this set states how many entities of the given type will be present in the database. Each entity type gets an artificial key (ID). Figure~\ref{fig:pm2erm_uno_local} illustrates the translation of a plate representing $n$ Objects to the 'Object' entity type.
 
-\item[Translate plate intersections to relationships.] In general, plate intersections represent many to many relationships between the corresponding entity types. In contrast to the original mapping we translate all relationships into association entities. This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
-
-\item[Translate variables to attributes.] Variables will be translated to attributes of either entity types or relationships, depending on the number of plates surrounding them. If a variable is surrounded by exactly one plate, the entity type of that plate gets an additional attribute representing this variable (see Figure~\ref{fig:pm2erm_uno_local}). If a variable lies inside multiple plates, it becomes an attribute of the corresponding association entity (see Figure~\ref{fig:pm2erm_bi_noconstraints}). Variables that are associated with no plate are assigned to an artificial entity type called 'Global' (see Figure~\ref{fig:pm2erm_uno_global}). As 'Global' does not have a primary key, there is only one entity. [TODO: are entity types w/o keys possible?]
-
-\item[Translate nested plates to one to many relationships.] If a plate is nested in another plate, the resulting relationship has a one to many cardinality instead of many to many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entity types as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity type.\footnote{In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the original entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}).} It then does no longer extend the key of the association entity.
-\end{description}
-
-\begin{figure}
+\begin{figure}[t]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_uno_local.tex}}
 \caption{Conversion of a plate containing a variable $x_n$ to an entity type having an artificial key ID and an attribute $x$.}\label{fig:pm2erm_uno_local}
 \end{figure}
 
-\begin{figure}
+\item[Translate plate intersections to relationships.] In general, plate intersections represent many to many relationships between the corresponding entity types. In contrast to the original mapping we translate all relationships into association entities. This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
+
+\begin{figure}[t]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_bi_noconstraints.tex}}
 \caption{Conversion of a plate intersection to an association entity of a many to many relationship. The variable $z_{nm}$ residing in the intersection is represented as the attribute $z$ of the association entity.}\label{fig:pm2erm_bi_noconstraints}
 \end{figure}
 
-\begin{figure}
+\item[Translate variables to attributes.] Variables will be translated to attributes of either entity types or relationships, depending on the number of plates surrounding them. If a variable is surrounded by exactly one plate, the entity type of that plate gets an additional attribute representing this variable (see Figure~\ref{fig:pm2erm_uno_local}). If a variable lies inside multiple plates, it becomes an attribute of the corresponding association entity (see Figure~\ref{fig:pm2erm_bi_noconstraints}). Variables that are associated with no plate are assigned to an artificial entity type called 'Global' (see Figure~\ref{fig:pm2erm_uno_global}). As 'Global' does not have a primary key, there is only one entity. [TODO: are entity types w/o keys possible?]
+
+\begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_uno_global.tex}}
 \caption{Conversion of a single variable that is not located in any plate. It will be associated with an artificial entity type called 'Global'.}\label{fig:pm2erm_uno_global}
 \end{figure}
+
+\item[Translate nested plates to one to many relationships.] If a plate is nested in another plate, the resulting relationship has a one to many cardinality instead of many to many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entity types as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity type.\footnote{In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the original entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}).} It then does no longer extend the key of the association entity.
+\end{description}
 
 In addition to the above rules we propose two additional transformation rules that define the effect of variable contraints on the resulting ERM and cope with self relationships as a result of matrix or tensor variable translation:
 
@@ -87,19 +87,19 @@ Given a binary variable that is bound to an association entity and a constraint 
 
 In case of two overlapping plates this yields a malformed\footnote{Like in Figure~\ref{fig:pm2erm_covered_1} this malformed relationship is merged in the reduction step.} one to many relationship like shown in Figure~\ref{fig:pm2erm_bi_constraints}. It correctly expresses the fact that a given instance of B is only connected to one instance of A, while a given instance of A may be connected to many Bs.
 
-\item[Translate overlapping plates with same index set to self relationships.] When converting plate models with matrix or tensor variables to APMs, the translation procedure will produce overlapping plates as illustrated in Figure~\ref{fig:pm2apm}b. Given a matrix with equal dimensions $N = M$, this will result in two overlapping plates of the same index set. These are simply translated as a many to many self relationships.
+\item[Translate overlapping plates with same index set to self relationships.] When converting plate models with matrix or tensor variables to APMs, the translation procedure will produce overlapping plates as illustrated in Figure~\ref{fig:pm2apm}b. Given a matrix with equal dimensions $N = M$, this will result in two overlapping plates of the same index set. These are simply translated as a many to many self relationships. The matrix components are then represented as an attribute of the resulting association entity.
 \end{description}
 
-\begin{figure}
+\begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_covered_1.tex}}
-\caption{Conversion of a covered plate to an association entity.}\label{fig:pm2erm_covered_1}
+\caption{Conversion of nested plates to an association entity. One instance of  The entity type of the covering plate will have no weak relationship to the association entity. That reflects the fact that every instance of B does belong to exactly one instance of A.}\label{fig:pm2erm_covered_1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_bi_constraints.tex}}
-\caption{Conversion of a plate intersection to an association entity given a variable constraint.}\label{fig:pm2erm_bi_constraints}
+\caption{Conversion of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The contraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type which index set is summed over will not have a weak relationship to the association entity.}\label{fig:pm2erm_bi_constraints}
 \end{figure}
 
 \subsubsection{Reduction of Translated Entity Relationship Models}

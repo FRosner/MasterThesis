@@ -104,23 +104,38 @@ In case of two overlapping plates this yields a malformed\footnote{Like in Figur
 
 With this set of rules it is possible to translate any given plate model into an ERM. However in some cases the resulting model might not be well-formed. It might express simple one to many relationships in a complicated way or even contain modeling errors like weak entitites that do not extend the primary key.
 
-Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering example APM from Figure~\ref{fig:clustering_platemodel_expanded}. The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship 'Word'---'D~T~W' and 'Cluster'---'Document', respectively. The 'Document'---'D~T~W' relationship is not weak because the 'Token' plate is nested. It is easily seen that there are degenerated cases of one to many relationships. In the next section we describe how to reduce such ERMs to obtain syntactically correct and well-formed ones.
+\begin{Example} Translation of the Dirichlet multinomial text clustering APM to a verbose ERM
 
-\begin{figure}[t]
+Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded}. The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship 'Word'---'D~T~W' and 'Cluster'---'Document', respectively. The 'Document'---'D~T~W' relationship is not weak because the 'Token' plate is nested. It is easily seen that there are degenerated cases of one to many relationships. In the next section we describe how to reduce such ERMs to obtain syntactically correct and well-formed ones.
+
+\end{Example}
+
+\begin{figure}[h]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_erm_good_verbose.tex}}
-\caption{Verbose Dirichlet multinomial text clustering ERM, translated from the APM in Figure~\ref{fig:clustering_platemodel_expanded}. [TODO: explain errors contained]}\label{fig:clustering_erm_good_verbose}
+\caption{Verbose Dirichlet multinomial text clustering ERM, translated from an APM.}\label{fig:clustering_erm_good_verbose}
 \end{figure}
 
 \subsubsection{Reduction of Translated Entity Relationship Models}
 \label{sec:erm_reduction}
 
-\begin{itemize}
-\item convert association entitites w/o attributes to relationships
-\item convert degenerated 1:n relationships (expressed as 1:1 weak : 1:n)
-\item merge 1:1 relationship entities
-\item merge relationships
-\end{itemize}
+In order to produce well-formed ERMs from plate models it is necessary to apply a reduction step on the resulting ERM of the plate model to APM conversion. This reduction will make sure that all artifacts which may result by applying the rules described in the previous section. Those artifacts are (1) weak entities with only one weak relationship and (2) duplicate relationships.
+
+Weak entities with only one weak relationship may occur in cases like shown in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables or nested plates change weak relationships to normal ones. If all but one weak relationship gets changed, the construct is not well-formed because the weak entity does not extend a primary key. The weak relationship is then simply a 1:1 relationship and both entities can be merged.
+
+After merging all entities like described above there may be duplicate relationships. Consider the case in Figure~[TODO: minimal example] where the two relationships between A and B become redundant after merging the three entities 'A~B~C', 'B' and 'A~B~D'. There will be a practical example of this situation in the case study in Section~\ref{sec:casestudy}. Note that this merging is only possible if the relationships are really expressing the same thing.
+
+\begin{Example}{Reduced ERM for Dirichlet multinomial text clustering}
+
+Figure~\ref{fig:clustering_erm_good_reduced} illustrates the result of reducing the ERM for Dirichlet multinomial text clustering from Figure~\ref{fig:clustering_erm_good_verbose}. [TODO: explain what has changed.]
+
+\begin{figure}[h]
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_erm_good_reduced.tex}}
+\caption{Reduced Dirichlet multinomial text clustering ERM.}\label{fig:clustering_erm_good_reduced}
+\end{figure}
+
+\end{Example}
 
 \subsection{Matching Domain Data Models and Translated Entity Relationship Models}
 

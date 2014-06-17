@@ -145,11 +145,14 @@ The resulting ERM is well-formed and expresses the data model of Dirichlet multi
 
 \end{Example}
 
-\subsection{Matching Domain Data Models and Translated Entity Relationship Models}
+\subsection{Matching Data Models and Translated Entity Relationship Models}
 
-\begin{itemize}
-\item domain data model given
-\item set of machine learning algorithm data models available
-\item match generic machine learning algorithm data model template
-\item framework will select corresponding implementation and fill out the missing data (statistical inference)
-\end{itemize}
+Given a set of probabilistic models the user selects a suiting model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. It can either be matched on ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, p.~218-224.
+
+After matching both models the user receives an integrated model containing domain specific constructs enriched by constructs from the probabilistic model. The framework then selects an inference algorithm implementation, uses the provided data and calculates the results. The results are included in the joined database and can be used for further analysis.
+
+\begin{Example} Matching a text data model with the Dirichlet multinomial clustering model
+
+[TODO]
+
+\end{Example}

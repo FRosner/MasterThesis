@@ -16,13 +16,20 @@ We extend the translation procedure by converting the plate model into an APM fi
 
 Plate models may contain multidimensional variables, such as vectors or matrices. To receive an APM, multidimensional variables are split into their components such that there is one variable for each component. A plate containing an indexed component variable represents the multidimensional variable in the APM. Figure~\ref{fig:pm2apm} shows the conversion of plate models containing a vector and a matrix variable, respectively. The multidimensional variables $\vec x$ and $X$ are converted into individual component variables $x_n$ and $x_{nm}$, surrounded by plates of the corresponding dimensionality.
 
-\begin{figure}[p]
+\begin{figure}[t]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/apm_vectors.tex}}
 \caption{Conversion of plate models containing multidimensional variables to atomic plate models by modeling the components as individual variables. Subfigure (a) shows the conversion of an $|N|$ dimensional vector variable $\vec x$ to its components $x_n$. In (b), the $|N| \times |M|$ matrix $X$ is converted into a variable inside two plates, one for each dimension. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
 \end{figure}
 
-\begin{figure}[p]
+
+Multidimensional variables are often used as parameters for conditional probability distributions.\footnote{Consider the parameter $\vec \mu$ of a multinomial distribution that contains the probability for each possible outcome or the covariance matrix $\Sigma$ of a multivariate gaussian distribution.} In that case one cannot decompose those variables without losing the relationship between their components concerning the generative process of the model. However, it is not necessary to preserve this relationship in the conversion process to a database model as it will not be used as a generative model anymore. We thus leave out all the arrows after the conversion process to explicitly state that they may not represent conditional probability distributions in the APM.
+
+\begin{Example} Atomic plate model creation for Dirichlet multinomial text clustering
+
+Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on the plate model for Dirichlet multinomial text clustering (see Example~\ref{ex:clustering-pm}, page~\pageref{ex:clustering-pm}). The $|V|$ dimensional vocabulary domain Words of the vector variables $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$ is now made explicit and the Clusters plate is extended to the $|K|$ dimensional vector variables $\vec z_n$, $\vec \pi$ and $\vec \alpha$.
+
+\begin{figure}[h!]
 \begin{minipage}[t]{0.49\linewidth}
 	\begin{center}
 		\subfloat[Original clustering plate model]{\label{fig:clustering_platemodel_original}
@@ -40,9 +47,7 @@ Plate models may contain multidimensional variables, such as vectors or matrices
 \label{fig:clustering_platemodels}
 \end{figure}
 
-Multidimensional variables are often used as parameters for conditional probability distributions.\footnote{Consider the parameter $\vec \mu$ of a multinomial distribution that contains the probability for each possible outcome or the covariance matrix $\Sigma$ of a multivariate gaussian distribution.} In that case one cannot decompose those variables without losing the relationship between their components concerning the generative process of the model. However, it is not necessary to preserve this relationship in the conversion process to a database model as it will not be used as a generative model anymore. We thus leave out all the arrows after the conversion process to explicitly state that they may not represent conditional probability distributions in the APM.
-
-Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on the plate model for Dirichlet Multinomial text clustering (see Example~\ref{ex:clustering-pm}, page~\pageref{ex:clustering-pm}). The $|V|$ dimensional vocabulary domain Words of the vector variables $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$ is now made explicit and the Clusters plate is extended to the $|K|$ dimensional vector variables $\vec z_n$, $\vec \pi$ and $\vec \alpha$.
+\end{Example}
 
 \subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}
 

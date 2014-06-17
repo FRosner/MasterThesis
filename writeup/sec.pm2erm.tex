@@ -123,7 +123,7 @@ In order to produce well-formed ERMs from plate models it is necessary to apply 
 
 Weak entities with only one weak relationship may occur in cases like shown in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables and nested plates change weak relationships to normal ones. If all but one weak relationship gets changed, the construct is not well-formed because the weak entity does not extend a primary key. The weak relationship is then simply a 1:1 relationship and both entities can be merged.
 
-After merging all entities like described above there may be duplicate relationships. Consider the case in Figure~\ref{fig:erm_reduction_minimal_example} where the two relationships between A and B become redundant after merging the three entities 'A~B~C', 'B' and 'A~B~D'. There will be a practical example of this situation in the case study in Section~\ref{sec:casestudy}. Note that this merging is only possible if the relationships are really expressing the same thing.
+After merging all entities like described above there may be duplicate relationships. Consider the case in Figure~\ref{fig:erm_reduction_minimal_example} where the two relationships between A and B become redundant after merging the three entities 'A-B-C', 'B' and 'A-B-D'. There will be a practical example of this situation in the case study in Section~\ref{sec:casestudy}. Note that this merging is only possible if the relationships are really expressing the same thing. [TODO: ask Alex about merging conditions.]
 
 \begin{figure}[t]
 \centering
@@ -133,13 +133,15 @@ After merging all entities like described above there may be duplicate relations
 
 \begin{Example}{Reduced ERM for Dirichlet multinomial text clustering}
 
-Figure~\ref{fig:clustering_erm_good_reduced} illustrates the result of reducing the ERM for Dirichlet multinomial text clustering from Figure~\ref{fig:clustering_erm_good_verbose}. [TODO: explain what has changed.]
+Figure~\ref{fig:clustering_erm_good_reduced} illustrates the result of reducing the ERM for Dirichlet multinomial text clustering from Figure~\ref{fig:clustering_erm_good_verbose}. The 'Token' entity type is merged with 'D-T-W' and 'Document' with the 'D-C' association entity.
 
 \begin{figure}[h]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_erm_good_reduced.tex}}
 \caption{Reduced Dirichlet multinomial text clustering ERM.}\label{fig:clustering_erm_good_reduced}
 \end{figure}
+
+The resulting ERM is well-formed and expresses the data model of Dirichlet multinomial text clustering that one would expect. Documents consist of one or more tokens. A token belongs to one word type and there may be one or more tokens of one type. Documents are assigned to clusters and one cluster may have multiple documents assigned. The cluster distribution is expressed in 'Cluster'.$\pi$ and 'Cluster'.$\alpha$. The word distribution of each cluster is expressed in 'C-W'.$\mu$ and 'C-W'.$\beta$, respectively.
 
 \end{Example}
 

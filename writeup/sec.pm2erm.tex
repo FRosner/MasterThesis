@@ -119,11 +119,17 @@ Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the tr
 \subsubsection{Reduction of Translated Entity Relationship Models}
 \label{sec:erm_reduction}
 
-In order to produce well-formed ERMs from plate models it is necessary to apply a reduction step on the resulting ERM of the plate model to APM conversion. This reduction will make sure that all artifacts which may result by applying the rules described in the previous section. Those artifacts are (1) weak entities with only one weak relationship and (2) duplicate relationships.
+In order to produce well-formed ERMs from plate models it is necessary to apply a reduction step on the resulting ERM of the plate model to APM conversion. This reduction will make sure that all artifacts which may result by applying the rules described in the previous section are eliminated. Those artifacts are (1) weak entities with only one weak relationship and (2) duplicate relationships.
 
-Weak entities with only one weak relationship may occur in cases like shown in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables or nested plates change weak relationships to normal ones. If all but one weak relationship gets changed, the construct is not well-formed because the weak entity does not extend a primary key. The weak relationship is then simply a 1:1 relationship and both entities can be merged.
+Weak entities with only one weak relationship may occur in cases like shown in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables and nested plates change weak relationships to normal ones. If all but one weak relationship gets changed, the construct is not well-formed because the weak entity does not extend a primary key. The weak relationship is then simply a 1:1 relationship and both entities can be merged.
 
-After merging all entities like described above there may be duplicate relationships. Consider the case in Figure~[TODO: minimal example] where the two relationships between A and B become redundant after merging the three entities 'A~B~C', 'B' and 'A~B~D'. There will be a practical example of this situation in the case study in Section~\ref{sec:casestudy}. Note that this merging is only possible if the relationships are really expressing the same thing.
+After merging all entities like described above there may be duplicate relationships. Consider the case in Figure~\ref{fig:erm_reduction_minimal_example} where the two relationships between A and B become redundant after merging the three entities 'A~B~C', 'B' and 'A~B~D'. There will be a practical example of this situation in the case study in Section~\ref{sec:casestudy}. Note that this merging is only possible if the relationships are really expressing the same thing.
+
+\begin{figure}[t]
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/erm_reduction_minimal_example.tex}}
+\caption{Merging two relationships after reducing malformed weak relationships.}\label{fig:erm_reduction_minimal_example}
+\end{figure}
 
 \begin{Example}{Reduced ERM for Dirichlet multinomial text clustering}
 

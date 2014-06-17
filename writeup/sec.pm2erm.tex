@@ -59,7 +59,7 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \caption{Conversion of a plate containing a variable $x_n$ to an entity type having an artificial key ID and an attribute $x$.}\label{fig:pm2erm_uno_local}
 \end{figure}
 
-\item[Translate plate intersections to relationships.] In general, plate intersections represent many to many relationships between the corresponding entity types. In contrast to the original mapping we translate all relationships into association entities. This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
+\item[Translate plate intersections to relationships.] In general, plate intersections represent many to many relationships between the corresponding entity types. In contrast to the original mapping we express all relationships as association entities (\cite[p.~86-88]{elmasri2007database}). This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
 
 \begin{figure}[t]
 \centering

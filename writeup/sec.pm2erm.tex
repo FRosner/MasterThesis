@@ -128,7 +128,7 @@ In order to produce well-formed ERMs from plate models it is necessary to apply 
 
 Weak entities with only one weak relationship may occur in cases like shown in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables and nested plates change weak relationships to normal ones. If all but one weak relationship gets changed, the construct is not well-formed because the weak entity does not extend a primary key. The weak relationship is then simply a 1:1 relationship and both entities can be merged.
 
-After merging all entities like described above there may be duplicate relationships. Consider the case in Figure~\ref{fig:erm_reduction_minimal_example} where the two relationships between A and B become redundant after merging the three entities A-B-C, B and A-B-D. There will be a practical example of this situation in the case study in Section~\ref{sec:casestudy}. Note that this merging is only possible if the relationships are really expressing the same thing. [TODO: ask Alex about merging conditions.]
+After merging all entities like described above there may be duplicate relationships. Consider the case in Figure~\ref{fig:erm_reduction_minimal_example} where the two relationships between A and B become redundant after merging the three entities A-B-C, B and A-B-D. There will be a practical example of this situation in the case study in Section~\ref{sec:casestudy}. Note that this merging is only possible if the relationships are really expressing the same thing. {\footnotesize[TODO: ask Alex about merging conditions.]}
 
 \begin{figure}[t]
 \centering
@@ -154,16 +154,25 @@ The resulting ERM is well-formed and expresses the data model of Dirichlet multi
 
 Given a set of probabilistic models the user selects a suiting model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. It can either be matched on ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, p.~218-224.
 
-In order to enable different applications of the probabilistic models (e.g., not only text clustering but also document clustering or clustering of supermarket customers), the ERM templates need to be generic. Instead of using domain specific terms like \emph{document}, \emph{word} and \emph{token} one should use generic ones like \emph{entity}, \emph{feature} and \emph{occurrence}. Depending on the use case a feature can then be a word or a product for document and customer clustering, respectively.
+To enable different applications of the probabilistic models (e.g., not only text clustering but also document clustering or clustering of supermarket customers), the ERM templates need to be generic. Instead of using domain specific terms like \emph{document}, \emph{word} and \emph{token} one should use generic ones like \emph{entity}, \emph{feature} and \emph{occurrence}. Depending on the use case a feature can then be a word or a product for document and customer clustering, respectively.
 
-After matching both models the user receives an integrated model containing domain specific constructs enriched by constructs from the probabilistic model. The framework then selects an inference algorithm implementation, uses the provided data and calculates the results. The results are included in the joined database and can be used for further analysis.
+Matching happens by selecting the entity types and attributes in the domain data model that correspond to generic ones from the probabilistic model ERM. Both models are then merged together, replacing the generic names by domain specific ones.
 
 \begin{Example} Matching a text data model with the Dirichlet multinomial clustering model
 
+Consider a user that wants to perform text clustering. He has the raw text data available, as well as meta data like a timestamp on the document, an author associated with each document and a part of speech annotation on each token. Figure~\ref{fig:matching_clustering} shows the matching of a Dirichlet multinomial clustering ERM template in this case.
+
+\vspace*{1em}
 \begin{figure}[h!]
 \centering
 \scalebox{0.5}{\adjustTikzSize \input{img/matching_clustering.tex}}
-\caption{Matching text data and Dirichlet multinomial clustering ERMs.}\label{fig:matching_clustering}
+\caption{Matching text data and Dirichlet multinomial clustering ERMs. The entity types Document, Token and Word match the generic ones Entity, Occurrence and Feature, respectively.}\label{fig:matching_clustering}
 \end{figure}
 
 \end{Example}
+
+After matching both models the user receives an integrated model containing domain specific constructs enriched by constructs from the probabilistic model. The framework then selects an inference algorithm implementation, uses the provided data and calculates the results. The results are included in the merged database and can be used for further analysis.
+
+
+
+

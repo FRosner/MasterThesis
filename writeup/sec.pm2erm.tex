@@ -80,6 +80,18 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \caption{Conversion of a single variable that is not located in any plate. It will be associated with an artificial entity type called Global.}\label{fig:pm2erm_uno_global}
 \end{figure}
 
+\begin{figure}[p]
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_covered_1.tex}}
+\caption{Conversion of nested plates to an association entity. The entity type of the covering plate will have no weak relationship to the association entity. This reflects that every instance of B does belong to exactly one instance of A.}\label{fig:pm2erm_covered_1}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_bi_constraints.tex}}
+\caption{Conversion of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The contraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type which index set is summed over will not have a weak relationship to the association entity.}\label{fig:pm2erm_bi_constraints}
+\end{figure}
+
 \item[Translate nested plates to one to many relationships.] If a plate is nested in another plate, the resulting relationship has a one to many cardinality instead of many to many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entity types as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity type.\footnote{In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the original entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}).} It then does no longer extend the key of the association entity.
 \end{description}
 
@@ -94,18 +106,6 @@ In case of two overlapping plates this yields a malformed\footnote{Like in Figur
 
 \item[Translate overlapping plates with same index set to self relationships.] When converting plate models with matrix or tensor variables to APMs, the translation procedure will produce overlapping plates as illustrated in Figure~\ref{fig:pm2apm}b. Given a matrix with equal dimensions $N = M$, this will result in two overlapping plates of the same index set. These are simply translated as a many to many self relationships. The matrix components are then represented as an attribute of the resulting association entity.
 \end{description}
-
-\begin{figure}[p]
-\centering
-\scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_covered_1.tex}}
-\caption{Conversion of nested plates to an association entity. One instance of  The entity type of the covering plate will have no weak relationship to the association entity. That reflects the fact that every instance of B does belong to exactly one instance of A.}\label{fig:pm2erm_covered_1}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_bi_constraints.tex}}
-\caption{Conversion of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The contraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type which index set is summed over will not have a weak relationship to the association entity.}\label{fig:pm2erm_bi_constraints}
-\end{figure}
 
 With this set of rules it is possible to translate any given plate model into an ERM. However in some cases the resulting model might not be well-formed. It might express simple one to many relationships in a complicated way or even contain modeling errors like weak entitites that do not extend the primary key.
 
@@ -160,6 +160,10 @@ After matching both models the user receives an integrated model containing doma
 
 \begin{Example} Matching a text data model with the Dirichlet multinomial clustering model
 
-[TODO]
+\begin{figure}[h!]
+\centering
+\scalebox{0.5}{\adjustTikzSize \input{img/matching_clustering.tex}}
+\caption{Text data ERM and Dirichlet multinomial clustering ERM.}\label{fig:matching_clustering}
+\end{figure}
 
 \end{Example}

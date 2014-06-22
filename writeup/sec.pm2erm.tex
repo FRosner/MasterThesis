@@ -8,7 +8,9 @@ In this section we propose a technique to transform a given directed graphical m
 \item\label{itm:apm2erm} Convert the APM into an ERM.
 \item Reduce the ERM to avoid translation artifacts.
 \end{enumerate}
-The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors showed that the mapping is possible for every plate model, they did not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs are often not well-formed.\footnote{Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes or having implicit relationships by adding foreign key attributes. [TODO: explain better, mb example or separate section?]}
+The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors show that the mapping is applicable for every plate model, they do not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs are often not well-formed.\footnote{Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes or having implicit relationships by adding foreign key attributes. [TODO: explain better, mb example or separate section?]}
+
+We use the ERM notation developed by \textcite{chen1976entity} with min-max cardinality notation (\cite{elmasri2007database},~p.~82). [TODO: explain well-formed, position paragraph]
 
 We extend the translation procedure by converting the plate model into an APM first, then map the APM to an ERM, and reduce the ERM afterwards. Applying this extended procedure produces well-formed ERMs. The following sections offer detailed explanations for all steps.
 

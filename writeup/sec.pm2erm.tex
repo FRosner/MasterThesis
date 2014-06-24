@@ -8,11 +8,13 @@ In this section we propose a technique to transform a given directed graphical m
 \item\label{itm:apm2erm} Convert the APM into an ERM.
 \item Reduce the ERM to avoid translation artifacts.
 \end{enumerate}
-The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors show that the mapping is applicable for every plate model, they do not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs are often not well-formed.\footnote{Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes or having implicit relationships by adding foreign key attributes. [TODO: explain better, mb example or separate section?]}
+The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors show that the mapping is applicable for every plate model, they do not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs are often not well-formed.\footnote{Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes or having implicit relationships by adding foreign key attributes.}
 
-We use the ERM notation developed by \textcite{chen1976entity} with min-max cardinality notation (\cite{elmasri2007database},~p.~82). [TODO: explain well-formed, position paragraph]
+We extend the translation procedure by converting the plate model into an APM first, then map the APM to an ERM, and reduce the ERM afterwards. Applying this extended procedure produces well-formed ERMs.
 
-We extend the translation procedure by converting the plate model into an APM first, then map the APM to an ERM, and reduce the ERM afterwards. Applying this extended procedure produces well-formed ERMs. The following sections offer detailed explanations for all steps.
+We use the standard ERM notation (\cite{chen1976entity}) with min-max cardinalities (\cite{elmasri2007database},~p.~82). We call an ERM well-formed iff it (1) is syntactically correct, (2) uses ERM constructs where possible and (3) does not have redundant constructs. [TODO: are atomic variables a problem?] Thus, a well-formed ERM does not contain explicit foreign keys but uses relationships instead. It also may not have useless [TODO: better word for to-be-merged-1:1] 1:1 relationships, especially no weak relationships to weak entities that do not extend the primary key.\footnote{A weak entity always must extend the primary key or its weak relationship will otherwise be a malformed 1:1 relationship. It could then be merged with its strong partner.} Having no redundant constructs means that no entity or relationship is duplicate, i.e. semantically expressing the same thing.
+
+The following sections offer detailed explanations for all steps to translate a plate model to an ERM.
 
 \subsubsection{Atomic Plate Models}
 

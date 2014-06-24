@@ -1,16 +1,28 @@
 \section{Machine Learning Applications}
 
-\subsection{Typical Architecture}
+This section gives an overview of two machine learning application architectures: The traditional one and the data model driven architecture. We compare both approaches, identify the roles involved in the development process and challenges that arise from choosing either architecture. We show that our data model driven architecture is superior in terms of [TODO: superior in what?].
 
-\textbf{Machine learning application architecture}
-\begin{itemize}
-\item There are data and a problem that needs to be solved (explorative analysis, hypothesis testing, ...)
-\item Select a statistical model and a corresponding implementation
-\item Get the inferred variables from the inference algorithm
-\item Enrich given data with inference results
-\item Gain insight by performing analysis on the enriched data
-\item Visualize results
-\end{itemize}
+\subsection{Roles}
+
+In a typical machine learning application there is a \emph{domain expert} who has data available and a problem that needs to be solved. Common tasks are exploratory analysis or hypothesis testing [TODO: cite statistics book]. A popular technique to perform such analysis is to use probabilistic models. By selecting a model that fits the given data one can then use an inference algorithm to calculate values of hidden variables. Those variables correspond to some hidden structure of the data that is of interest for the analyst.
+
+Most of the time the domain expert will either have an \emph{application programmer} at hand or do the work himself. The application programmer is responsible for implementing the analysis pipeline, plugging the data and performing/preparing the analysis.
+
+\emph{Machine learning specialists} are responsible for developing and evaluating new models for different applications. They often have high theoretical knowledge in the field of statistics and computer science and publish new models in scientific journals or present them on conferences.
+
+Often, neither the domain expert nor the application programmer has the required knowledge to develop and implement a custom model for the given problem and machine learning specialists are rare and expensive. Luckily, there are a couple of standard implementations for common probabilistic models available.\footnote{Section~\ref{subsec:custom-inference} gives a broader overview of existing inference algorithm implementations.} However, it can be difficult to customize those implementations and to include the available meta data into the analysis. A common practice is to use standard models and join the meta data afterwards to perform analysis on the integrated database.
+
+\subsection{Traditional Architecture}
+
+The traditional architecture is visualized in Figure~\ref{fig:ml-application-architecture}. In step (A), the data are plugged into an inference algorithm implementation which (B) outputs a parameter estimate or some hidden variable values. In (C), the results are combined with the data to be available for further analysis, which happens in (D). Afterwards the results will be presented.
+
+
+
+\begin{figure}[t]
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_typical.tex}}
+\caption{Traditional machine learning application architecture.}\label{fig:ml-application-architecture}
+\end{figure}
 
 \textbf{Roles}
 \begin{itemize}
@@ -27,12 +39,6 @@
 	\end{itemize}
 	$\Rightarrow$ Machine learning scientist provides standard inference algorithm implementations
 \end{itemize}
-
-\begin{figure}
-\centering
-\scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_typical.tex}}
-\caption{Common machine learning application architecture.}\label{fig:ml-application-architecture}
-\end{figure}
 
 \textbf{Challenges}
 \begin{enumerate}

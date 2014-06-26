@@ -76,12 +76,12 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \caption{Conversion of a plate intersection to an association entity of a many to many relationship. The variable $z_{nm}$ residing in the intersection is represented as the attribute $z$ of the association entity.}\label{fig:pm2erm_bi_noconstraints}
 \end{figure}
 
-\item[Translate variables to attributes.] Variables will be translated to attributes of either entity types or relationships, depending on the number of plates surrounding them. If a variable is surrounded by exactly one plate, the entity type of that plate gets an additional attribute representing this variable (see Figure~\ref{fig:pm2erm_uno_local}). If a variable lies inside multiple plates, it becomes an attribute of the corresponding association entity (see Figure~\ref{fig:pm2erm_bi_noconstraints}). Variables that are associated with no plate are assigned to an artificial entity type called Global (see Figure~\ref{fig:pm2erm_uno_global}). As Global does not have a primary key, there is only one entity. [TODO: are entity types w/o keys possible?]
+\item[Translate variables to attributes.] Variables will be translated to attributes of either entity types or relationships, depending on the number of plates surrounding them. If a variable is surrounded by exactly one plate, the entity type of that plate gets an additional attribute representing this variable (see Figure~\ref{fig:pm2erm_uno_local}). If a variable lies inside multiple plates, it becomes an attribute of the corresponding association entity (see Figure~\ref{fig:pm2erm_bi_noconstraints}). Variables that are associated with no plate are assigned to an artificial entity type called Global (see Figure~\ref{fig:pm2erm_uno_global}). There exists only one entity of type Global.
 
 \begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_uno_global.tex}}
-\caption{Conversion of a single variable that is not located in any plate. It will be associated with an artificial entity type called Global.}\label{fig:pm2erm_uno_global}
+\caption{Conversion of a single variable that is not located in any plate. It will be associated with an artificial entity type called Global for which there is only one entity.}\label{fig:pm2erm_uno_global}
 \end{figure}
 
 \begin{figure}[p]

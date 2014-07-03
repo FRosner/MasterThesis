@@ -1,6 +1,20 @@
 \section{Case Study: Text Topic Modeling}\label{sec:casestudy}
 
-\subsection{Latent Dirichlet Allocation Topic Model}
+As a greater practical example we present a complete use case of our approach. For this purpose we use TopicExplorer, an application to explore document collections using statistical topic models (\cite{hinneburg2012topicexplorer}).
+
+In the first subsection we explain the probabilistic model behind TopicExplorer's topic modeling and demonstrate the translation of this plate model to an ERM. This is followed by a description of the domain specific input data. The next subsection shows how the inference results and the meta data are integrated. In the last part we showcase some typical analysis on the results.
+
+\subsection{Latent Dirichlet Allocation}
+
+\subsubsection{Probabilistic Model}
+
+\begin{figure}[t]
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/topic_transformation_platemodel.tex}}
+\caption{Latent Dirichlet allocation plate model for text data.}\label{fig:topic_platemodel}
+\end{figure}
+
+\subsubsection{Entity Relationship Model}
 
 \begin{figure}[t]
 \begin{minipage}[t]{0.49\linewidth}
@@ -19,3 +33,9 @@
 \caption{Transformation of the plate model for latent Dirichlet allocation topic models from implicit vector variables to an atomic version.}
 \label{img:topic_platemodels}
 \end{figure}
+
+\subsection{Text Input Data}
+
+\subsection{Inference Results and Meta Data Integration}
+
+\subsection{Analysis}

@@ -53,6 +53,26 @@ To obtain an ERM for LDA we follow the steps described in Section~\ref{sec:pm2er
 
 The transformation to an APM is illustrated in Figures~\ref{fig:topic_platemodel_expanded} and \ref{fig:topic_platemodel_original}. All vector variables are explicitly modeled as repeated variables for their components. The Topics plate now covers the components of the $|K|$ dimensional vector variables $\vec z_{nm}, \vec \theta_n$ and $\vec \alpha$. A new plate is created for the dimensionality $|V|$ to model the components of $\vec d_{nm}, \vec \mu_k$ and $\vec \beta_k$, representing the vocabulary of the documents.
 
+\begin{figure}[p]
+\centering
+\scalebox{0.5}{\adjustTikzSize \input{img/topic_erm_good_verbose.tex}}
+\caption[Verbose LDA ERM]{Verbose LDA ERM, translated from an APM.}\label{fig:topic_erm_good_verbose}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\scalebox{0.5}{\adjustTikzSize \input{img/topic_erm_good_constraints.tex}}
+\caption[LDA ERM after taking constraints into account]{LDA ERM after adjusting cardinalities and relationships according to the given variable constraints.}\label{fig:topic_erm_good_constraints}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\scalebox{0.5}{\adjustTikzSize \input{img/topic_erm_good_reduced.tex}}
+\caption[Final LDA ERM after applying the reduction step]{Final LDA ERM after applying the reduction step.}\label{fig:topic_erm_good_reduced}
+\end{figure}
+
+
+
 \subsection{Text Input Data}
 
 \subsection{Inference Results and Meta Data Integration}

@@ -2,9 +2,11 @@
 
 As a greater practical example we present a complete use case of our approach. For this purpose we use TopicExplorer, an application to explore document collections using statistical topic models (\cite{hinneburg2012topicexplorer}).
 
-In the first subsection we explain the probabilistic model behind TopicExplorer's topic modeling and demonstrate the translation of this plate model to an ERM. This is followed by a description of the domain specific input data. The next subsection shows how the inference results and the meta data are integrated. In the last part we showcase some typical analysis on the results.
+In the first subsection we explain the probabilistic model behind TopicExplorer's topic modeling and demonstrate the translation of this plate model to an ERM. This is followed by a description of the domain specific input data [TODO: What exactly? Wikipedia? Japanese blogs?]. The next subsection shows how the inference results and the meta data are integrated. In the last part we showcase some typical analysis on the results.
 
 \subsection{Latent Dirichlet Allocation}
+
+Latent Dirichlet Allocation (LDA) is one of the most popular topic models (\cite{blei2003latent}). It is used to find a hidden structure in documents, called \emph{topics}. Such topics are, mathematically speaking, probability distributions over a vocabulary. They are often presented as a list of words having the highest probabilities. The following paragraphs will explain the probabilistic model of LDA and how it is converted to an ERM.
 
 \subsubsection{Probabilistic Model}
 

@@ -10,7 +10,7 @@ Latent Dirichlet Allocation (LDA) is one of the most popular topic models (\cite
 
 \subsubsection{Probabilistic Model}
 
-Given a collection of documents $N$, where each document $n \in N$ consists of a set of tokens $M_n$, LDA assigns a topic $k \in K$ to each token $m \in M_n$. $\vec z_{nm}$ is a 1-of-K coded variable having a 1 at position $k$ if the token $m$ in document $n$ is assigned to topic $k$. Each topic has its own word distribution parameterized by $\vec \mu_k$. Figure~\ref{fig:topic_platemodel} shows LDA in plate notation.
+Given a collection of documents $N$, where each document $n \in N$ consists of a set of tokens $M_n$, LDA assigns a topic $k \in K$ to each token $m \in M_n$. $\vec z_{nm}$ is a 1-of-K coded variable having a 1 at position $k$ if the token $m$ in document $n$ is assigned to topic $k$. Each topic has its own word distribution parameterized by $\vec \mu_k$. Figure~\ref{fig:topic_platemodel_original} shows LDA in plate notation.
 
 The variables have the following constraints:
 \begin{align}
@@ -29,18 +29,12 @@ The generative process is as follows:
 \item Draw a word type per token $\forall n \in N, m \in M_n: \vec d_{nm} \sim \text{Mult}(\vec \mu_k)$, where $k$ is the topic selected by $\vec z_{nm}$.
 \end{enumerate}
 
-\begin{figure}[t]
-\centering
-\scalebox{\tikzScale}{\adjustTikzSize \input{img/topic_transformation_platemodel.tex}}
-\caption[LDA plate model for text data]{LDA plate model for text data.}\label{fig:topic_platemodel}
-\end{figure}
-
 \subsubsection{Entity Relationship Model}
 
 \begin{figure}[t]
 \begin{minipage}[t]{0.49\linewidth}
 	\begin{center}
-		\subfloat[Original LDA plate model]{\label{fig:topic_platemodel_original}
+		\subfloat[LDA plate model]{\label{fig:topic_platemodel_original}
     	\scalebox{\tikzScale}{\adjustTikzSize \input{img/topic_transformation_platemodel.tex}}}
 	\end{center}
 \end{minipage}
@@ -51,7 +45,7 @@ The generative process is as follows:
 		\scalebox{\tikzScale}{\adjustTikzSize \input{img/topic_transformation_platemodel_expanded.tex}}}
 	\end{center}
 \end{minipage}\\
-\caption[Transformation of LDA plate model to an APM]{Transformation of the LDA plate model from implicit vector variables to an atomic version.}
+\caption[Transformation of LDA plate model to an APM]{Transformation of the LDA plate model to an APM. The components of the $|K|$ dimensional vector variables $\vec z_{nm}, \vec \theta_n$ and $\vec \alpha$ are then covered by the Topics plate, whereas the Words plate covers the components of the $|V|$ dimensional variables $\vec d_{nm}, \vec \mu_k$ and $\vec \beta_k$.}
 \label{img:topic_platemodels}
 \end{figure}
 

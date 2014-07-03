@@ -34,7 +34,7 @@
 \item draw cluster proportions $\vec \pi \sim \text{Dir}(\vec \alpha)$
 \item draw word proportions per cluster $\forall k \in K: \vec \mu_k \sim \text{Dir}(\vec \beta_k)$
 \item draw cluster assignments per document $\forall n \in N: \vec z_n \sim \text{Mult}(\vec \pi)$
-\item draw token assignments per token $\forall n \in N, m \in M_n: \vec d_{nm} \sim \text{Mult}(\vec \mu_k)$, where $k$ is the cluster selected by $\vec z_n$
+\item draw word type per token $\forall n \in N, m \in M_n: \vec d_{nm} \sim \text{Mult}(\vec \mu_k)$, where $k$ is the cluster selected by $\vec z_n$
 \end{enumerate}
 
 \textbf{Constraints}

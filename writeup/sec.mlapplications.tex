@@ -17,7 +17,7 @@ Often, neither domain experts nor application programmers have the required know
 \begin{figure}[t]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_typical.tex}}
-\caption{Traditional machine learning application architecture.}\label{fig:ml-application-architecture}
+\caption[Traditional machine learning application architecture]{Traditional machine learning application architecture.}\label{fig:ml-application-architecture}
 \end{figure}
 
 The traditional architecture is visualized in Figure~\ref{fig:ml-application-architecture}. In step (A), the data are plugged into an inference algorithm implementation, which (B) outputs a parameter estimate or some hidden variable values. In (C), the results are combined with the data to be available for further analysis, which happens in (D). Afterwards the results will be presented.
@@ -31,7 +31,7 @@ All the tasks from (A) to (D) require different knowledge, often related to stat
 \begin{figure}
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_dmdriven.tex}}
-\caption{Data model driven machine learning application architecture.}\label{fig:ml-application-architecture-dm}
+\caption[Data model driven machine learning application architecture]{Data model driven machine learning application architecture.}\label{fig:ml-application-architecture-dm}
 \end{figure}
 
 The data model driven architecture transforms most of the problems stated above into working with data models. The architecture is shown in Figure~\ref{fig:ml-application-architecture-dm}. It requires a framework that hides all probabilistic and mathematical details behind simple data models. By translating probabilistic models into ERMs\footnote{The translation process has to be done by the framework developer. It is described further in Section~\ref{sec:pm2erm}} the problem of data integration (C) is moved to a higher abstraction level. Instead of coping with files and complex mathematical formulas, the analyst can simply select a probabilistic model by integrating its data model into the domain data model.\footnote{Section~\ref{sec:erm_matching} goes into detail about matching both models.}

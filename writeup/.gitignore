@@ -6,6 +6,7 @@
 *.bib.bak
 *.log
 *.toc
+*.lof
 *-blx.bib
 *.bak
 *.autosave

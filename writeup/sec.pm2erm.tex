@@ -24,7 +24,7 @@ Plate models may contain multidimensional variables, such as vectors or matrices
 \begin{figure}[t]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/apm_vectors.tex}}
-\caption{Conversion of plate models containing multidimensional variables to atomic plate models by modeling the components as individual variables. Subfigure (a) shows the conversion of an $|N|$ dimensional vector variable $\vec x$ to its components $x_n$. In (b), the $|N| \times |M|$ matrix $X$ is converted into a variable inside two plates, one for each dimension. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
+\caption[Conversion of plate models to atomic plate models]{Conversion of plate models containing multidimensional variables to atomic plate models by modeling the components as individual variables. Subfigure (a) shows the conversion of an $|N|$ dimensional vector variable $\vec x$ to its components $x_n$. In (b), the $|N| \times |M|$ matrix $X$ is converted into a variable inside two plates, one for each dimension. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
 \end{figure}
 
 
@@ -48,7 +48,7 @@ Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on 
 		\scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_transformation_platemodel_expanded.tex}}}
 	\end{center}
 \end{minipage}\\
-\caption{Transformation of the plate model for Dirichlet multinomial text clustering to the corresponding APM. The Words plate represents the $|V|$ dimensional vocabulary domain of $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$. The Clusters plate is extended to $\vec z_n$, $\vec \pi$ and $\vec \alpha$.}
+\caption[Dirichlet multinomial text clustering APM]{Transformation of the plate model for Dirichlet multinomial text clustering to the corresponding APM. The Words plate represents the $|V|$ dimensional vocabulary domain of $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$. The Clusters plate is extended to $\vec z_n$, $\vec \pi$ and $\vec \alpha$.}
 \label{fig:clustering_platemodels}
 \end{figure}
 
@@ -66,7 +66,7 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \begin{figure}[t]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_uno_local.tex}}
-\caption{Conversion of a plate containing a variable $x_n$ to an entity type having an artificial key ID and an attribute $x$.}\label{fig:pm2erm_uno_local}
+\caption[Translation of a plate containing a single variable to an ERM]{Translation of a plate containing a variable $x_n$ to an entity type having an artificial key ID and an attribute $x$.}\label{fig:pm2erm_uno_local}
 \end{figure}
 
 \item[Translate plate intersections to relationships.] In general, plate intersections represent many to many relationships between the corresponding entity types. In contrast to the original mapping we express all relationships as association entity types\footnote{For brevity we refer to association entity types as association entities from now on. This is just an abbreviation and not to be confused with the concrete entities in a database that correspond to rows in a table.} (\cite[p.~86-88]{elmasri2007database}). This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
@@ -74,7 +74,7 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \begin{figure}[t]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_bi_noconstraints.tex}}
-\caption{Conversion of a plate intersection to an association entity of a many to many relationship. The variable $z_{nm}$ residing in the intersection is represented as the attribute $z$ of the association entity.}\label{fig:pm2erm_bi_noconstraints}
+\caption[Translation of a plate intersection to an ERM]{Translation of a plate intersection to an association entity of a many to many relationship. The variable $z_{nm}$ residing in the intersection is represented as the attribute $z$ of the association entity.}\label{fig:pm2erm_bi_noconstraints}
 \end{figure}
 
 \item[Translate variables to attributes.] Variables will be translated to attributes of either entity types or relationships, depending on the number of plates surrounding them. If a variable is surrounded by exactly one plate, the entity type of that plate gets an additional attribute representing this variable (see Figure~\ref{fig:pm2erm_uno_local}). If a variable lies inside multiple plates, it becomes an attribute of the corresponding association entity (see Figure~\ref{fig:pm2erm_bi_noconstraints}). Variables that are associated with no plate are assigned to an artificial entity type called Global (see Figure~\ref{fig:pm2erm_uno_global}). There exists only one entity of type Global.
@@ -82,19 +82,19 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_uno_global.tex}}
-\caption{Conversion of a single variable that is not located in any plate. It will be associated with an artificial entity type called Global for which there is only one entity.}\label{fig:pm2erm_uno_global}
+\caption[Translation of a variable associated with no plate to an ERM]{Translation of a single variable that is not located in any plate. It will be associated with the artificial entity type Global that has only one entity.}\label{fig:pm2erm_uno_global}
 \end{figure}
 
 \begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_covered_1.tex}}
-\caption{Conversion of nested plates to an association entity. The entity type of the covering plate will have no weak relationship to the association entity. This reflects that every instance of B does belong to exactly one instance of A.}\label{fig:pm2erm_covered_1}
+\caption[Translation of nested plates to an ERM]{Translation of nested plates to an association entity. The entity type of the covering plate will have no weak relationship to the association entity. This reflects that every instance of B does belong to exactly one instance of A.}\label{fig:pm2erm_covered_1}
 \end{figure}
 
 \begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_bi_constraints.tex}}
-\caption{Conversion of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The contraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type which index set is summed over will not have a weak relationship to the association entity.}\label{fig:pm2erm_bi_constraints}
+\caption[Translation of plate intersections with 1-of-K variables to an ERM]{Translation of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The contraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type which index set is summed over will not have a weak relationship to the association entity.}\label{fig:pm2erm_bi_constraints}
 \end{figure}
 
 \item[Translate nested plates to one to many relationships.] If a plate is nested in another plate, the resulting relationship has a one to many cardinality instead of many to many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entities as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity.\footnote{In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the original entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}).} It then does no longer extend the key of the association entity.
@@ -123,7 +123,7 @@ Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the tr
 \begin{figure}[h]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_erm_good_verbose.tex}}
-\caption{Verbose Dirichlet multinomial text clustering ERM, translated from an APM.}\label{fig:clustering_erm_good_verbose}
+\caption[Verbose Dirichlet multinomial text clustering ERM]{Verbose Dirichlet multinomial text clustering ERM, translated from an APM.}\label{fig:clustering_erm_good_verbose}
 \end{figure}
 
 \subsubsection{Reduction of Translated Entity Relationship Models}
@@ -138,7 +138,7 @@ After merging all entities like described above there may be duplicate relations
 \begin{figure}[t]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/erm_reduction_minimal_example.tex}}
-\caption{Merging two relationships after reducing malformed weak relationships.}\label{fig:erm_reduction_minimal_example}
+\caption[Merging two relationships after reducing malformed weak relationships]{Merging two relationships after reducing malformed weak relationships.}\label{fig:erm_reduction_minimal_example}
 \end{figure}
 
 \begin{Example}{Reduced ERM for Dirichlet multinomial text clustering}
@@ -148,7 +148,7 @@ Figure~\ref{fig:clustering_erm_good_reduced} illustrates the result of reducing 
 \begin{figure}[h]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_erm_good_reduced.tex}}
-\caption{Reduced Dirichlet multinomial text clustering ERM.}\label{fig:clustering_erm_good_reduced}
+\caption[Reduced Dirichlet multinomial text clustering ERM]{Reduced Dirichlet multinomial text clustering ERM.}\label{fig:clustering_erm_good_reduced}
 \end{figure}
 
 The resulting ERM is well-formed and expresses the data model of Dirichlet multinomial text clustering that one would expect. Documents consist of one or more tokens. A token belongs to one word type and there may be one or more tokens of one type. Documents are assigned to clusters and one cluster may have multiple documents assigned. The cluster distribution is expressed in Cluster.$\pi$ and Cluster.$\alpha$. The word distribution of each cluster is expressed in C-W.$\mu$ and C-W.$\beta$, respectively.
@@ -172,7 +172,7 @@ Consider a user that wants to perform text clustering. He has the raw text data 
 \begin{figure}[h!]
 \centering
 \scalebox{0.5}{\adjustTikzSize \input{img/matching_clustering.tex}}
-\caption{Matching text data and Dirichlet multinomial clustering ERMs. The entity types Document, Token and Word match the generic ones Entity, Occurrence and Feature, respectively.}\label{fig:matching_clustering}
+\caption[Matching text data and Dirichlet multinomial clustering ERM]{Matching text data and Dirichlet multinomial clustering ERMs. The entity types Document, Token and Word match the generic ones Entity, Occurrence and Feature, respectively.}\label{fig:matching_clustering}
 \end{figure}
 
 \end{Example}

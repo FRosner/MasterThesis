@@ -6,7 +6,7 @@ In the first subsection we explain the probabilistic model behind TopicExplorer'
 
 \subsection{Latent Dirichlet Allocation}
 
-Latent Dirichlet Allocation (LDA) is one of the most popular topic models (\cite{blei2003latent}). Although not limited to this application, it is often used to find a hidden structure in text documents, called \emph{topics}. Such topics are, mathematically speaking, probability distributions over a vocabulary. They are often presented as a list of words having the highest probabilities. The following paragraphs will explain the probabilistic model of LDA and how it is converted to an ERM.\footnote{We will talk about smoothed LDA (\cite{blei2003latent},~p.~1006) whenever we refer to LDA. We use a slightly different notation than in the original paper to be conform with the Dirichlet multinomial clustering model used in earlier sections. For demonstration purposes we assume that the prior distribution for the word proportions per topic can be topic dependent and thus the $\vec \beta_k$ is covered by the Topics plate.}
+Latent Dirichlet Allocation (LDA) is one of the most popular topic models (\cite{blei2003latent}). Although not limited to this application, it is often used to find a hidden structure in text documents, called \emph{topics}. Such topics are, mathematically speaking, probability distributions over a vocabulary. They are often presented as a list of words having the highest probabilities. The following paragraphs will explain the probabilistic model of LDA and how it is converted to an ERM.\footnote{We will talk about smoothed LDA (\cite{blei2003latent},~p.~1006) whenever we refer to LDA. We use a slightly different notation than in the original paper to be conform with the Dirichlet multinomial clustering model used in previous sections. For demonstration purposes we assume that the prior distribution for the word proportions per topic can be topic dependent and thus the $\vec \beta_k$ is covered by the Topics plate.}
 
 \subsubsection{Probabilistic Model}
 
@@ -56,7 +56,7 @@ The transformation to an APM is illustrated in Figures~\ref{fig:topic_platemodel
 \begin{figure}[p]
 \centering
 \scalebox{0.5}{\adjustTikzSize \input{img/topic_erm_good_verbose.tex}}
-\caption[Verbose LDA ERM]{Verbose LDA ERM, translated from an APM.}\label{fig:topic_erm_good_verbose}
+\caption[Verbose LDA ERM, translated from an APM]{Verbose LDA ERM, translated from an APM. The nested Token plate yields non-weak relationships from Document to D-T-W and D-T-T, respectively.}\label{fig:topic_erm_good_verbose}
 \end{figure}
 
 \begin{figure}[p]
@@ -71,7 +71,7 @@ The transformation to an APM is illustrated in Figures~\ref{fig:topic_platemodel
 \caption[Final LDA ERM after applying the reduction step]{Final LDA ERM after applying the reduction step.}\label{fig:topic_erm_good_reduced}
 \end{figure}
 
-
+In the next step, this APM is translated into a verbose ERM. Figure~\ref{fig:topic_erm_good_verbose} shows the result. The entity types Document, Word, Token and Topic correspond to the existing plates. The association entities D-T-W, D-T-T, D-T and T-W represent the plate intersections. The Token plate is nested inside the Document plate, yielding a non-weak relationship from Document to D-T-W and D-T-T, respectively.
 
 \subsection{Text Input Data}
 

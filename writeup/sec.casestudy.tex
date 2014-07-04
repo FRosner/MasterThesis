@@ -73,7 +73,11 @@ The transformation to an APM is illustrated in Figures~\ref{fig:topic_platemodel
 
 In the next step, this APM is translated into a verbose ERM. Figure~\ref{fig:topic_erm_good_verbose} shows the result. The entity types Document, Word, Token and Topic correspond to the existing plates. The association entities D-T-W, D-T-T, D-T and T-W represent the plate intersections. The Token plate is nested inside the Document plate, yielding a non-weak relationship from Document to D-T-W and D-T-T, respectively.
 
-Afterwards the constraints of the 1-of-K coded variables $\vec d_{nm}$ and $\vec z_{nm}$ are taken into account. This yields a transformation of the relationships between Word and D-T-W, and Topic and D-T-T, respectively. These relationships are no longer weak and do not contribute to the primary key of the corresponding association entity, as shown in Figure~\ref{fig:topic_erm_good_constraints}.
+Afterwards, the constraints of the 1-of-K coded variables $\vec d_{nm}$ and $\vec z_{nm}$ are taken into account. This yields a transformation of the relationships between Word and D-T-W, and Topic and D-T-T, respectively. These relationships are no longer weak and do not contribute to the primary key of the corresponding association entity, as shown in Figure~\ref{fig:topic_erm_good_constraints}.
+
+Finally, the still verbose looking ERM is reduced as shown in Figure~\ref{fig:topic_erm_good_reduced}. The Token entity type is merged with D-T-W and D-T-T. The resulting duplicate relationship between Document and Token is merged as well. The reduced ERM is exactly what one would expect when designing a data model for LDA from scratch.
+
+A document consists of one or more tokens which are of exactly one word type. Each token is assigned to a topic, while one topic can have multiple tokens assigned. The inferred topic mixture for each document is stored in D-T.$\theta$, while T-W.$\mu$ holds the word probabilities for each topic. As in our LDA model the prior for the topic mixture is the same for every document it resides as an attribute of the Topic entity type. The individual priors for the word distributions are stored in T-W.$\beta$.
 
 \subsection{Text Input Data}
 

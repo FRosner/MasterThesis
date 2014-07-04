@@ -73,6 +73,8 @@ The transformation to an APM is illustrated in Figures~\ref{fig:topic_platemodel
 
 In the next step, this APM is translated into a verbose ERM. Figure~\ref{fig:topic_erm_good_verbose} shows the result. The entity types Document, Word, Token and Topic correspond to the existing plates. The association entities D-T-W, D-T-T, D-T and T-W represent the plate intersections. The Token plate is nested inside the Document plate, yielding a non-weak relationship from Document to D-T-W and D-T-T, respectively.
 
+Afterwards the constraints of the 1-of-K coded variables $\vec d_{nm}$ and $\vec z_{nm}$ are taken into account. This yields a transformation of the relationships between Word and D-T-W, and Topic and D-T-T, respectively. These relationships are no longer weak and do not contribute to the primary key of the corresponding association entity, as shown in Figure~\ref{fig:topic_erm_good_constraints}.
+
 \subsection{Text Input Data}
 
 \subsection{Inference Results and Meta Data Integration}

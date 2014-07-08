@@ -22,19 +22,6 @@ The variables have the following constraints:
 \sum_{v \in V} \mu_{kv} &= 1,\quad \text{the word probabilities of a topic sum to 1}
 \end{align}
 
-The generative process is as follows:
-\begin{enumerate}
-\item Draw a number of tokens per document $\forall n \in N: M_n \sim \text{Poisson}(\vec \xi)$.
-\item Draw word proportions per topic $\forall k \in K: \vec \mu_k \sim \text{Dir}(\vec \beta_k)$.
-\item Draw the topic mixture per document $\forall n \in N: \vec \theta_n \sim \text{Dir}(\vec \alpha)$.
-\item Draw the topic assignments per token $\forall n \in N, m \in M_n: \vec z_{nm} \sim \text{Mult}(\vec \theta_n)$.
-\item Draw a word type per token $\forall n \in N, m \in M_n: \vec d_{nm} \sim \text{Mult}(\vec \mu_k)$, where $k$ is the topic selected by $\vec z_{nm}$.
-\end{enumerate}
-
-\subsubsection{Entity Relationship Model}
-
-To obtain an ERM for LDA we follow the steps described in Section~\ref{sec:pm2erm}. First, transform the plate model into an APM, then translate this APM to an ERM and reduce the ERM afterwards.
-
 \begin{figure}[t]
 \begin{minipage}[t]{0.49\linewidth}
 	\begin{center}
@@ -52,6 +39,19 @@ To obtain an ERM for LDA we follow the steps described in Section~\ref{sec:pm2er
 \caption[Transformation of LDA plate model to an APM]{Transformation of the LDA plate model to an APM. The components of the $|K|$ dimensional vector variables $\vec z_{nm}, \vec \theta_n$ and $\vec \alpha$ are then covered by the Topics plate, whereas the Words plate covers the components of the $|V|$ dimensional variables $\vec d_{nm}, \vec \mu_k$ and $\vec \beta_k$.}
 \label{img:topic_platemodels}
 \end{figure}
+
+The generative process is as follows:
+\begin{enumerate}
+\item Draw a number of tokens per document $\forall n \in N: M_n \sim \text{Poisson}(\vec \xi)$.
+\item Draw word proportions per topic $\forall k \in K: \vec \mu_k \sim \text{Dir}(\vec \beta_k)$.
+\item Draw the topic mixture per document $\forall n \in N: \vec \theta_n \sim \text{Dir}(\vec \alpha)$.
+\item Draw the topic assignments per token $\forall n \in N, m \in M_n: \vec z_{nm} \sim \text{Mult}(\vec \theta_n)$.
+\item Draw a word type per token $\forall n \in N, m \in M_n: \vec d_{nm} \sim \text{Mult}(\vec \mu_k)$, where $k$ is the topic selected by $\vec z_{nm}$.
+\end{enumerate}
+
+\subsubsection{Entity Relationship Model}
+
+To obtain an ERM for LDA we follow the steps described in Section~\ref{sec:pm2erm}. First, transform the plate model into an APM, then translate this APM to an ERM and reduce the ERM afterwards.
 
 The transformation to an APM is illustrated in Figures~\ref{fig:topic_platemodel_expanded} and \ref{fig:topic_platemodel_original}. All vector variables are explicitly modeled as repeated variables for their components. The Topics plate now covers the components of the $|K|$ dimensional vector variables $\vec z_{nm}, \vec \theta_n$ and $\vec \alpha$. A new plate is created for the dimensionality $|V|$ to model the components of $\vec d_{nm}, \vec \mu_k$ and $\vec \beta_k$, representing the vocabulary of the documents.
 

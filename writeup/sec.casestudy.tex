@@ -102,7 +102,7 @@ The resulting ERM after the crawling, preprocessing and frame extraction is show
 \begin{figure}
 \centering
 \scalebox{0.7}{\adjustTikzSize \input{img/TopicExplorer_integrated_erm.tex}}
-\caption[TopicExplorer input data model]{Integrated TopicExplorer data model. The general LDA ERM template (Figure~\ref{fig:topic_erm_good_reduced}) is integrated into the text input data model (Figure~\ref{fig:TopicExplorer_data_erm}).}\label{fig:TopicExplorer_integrated_erm}
+\caption[Integrated TopicExplorer data model]{Integrated TopicExplorer data model. The general LDA ERM template (Figure~\ref{fig:topic_erm_good_reduced}) is integrated into the text input data model (Figure~\ref{fig:TopicExplorer_data_erm}).}\label{fig:TopicExplorer_integrated_erm}
 \end{figure}
 
 To analyze the topic structure of given Japanese blog entries, the application programmer selects the LDA ERM template and matches the entities of the domain specific data model. Figure~\ref{fig:TopicExplorer_integrated_erm} shows the integrated data model. A blog entry is treated as a document, matching tokens and words is trivial. The integrated model contains additional domain specific constructs such as frames, as well as the LDA specific ones like topics.

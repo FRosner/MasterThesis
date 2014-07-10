@@ -109,3 +109,16 @@ The resulting ERM after the crawling, preprocessing and frame extraction is show
 \label{subsec:casestudy_analysis}
 
 To analyze the topic structure of given Japanese blog entries, the application programmer selects the LDA ERM template and matches the entities of the domain specific data model. Figure~\ref{fig:TopicExplorer_integrated_erm} shows the integrated data model. A blog entry is treated as a document, matching tokens and words is trivial. The integrated model contains additional domain specific constructs such as frames, as well as the LDA specific ones like topics.
+
+\textbf{Analysis and Visualization Examples}
+\begin{itemize}
+\item Entry topic mixture: visualize D-T.$\theta$ as pie chart for each entry P(Topic|Entry)
+\item Topic TopNEntries: entry-token-topic groupby topic and entry; groupcount the tokens; sort by count for each topic $\rightarrow$ top entries per topic
+\item Topic TopNWords: token-word-topic groupby word and topic; groupcount; sort by count $\rightarrow$ Topics visualized as top words / visualize T-W.$\mu$ for each topic P(Word|Topic)
+\item Topic TopNFrames: filter frames where noun and verb belong to the same topic $\rightarrow$ topic frames; topicframes-token-word-topic groupby topic and startframe + endframe word; groupcount the frame occurrences; sort by count $\rightarrow$ Topics visualized as top frames
+\item Topic Time: entry groupby timestamp monthly $\rightarrow$ Entry.Month, Entry.Year; token-entry-topic groupby topic and Entry.Month + Entry.Year; Visualize groupcount of tokens assigned to topics for every month as timeline $\rightarrow$ see importance of topic over time
+\end{itemize}
+
+\textbf{Bayesian Rule}
+
+[TODO:] Ist das einfach Umdrehen der WK, was ich oben mache? Muss mir angucken, was das für Implikationen hat und was die oben genannten Auswertungen bedeuten. Z.b. könnte man noch P(Topic|Word) ausrechnen, was nicht direkt im ERM als Attribut steckt.

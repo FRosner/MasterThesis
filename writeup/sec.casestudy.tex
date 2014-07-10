@@ -81,7 +81,9 @@ Finally, the still verbose looking ERM is reduced as shown in Figure~\ref{fig:to
 
 A document consists of one or more tokens which are of exactly one word type. Each token is assigned to a topic, while one topic can have multiple tokens assigned. The inferred topic mixture for each document is stored in D-T.$\theta$, while T-W.$\mu$ holds the word probabilities for each topic. As in our LDA model the prior for the topic mixture is the same for every document it resides as an attribute of the Topic entity type. The individual priors for the word distributions are stored in T-W.$\beta$.
 
-\subsection{Text Input Data}
+\subsection{Topic Modeled Japanese Blog Entries}
+
+\subsubsection{Text Input Data}
 
 Input data for this example will be from Japanese blogs about the Fukushima disaster. A crawler collects blog entries using Kizasi, a Japanese blog search engine.\footnote{\url{http://kizasi.jp}} Kizasi indexes and stores blog entries from different blog providers. The search engine is queried using keywords such as ``nuclear power'' or ``nuclear power plant'' (\begin{CJK}{UTF8}{}原発\end{CJK}) and the results are filtered depending on the concrete question, e.g. using additional keywords like ``caesium'' (\begin{CJK}{UTF8}{}セシウム\end{CJK}) and ``beef'' (\begin{CJK}{UTF8}{}ビーフ\end{CJK}).
 
@@ -97,15 +99,13 @@ The resulting ERM after the crawling, preprocessing and frame extraction is show
 \caption[TopicExplorer input data model]{TopicExplorer input data model. Japanese blog entries are tokenized, lemmatized and part-of-speech tagged and stored together with additional meta data.}\label{fig:TopicExplorer_data_erm}
 \end{figure}
 
-\subsection{Inference Results and Meta Data Integration}
-
 \begin{figure}
 \centering
 \scalebox{0.7}{\adjustTikzSize \input{img/TopicExplorer_integrated_erm.tex}}
 \caption[Integrated TopicExplorer data model]{Integrated TopicExplorer data model. The general LDA ERM template (Figure~\ref{fig:topic_erm_good_reduced}) is integrated into the text input data model (Figure~\ref{fig:TopicExplorer_data_erm}).}\label{fig:TopicExplorer_integrated_erm}
 \end{figure}
 
-To analyze the topic structure of given Japanese blog entries, the application programmer selects the LDA ERM template and matches the entities of the domain specific data model. Figure~\ref{fig:TopicExplorer_integrated_erm} shows the integrated data model. A blog entry is treated as a document, matching tokens and words is trivial. The integrated model contains additional domain specific constructs such as frames, as well as the LDA specific ones like topics.
-
-\subsection{Analysis}
+\subsubsection{Analysis and Visualization}
 \label{subsec:casestudy_analysis}
+
+To analyze the topic structure of given Japanese blog entries, the application programmer selects the LDA ERM template and matches the entities of the domain specific data model. Figure~\ref{fig:TopicExplorer_integrated_erm} shows the integrated data model. A blog entry is treated as a document, matching tokens and words is trivial. The integrated model contains additional domain specific constructs such as frames, as well as the LDA specific ones like topics.

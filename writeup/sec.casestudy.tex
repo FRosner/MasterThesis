@@ -110,14 +110,21 @@ The resulting ERM after the crawling, preprocessing and frame extraction is show
 
 To analyze the topic structure of given Japanese blog entries, the application programmer selects the LDA ERM template and matches the entities of the domain specific data model. Figure~\ref{fig:TopicExplorer_integrated_erm} shows the integrated data model. A blog entry is treated as a document, matching tokens and words is trivial. The integrated model contains additional domain specific constructs such as frames, as well as the LDA specific ones like topics.
 
-\textbf{Analysis and Visualization Examples}
-\begin{itemize}
-\item Entry topic mixture: visualize D-T.$\theta$ as pie chart for each entry P(Topic|Entry)
-\item Topic TopNEntries: entry-token-topic groupby topic and entry; groupcount the tokens; sort by count for each topic $\rightarrow$ top entries per topic
-\item Topic TopNWords: token-word-topic groupby word and topic; groupcount; sort by count $\rightarrow$ Topics visualized as top words / visualize T-W.$\mu$ for each topic P(Word|Topic)
-\item Topic TopNFrames: filter frames where noun and verb belong to the same topic $\rightarrow$ topic frames; topicframes-token-word-topic groupby topic and startframe + endframe word; groupcount the frame occurrences; sort by count $\rightarrow$ Topics visualized as top frames
-\item Topic Time: entry groupby timestamp monthly $\rightarrow$ Entry.Month, Entry.Year; token-entry-topic groupby topic and Entry.Month + Entry.Year; Visualize groupcount of tokens assigned to topics for every month as timeline $\rightarrow$ see importance of topic over time
-\end{itemize}
+As a basic visualization, it is possible to present entities just as their attribute values using simple relational algebra operations such as selections, projections and joins. One could visualize the document collection by presenting a list of blog entry titles that expand to the full text when selected. Tokens can be visualized in their preprocessed form or, together with their position index, in the full text of their assigned document. Visualizing words might happen as a list. However, it is not trivial to visualize a topic as it is mathematically speaking just a probability distribution. Although displaying a probability distribution as a bar plot for example is a well known practice it may be hard to understand for normal users. Additionally, the vocabulary is usually rather big and a simple bar plot of all probabilities is hard to draw.
+
+For a sophisticated visualization that is aimed to be better interpretable, more complex analysis steps on the integrated data are required. We present a few of them that are part of the current version of TopicExplorer [TODO: cite demo paper].
+
+\begin{description}
+\item[Entry topic mixture.] LDA assigns a vector of topic probabilities stored in D-T.$\theta$ for each entry, called a topic mixture. This could either be presented as a list of topics with decreasing order of probabilities or as a pie chart like in the Topic Model Visualization Engine by \textcite{chaney2012visualizing}.
+
+\item[Topic entries.] Reverting the idea of the entry topic mixture, one can visualize a topic as a list of the most representative documents for this topic. This is done by joining Entry, Token and Topic, grouping by the entry and topic IDs and counting the number of tokens in each group. For each topic the entries are sorted with decreasing count, yielding a list of representative documents.
+
+\item[Topic words.] As stated above, a topic can be represented as a list of words that have a high probability for that topic (T-W.$\mu$). This list can be cut off, yielding a top words visualization for each topic.
+
+\item[Topic frames.] Another visualization of topics uses the concept of frames. First, frames whose noun and verb are not assigned to the same topic are filtered out. The remaining frames are called \emph{topic frames}. Instead of visualizing a topic as top words, top frames can be used. This is done by joining the topic frames view with Token, Word and Topic, grouping by the topic ID and the word IDs of the frame tokens, and counting the number of frames having equal word types per topic. [TODO: Ask Alex if this approach can be used for this example as he uses only top words to look for frames.] This list can then be sorted and limited.
+
+\item[Topic time.] To analyze how the discussion about Fukushima develops, one can visualize how the topics change over time. If the framework does not offer a topic model that explicitly models a dynamic component like proposed by \textcite{blei2006dynamic}, it is possible to analyze the dynamics of the topics after using simple LDA. To achieve this, entries are grouped depending on their publication date, e.g. monthly. Given those two attributes Entry.Year and Entry.Month\footnote{Depending on the implementation of the database, those attributes can be extracted on the fly out of the stored timestamp.}, the Entry table joined with Topic is grouped by the topic ID, Entry.Year and Entry.Month. Finally, counting the tokens assigned to each topic at each point of time allows plotting a time line for each topic.
+\end{description}
 
 \textbf{Bayesian Rule}
 

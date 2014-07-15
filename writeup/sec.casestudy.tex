@@ -4,11 +4,9 @@ As a greater practical example we present a complete use case of our approach. F
 
 In the first subsection we explain the probabilistic model behind TopicExplorer's topic modeling and demonstrate the translation of this plate model to an ERM. This is followed by a description of the domain specific input data. The next subsection shows how the inference results and the meta data are integrated. In the last part we showcase some typical analysis on the results.
 
-[TODO: show roles of application programmer and domain expert]
-
 \subsection{Latent Dirichlet Allocation}
 
-Latent Dirichlet Allocation (LDA) is one of the most popular topic models (\cite{blei2003latent}). Although not limited to this application, it is often used to find a hidden structure in text documents, called \emph{topics}. Such topics are, mathematically speaking, probability distributions over a vocabulary. They are often presented as a list of words having the highest probabilities. The following paragraphs will explain the probabilistic model of LDA and how it is converted to an ERM.\footnote{We will talk about smoothed LDA (\cite{blei2003latent},~p.~1006) whenever we refer to LDA. We use a slightly different notation than in the original paper to be conform with the Dirichlet multinomial clustering model used in previous sections. For demonstration purposes we assume that the prior distribution for the word proportions per topic can be topic dependent and thus the $\vec \beta_k$ is covered by the Topics plate.}
+Latent Dirichlet Allocation (LDA) is one of the most popular topic models (\cite{blei2003latent}). Although not limited to this application, it is often used to find a hidden structure in text documents, called \emph{topics}. Such topics are, mathematically speaking, probability distributions over a vocabulary. They are often presented as a list of words having the highest probabilities. The following paragraphs will explain the probabilistic model of LDA and how it is converted to an ERM.\footnote{We will talk about smoothed LDA (\cite{blei2003latent},~p.~1006) whenever we refer to LDA. We use a slightly different notation than in the original paper to be conform with the Dirichlet multinomial clustering model used in previous sections. For demonstration purposes we assume that the prior distribution for the word proportions per topic can be topic dependent and thus the $\vec \beta_k$ is covered by the Topics plate.} This conversion would be done by a machine learning expert that is part of the framework developer team.
 
 \subsubsection{Probabilistic Model}
 
@@ -91,7 +89,7 @@ Every blog entry is then preprocessed. Most of the preprocessing tasks are done 
 
 To allow further analysis for a better visualization of the topics, tokens are combined to \emph{frames}. A frame in this case is defined as a noun verb combination appearing together in a window of a predefined size inside a document.\footnote{\textcite{minsky1977frame} defined frames as basic units for transmitting semantic context. More information about this concept can also be found in the book ``Natural language semantics'' by \textcite{allan2001natural}.} Frames are later filtered depending on the topic that is assigned to the participating tokens. This is explained in Section~\ref{subsec:casestudy_analysis}
 
-The resulting ERM after the crawling, preprocessing and frame extraction is shown in Figure~\ref{fig:TopicExplorer_data_erm}.
+The resulting ERM after the crawling, preprocessing and frame extraction is shown in Figure~\ref{fig:TopicExplorer_data_erm}. This ERM is provided by the domain expert together with his application programmer who implements the preprocessing steps required to fill the ERM with data.
 
 \begin{figure}
 \centering
@@ -125,6 +123,8 @@ For a sophisticated visualization that is aimed to be better interpretable, more
 
 \item[Topic time.] To analyze how the discussion about Fukushima develops, one can visualize how the topics change over time. If the framework does not offer a topic model that explicitly models a dynamic component like proposed by \textcite{blei2006dynamic}, it is possible to analyze the dynamics of the topics after using simple LDA. To achieve this, entries are grouped depending on their publication date, e.g. monthly. Given those two attributes Entry.Year and Entry.Month\footnote{Depending on the implementation of the database, those attributes can be extracted on the fly out of the stored timestamp.}, the Entry table joined with Topic is grouped by the topic ID, Entry.Year and Entry.Month. Finally, counting the tokens assigned to each topic at each point of time allows plotting a time line for each topic.
 \end{description}
+
+The domain expert defines which analysis should be performed and how the results should be visualized. The application programmer implements the transformations in e.g. SQL or MapReduce.
 
 \textbf{Bayesian Rule}
 

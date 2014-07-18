@@ -2,7 +2,9 @@
 
 Usually, implementations of inference algorithms for probabilistic models work with generic IDs. Depending on the application, different preprocessing steps may be necessary to assign IDs to entities. When working with customer data for example, one can use the customer ID from the customer relationship management system. On the other hand when working with image or text data, preprocessing steps are necessary to cope with these unstructured data.
 
-After the preprocessing is done, a probabilistic model is selected and integrated into the domain data model, further analysis can be done to provide meaningful visualization. Typical analysis tasks are \emph{filtering}, \emph{ranking} and \emph{aggregation} operations. Depending on how the data is stored, different languages could be used to express those operations. As SQL is a well known language to a broad set of people, we will present some examples in SQL. However it is straightforward to alter or extend them for any other language like functional collection transformations or PIG queries [TODO: cite PIG and a SQL standard].
+After the preprocessing is done, a probabilistic model is selected and integrated into the domain data model, further analysis can be done to provide meaningful visualization. Typical analysis tasks are \emph{transformations}, \emph{filtering}, \emph{ranking} and \emph{aggregation} operations. [TODO: can I cite this somewhere?] Depending on how the data is stored, different languages could be used to express those operations. As SQL is a well known language to a broad set of people, we will present some examples in SQL. However it is straightforward to alter or extend them for any other language like functional collection transformations or PIG queries [TODO: cite PIG and a SQL standard].
+
+Transformations change attributes or calculate new ones without affecting the number of entities or their order. Transformations can be very diverse and reach from adding a constant to a number over concatenation of strings to numerical scaling or normalization. Especially when working with probabilistic models, scaling counts to the interval (0,1) yields a probability.
 
 Filtering operations select entities that have certain properties. Properties may be either domain specific meta data, inferred variables or both. In SQL, those operations would be expressed as \texttt{WHERE} clauses. Examples are documents belonging to a specific cluster $c$ (\texttt{SELECT} Title \texttt{FROM} Document \texttt{WHERE} ClusterID = $c$) or having a specific author $a$ (\texttt{SELECT} Title \texttt{FROM} Document \texttt{WHERE} Author = $a$). Combining both filters yields documents that belong to a specific cluster and are written by a certain author, which combines both domain specific meta data and inference results.
 
@@ -15,8 +17,6 @@ Ranking operations order entities by stored or calculated attributes and values.
 [TODO: Natural Join as operator + footnote to explain it]
 
 [TODO: add another example? ``top clusters per word (\texttt{GROUP BY \textrm{Word.ID} ORDER BY $\mu$})'']
-
-[TODO: put normalization as an operation somewhere?]
 
 \textbf{Questions}
 \begin{itemize}

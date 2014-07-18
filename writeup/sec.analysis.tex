@@ -2,36 +2,25 @@
 
 Usually, implementations of inference algorithms for probabilistic models work with generic IDs. Depending on the application, different preprocessing steps may be necessary to assign IDs to entities. When working with customer data for example, one can use the customer ID from the customer relationship management system. On the other hand when working with image or text data, preprocessing steps are necessary to cope with these unstructured data.
 
-[TODO: describe that all models just work with IDs: pre- and postprocessing steps may be necessary for meaningful visualization / interpretation]
+After the preprocessing is done, a probabilistic model is selected and integrated into the domain data model, further analysis can be done to provide meaningful visualization. Typical analysis tasks are \emph{filtering}, \emph{ranking} and \emph{aggregation} operations. Depending on how the data is stored, different languages could be used to express those operations. As SQL is a well known language to a broad set of people, we will present some examples in SQL. However it is straightforward to alter or extend them for any other language like functional collection transformations or PIG queries [TODO: cite PIG and a SQL standard].
+
+Filtering operations select entities that have certain properties. Properties may be either domain specific meta data, inferred variables or both. In SQL, those operations would be expressed as \texttt{WHERE} clauses. Examples are documents belonging to a specific cluster $c$ (\texttt{SELECT} Title \texttt{FROM} Document \texttt{WHERE} ClusterID = $c$) or having a specific author $a$ (\texttt{SELECT} Title \texttt{FROM} Document \texttt{WHERE} Author = $a$). Combining both filters yields documents that belong to a specific cluster and are written by a certain author, which combines both domain specific meta data and inference results.
+
+[TODO: ``clusters assigning at least 50\,\% probability to word $w$'' needs a join and a filter; are joins some special kind of analysis? i'd say no.]
+
+Aggregation operations combine existing attributes to new ones, often to summarize a set of entities. Typical operations are counting, averaging, min or max operators. The concrete SQL operators depend on the implementation the database. Examples are the number of documents per cluster (\texttt{SELECT} ClusterID, Count(*) \texttt{FROM} Document \texttt{GROUP BY} ClusterID) or the cluster with the maximum weight $\pi$ (\texttt{SELECT} ClusterID, Max($\pi$) \texttt{FROM} Cluster \texttt{GROUP BY} 1)\footnote{Selecting the cluster with the highest weight could also be accomplished by sorting and limiting the results to one record.}.
+
+Ranking operations order entities by stored or calculated attributes and values. They are often combined together with aggregation operations such as counting or averaging. Rankings are used to give a summary of all entities of the same type. In SQL one would use \texttt{ORDER BY}, mostly in combination with \texttt{GROUP BY} and group aggregations. Examples are [TODO: translation of ``umfassen''] top authors by the number of written documents (\texttt{SELECT} Author \texttt{FROM} Document \texttt{GROUP BY} Author \texttt{ORDER BY} Count(*)), top words of a cluster that have the highest probability (\texttt{SELECT} Word.Text \texttt{FROM} Word \texttt{NATURAL JOIN} W-C \texttt{GROUP BY} W-C.ClusterID \texttt{ORDER BY} W-T.$\mu$).
+
+[TODO: Natural Join as operator + footnote to explain it]
+
+[TODO: add another example? ``top clusters per word (\texttt{GROUP BY \textrm{Word.ID} ORDER BY $\mu$})'']
+
+[TODO: put normalization as an operation somewhere?]
 
 \textbf{Questions}
 \begin{itemize}
 \item how is the analysis related to the statistical model or similar ones?
 \item what are the assumptions made when new probabilities are computed?
 \item when can OLAP / POLAP be applied?
-\end{itemize}
-
-\textbf{Filtering operations}\\
-Select entities that have certain properties. Properties may be either domain specific meta data, inferred variables or both.
-\begin{itemize}
-\item documents belonging to specific cluster $c$ (\texttt{WHERE $z = c$})
-\item documents having specific author $a$ (\texttt{WHERE $\textrm{Author} = a$})
-\item clusters assigning at least 50\,\% probability to word $w$
-\end{itemize}
-
-\textbf{Ranking operations}\\
-Order entities by atomic or aggregated variables (inferred or given).
-\begin{itemize}
-\item top documents of author
-\item top words of clusters (\texttt{GROUP BY \textrm{Cluster.ID} ORDER BY $\mu$})
-\item top clusters per word (\texttt{GROUP BY \textrm{Word.ID} ORDER BY $\mu$})
-\end{itemize}
-
-\textbf{Aggregation operations}\\
-Counting, averaging, max / min operations on entities and relationships.
-\begin{itemize}
-\item number of documents per cluster
-\item number of tokens per document
-\item average number of tokens of documents per cluster
-\item cluster with maximum prior probability ($\pi$)
 \end{itemize}

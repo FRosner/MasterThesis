@@ -14,8 +14,8 @@ Given a collection of documents $N$, where each document $n \in N$ consists of a
 
 The variables have the following constraints:
 \begin{align}
-\sum_{k \in K} z_{nmk} &= 1,\quad \text{a token can only be assigned to one topic}\\
-\sum_{v \in V} d_{nmv} &= 1,\quad \text{a token can only be from one word type}\\
+\sum_{k \in K} z_{nmk} &= 1,\quad \text{a token is assigned to exactly one topic}\\
+\sum_{v \in V} d_{nmv} &= 1,\quad \text{a token is exactly from one word type}\\
 \sum_{k \in K} \theta_{nk} &= 1,\quad \text{the topic mixture of a document sums to 1}\\
 \sum_{v \in V} \mu_{kv} &= 1,\quad \text{the word probabilities of a topic sum to 1}
 \end{align}

@@ -4,20 +4,23 @@ Probabilistic models are a mighty and flexible technique to model and reason abo
 
 \subsection{Probabilistic Modeling Languages}
 
-Over the past decades, a variety of different languages have been used and developed. Despite the most general one, using mathematical formulas only, we want to introduce graphical representations that often make it easier to understand the relationships between objects and what independence assumptions have been made. Starting with a very popular one called \emph{directed graphical model}, or \emph{Bayes net}, that are going to be described in detail and used later in this thesis, the second part of this subsection will give a quick overview of other alternatives.
+Over the past decades, a variety of different probabilistic modeling languages have been used and developed. Despite the most general one, using mathematical formulas only, we want to introduce graphical representations that often make it easier to understand the relationships between objects and what independence assumptions have been made. Starting with a very popular one called \emph{directed graphical model} (DGM), or \emph{Bayesian network}, that is going to be described in detail and used later in this thesis, the second part of this subsection will give a quick overview of other alternatives.
 
 \subsubsection{Directed Graphical Models}
 
-\begin{itemize}
-\item aka Bayesian networks
-\item factorization of joint distribution in product of conditionals
-\item variables = circles
-\item dependencies = arrows / independence assumptions = lack of arrows
-\item repeated variables = plates
-\item shaded circles = observed variables [CITATION NEEDED (Bishop?)]
-\item small dark circles = parameters [CITATION NEEDED (Bishop?)]
-\item state difference between parameters and hidden variables?
-\end{itemize}
+DGMs are a well known and powerful graphical probabilistic modeling language (\cite{murphy2012machine}~p.~307~ff.; \cite{bishop2006pattern},~p.~360~ff.; \cite{pearl1988probabilistic},~p.~116~ff.). They express variables and independence assumptions using a directed graph. Vertices represent variables, while the absence of edges models that the two variables not connected are assumed to be independent. That means that a DGM induces a factorization of the joint probability, given by the graph structure.
+
+Figure~\ref{fig:simple_dgm} shows a simple DGM with three variables. The final grade $G$ of an exam depends on the amount of class participation $C$ by that student and how much time $T$ he spent to prepare for the exam. The joint probability of this model factorizes into $$P(G,C,T) = P(G | C, T) \cdot P(C) \cdot P(T).$$ It is assumed that the two variables $C$ and $T$ are independent, given that $G$ is unknown. Reasoning about conditional independence can be done by using the framework of \emph{d-separation}  (\cite{lauritzen1996graphical},~p.~48~ff.; \cite{pearl1988probabilistic}).
+
+\begin{figure}[t]
+	\begin{center}
+    	\scalebox{\tikzScale}{\adjustTikzSize \input{img/simple_dgm.tex}}
+	\end{center}
+\caption[Simple directed graphical model containing three variables.]{Simple DGM containing three variables. The final grade of an exam is influenced by the students class participation and how much time he spent to prepare for the exam.}
+		\label{fig:simple_dgm}
+\end{figure}
+
+Note that if a variable is observed, the vertex of this variable is drawn as a shaded circle. Hyper-parameters are drawn as small, black circles.\footnote{Hyper-parameters are a concept of Bayesian statistics. In a Bayesian world, the parameter of a probability distribution, for example the probability to toss heads, is also a random variable. It is sampled from a prior distribution having another set of parameters. Those are called hyper-parameters. Prior distributions are used to encode prior knowledge into the model and to avoid the zero count problem, similar to Laplace smoothing (\cite{manning2008introduction},~p.~260).}
 
 \textbf{Plate models}
 \begin{itemize}

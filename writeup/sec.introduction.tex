@@ -6,13 +6,11 @@ However, the flood of data is not accompanied by a flood of data scientists, mac
 
 We identify three roles in the traditional data analysis / machine learning application environment: (1) domain expert, (2) application programmer and (3) machine learning specialist. Aim of this work is to propose a data model driven architecture that enables application programmers and domain experts to easily customize standard machine learning algorithms and techniques to their individual problem without having to hire a machine learning expert. This architecture model is based on a framework which offers a set of generic implementations for common machine learning tasks in form of simple data models. The domain expert selects a data model template that fits the domain specific data model and the framework does the remaining work. Meta data not used by the probabilistic model is incorporated after the statistical inference. Although this approach corresponds to a simpler model with independence assumptions, it is a simple but effective way for customization.
 
-We present a technique to build an entity relationship model (ERM) from any probabilistic model in plate notation. This is required to transform the probabilistic model formulation given in scientific publications to data models like an ERM, where the concept is well known to application programmers and easy to explain to domain experts.
+We present a technique to build an entity relationship model (ERM) from any probabilistic model in plate notation. This is required to transform the probabilistic model formulation given in scientific publications to data models like an ERM, where the concept is well known to application programmers and easy to explain to domain experts. Additionally, ERMs have the advantage that they are able to capture the structured and hierarchical nature of data, while probabilistic models like Bayesian networks are often flat.
 
 The thesis is structured as follows. First, we give an overview of the data model driven architecture and how it differs from the traditional approach. In the next section we briefly introduce the concept of probabilistic modeling and inference, mainly using directed graphical models in plate notation (plate models). The fourth section describes the integration of those plate models and domain specific ERMs by translating the plate models to ERMs and matching both ERMs. The fifth section provides a quick insight what different analysis can be done with the integrated model. The last section offers a complete case study of a real world application to show how the techniques from this work can be applied.
 
 [TODO: put somewhere]
 \begin{itemize}
-\item Statistical model formulation often flat (graphical models)
-\item Data model is structured / hierarchical / relational
 \item State that data model driven architecture is better and why/when
 \end{itemize}

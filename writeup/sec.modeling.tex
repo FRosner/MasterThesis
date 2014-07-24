@@ -45,10 +45,10 @@ A typical way to model text data is to model documents as a list of independent 
 
 \textbf{Constraints}
 \begin{align}
-\sum_{k \in K} z_{nk} &= 1\\
-\sum_{v \in V} d_{nmv} &= 1\\
-\sum_{k \in K} \pi_{k} &= 1\\
-\sum_{v \in V} \mu_{kv} &= 1
+\sum_{k \in K} z_{nk} &= 1,\quad \text{a document is assigned to exactly one cluster}\\
+\sum_{v \in V} d_{nmv} &= 1,\quad \text{a token is of exactly one word type}\\
+\sum_{k \in K} \pi_{k} &= 1,\quad \text{the cluster proportions sum to one}\\
+\sum_{v \in V} \mu_{kv} &= 1,\quad \text{the word distribution per cluster sums to one}
 \end{align}
 
 \begin{figure}[t]
@@ -64,7 +64,7 @@ A typical way to model text data is to model documents as a list of independent 
 \subsubsection{Other Probabilistic Modeling Languages}
 
 \begin{description}
-\item[Mathematical formulas only]
+\item[Mathematical formulas only]\ 
 \begin{itemize}
 \item Express joint probability factorization with only formulas
 \item quick and effective way

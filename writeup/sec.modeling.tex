@@ -33,23 +33,7 @@ Over the past decades, a variety of different languages have been used and devel
 \begin{Example} Plate model for Dirichlet multinomial text clustering
 \label{ex:clustering-pm}
 
-A typical way to model text data is to model documents as a list of independent tokens, in a so called \emph{bag-of-words} model (\cite{murphy2012machine},~p.~87-89). It has been found that modeling the word counts per document using a multinomial distribution yields good results (\cite{mccallum1998comparison}).
-
-\textbf{Generative process}
-\begin{enumerate}
-\item draw cluster proportions $\vec \pi \sim \text{Dir}(\vec \alpha)$
-\item draw word proportions per cluster $\forall k \in K: \vec \mu_k \sim \text{Dir}(\vec \beta_k)$
-\item draw cluster assignments per document $\forall n \in N: \vec z_n \sim \text{Mult}(\vec \pi)$
-\item draw word type per token $\forall n \in N, m \in M_n: \vec d_{nm} \sim \text{Mult}(\vec \mu_k)$, where $k$ is the cluster selected by $\vec z_n$
-\end{enumerate}
-
-\textbf{Constraints}
-\begin{align}
-\sum_{k \in K} z_{nk} &= 1,\quad \text{a document is assigned to exactly one cluster}\\
-\sum_{v \in V} d_{nmv} &= 1,\quad \text{a token is of exactly one word type}\\
-\sum_{k \in K} \pi_{k} &= 1,\quad \text{the cluster proportions sum to one}\\
-\sum_{v \in V} \mu_{kv} &= 1,\quad \text{the word distribution per cluster sums to one}
-\end{align}
+A typical way to model text data is to model documents as a list of independent tokens, in a so called \emph{bag-of-words} model (\cite{murphy2012machine},~p.~87-89). It has been found that modeling the word counts per document using a multinomial distribution yields better classification performance than using a Bernoulli model (\cite{mccallum1998comparison}). Depending on if there is a supervised or unsupervised scenario, this model can be used for classification or clustering, respectively.\footnote{When the cluster assignments $\vec z_n$ are known (supervised learning), the inference of the parameters is exact. The parameter estimations can be used to classify new documents. If the cluster assignments are unknown (unsupervised learning), they also have to be inferred using approximate inference. More on inference in probabilistic models can be found in Section~\ref{subsec:inference}.} For this thesis we shall use a Bayesian approach of this bag-of-words model for clustering documents as a universal example. As it uses Dirichlet distributed priors for $\vec \mu_k$ and $\vec \pi$, it is called \emph{Dirichlet multinomial clustering}.
 
 \begin{figure}[t]
 	\begin{center}
@@ -58,6 +42,24 @@ A typical way to model text data is to model documents as a list of independent 
 \caption[Plate model for Dirichlet multinomial clustering of text documents]{Plate model for Dirichlet multinomial clustering of text documents.}
 		\label{fig:clustering_platemodel}
 \end{figure}
+
+Given a collection of documents $N$, where each document $n \in N$ consists of a set of tokens $M_n$, each document is assigned to a cluster $k \in K$. $\vec z_{n}$ is a 1-of-K coded variable (\cite{bishop2006pattern},~p.~424) having a 1 at position $k$ if the document $n$ is assigned to cluster $k$. Each cluster has its own word distribution parameterized by $\vec \mu_k$. The plate model is shown in Figure~\ref{fig:clustering_platemodel}.
+
+The variables have the following constraints:
+\begin{align}
+\sum_{k \in K} z_{nk} &= 1,\quad \text{a document is assigned to exactly one cluster}\\
+\sum_{v \in V} d_{nmv} &= 1,\quad \text{a token is of exactly one word type}\\
+\sum_{k \in K} \pi_{k} &= 1,\quad \text{the cluster proportions sum to one}\\
+\sum_{v \in V} \mu_{kv} &= 1,\quad \text{the word distribution per cluster sums to one}
+\end{align}
+
+The generative process is as follows:
+\begin{enumerate}
+\item draw cluster proportions $\vec \pi \sim \text{Dir}(\vec \alpha)$
+\item draw word proportions per cluster $\forall k \in K: \vec \mu_k \sim \text{Dir}(\vec \beta_k)$
+\item draw cluster assignments per document $\forall n \in N: \vec z_n \sim \text{Mult}(\vec \pi)$
+\item draw word type per token $\forall n \in N, m \in M_n: \vec d_{nm} \sim \text{Mult}(\vec \mu_k)$, where $k$ is the cluster selected by $\vec z_n$
+\end{enumerate}
 
 \end{Example}
 
@@ -101,6 +103,7 @@ A typical way to model text data is to model documents as a list of independent 
 \end{description}
 
 \subsection{Inference on Probabilistic Models}
+\label{subsec:inference}
 
 \subsubsection{Inference Algorithms for Arbitrary Graphical Models}
 

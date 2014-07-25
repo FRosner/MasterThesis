@@ -4,13 +4,13 @@ Probabilistic models are a mighty and flexible technique to model and reason abo
 
 \subsection{Probabilistic Modeling Languages}
 
-Over the past decades, a variety of different probabilistic modeling languages have been used and developed. Despite the most general one, using mathematical formulas only, we want to introduce graphical representations that often make it easier to understand the relationships between objects and what independence assumptions have been made. Starting with a very popular one called \emph{directed graphical model} (DGM), or \emph{Bayesian network}, that is going to be described in detail and used later in this thesis, the second part of this subsection will give a quick overview of other alternatives.
+Over the past decades, a variety of different probabilistic modeling languages have been used and developed. Despite the most general one, using mathematical formulas only, we want to introduce graphical representations that often make it easier to understand the relationships between objects and what independence assumptions have been made. We focus on a very popular one called \emph{directed graphical model} (DGM), or \emph{Bayesian network}, and an extension called \emph{plate model} that is going to be described in detail and used extensively throughout this thesis. The last part of this subsection will give a quick overview of other alternatives.
 
 \subsubsection{Directed Graphical Models}
 
 DGMs are a well known and powerful graphical probabilistic modeling language (\cite{murphy2012machine}~p.~307~ff.; \cite{bishop2006pattern},~p.~360~ff.; \cite{pearl1988probabilistic},~p.~116~ff.). They express variables and independence assumptions using a directed graph. Vertices represent variables, while the absence of edges models that the two variables not connected are assumed to be independent. That means that a DGM induces a factorization of the joint probability, given by the graph structure.
 
-Figure~\ref{fig:simple_dgm} shows a simple DGM with three variables. The final grade $G$ of an exam depends on the amount of class participation $C$ by that student and how much time $T$ he spent to prepare for the exam. The joint probability of this model factorizes into $$P(G,C,T) = P(G | C, T) \cdot P(C) \cdot P(T).$$ It is assumed that the two variables $C$ and $T$ are independent, given that $G$ is unknown. Reasoning about conditional independence can be done by using the framework of \emph{d-separation}  (\cite{lauritzen1996graphical},~p.~48~ff.; \cite{pearl1988probabilistic}).
+Figure~\ref{fig:simple_dgm} shows a simple DGM with three variables. The final grade $g$ of an exam depends on the amount of class participation $c$ by that student and how much time $t$ he spent to prepare for the exam. The joint probability of this model factorizes into $$P(g,c,t) = P(g | c, t) \cdot P(c) \cdot P(t).$$ It is assumed that the two variables $c$ and $t$ are independent, given that $g$ is unknown. Reasoning about conditional independence can be done by using the framework of \emph{d-separation}  (\cite{lauritzen1996graphical},~p.~48~ff.; \cite{pearl1988probabilistic}).
 
 \begin{figure}[t]
 	\begin{center}
@@ -22,11 +22,19 @@ Figure~\ref{fig:simple_dgm} shows a simple DGM with three variables. The final g
 
 Note that if a variable is observed, the vertex of this variable is drawn as a shaded circle. Hyper-parameters are drawn as small, black circles.\footnote{Hyper-parameters are a concept of Bayesian statistics. In a Bayesian world, the parameter of a probability distribution, for example the probability to see heads when tossing a coin, is also a random variable. It is sampled from a prior distribution having another set of parameters. Those are called hyper-parameters. Prior distributions are used to encode prior knowledge into the model and to avoid the zero count problem, similar to Laplace smoothing (\cite{manning2008introduction},~p.~260).}
 
-\textbf{Plate models}
-\begin{itemize}
-\item developed by \textcite{buntine1994operations} / \textcite{gilks1994language}, now common in graphical models ([CITATION NEEDED] for graphical models, esp. baysian networks)
-\item plates for repeated variables of the same type
-\end{itemize}
+\subsubsection{Plate Models}
+
+DGMs are natural for modeling flat data, i.e. single variables and their relation. When it comes to hierarchical data, traditional DGMs become verbose very quickly. Consider a set of $s$ students, all writing the same exam. This would require to add $s$ vertices to the DGM to capture this repeated measurement.
+
+Plate models (\cite{buntine1994operations}; \cite{gilks1994language}) introduce a mechanism for a compact notation of those repeated measurements. Instead of explicitly repeating a variable $s$ times, it is covered by a plate that has the cardinality $s$ and an index is added to the variable. So for every student $s \in S$ there is a final grade $g_s$, an amount of class participation $c_s$ and an exam preparation time $t_s$. We also added an additional variable outside of the students plate, measuring the average grade of all students. As the edge from the individual grade to this aggregated variable leaves the student plate, it reflects the dependency of the average grade on the grades from all students.
+
+\begin{figure}[t]
+	\begin{center}
+    	\scalebox{\tikzScale}{\adjustTikzSize \input{img/simple_platemodel.tex}}
+	\end{center}
+\caption[Simple plate model containing three variables.]{Simple plate model containing three variables. The model now contains a plate to capture the repeated measurement of the variables for every student of the class. Additionally, the average of all grades is measured as another variable outside of the plate.}
+		\label{fig:simple_platemodel}
+\end{figure}
 
 \textbf{Problems with traditional plate models}
 \begin{itemize}

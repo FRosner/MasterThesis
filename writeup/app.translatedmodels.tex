@@ -19,3 +19,16 @@
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/appendix_bayesian_regression.tex}}
 \caption[Linear regression plate model to ERM translation]{Translation of a Bayesian linear regression model in plate notation to an ERM. We use a single output, univariate, linear regression model that uses a polynomial function of inputs and a zero-mean isotropic Gaussian prior for the weights (\cite{bishop2006pattern},~p.~153). We extend the standard model to predict multiple output values of new observations $M$. This yields an additional entity type for new observations.}\label{fig:bayesian_regression}
 \end{figure}
+
+\newpage
+
+\section*{Appendix C - Hidden Markov Model}
+\addcontentsline{toc}{section}{Appendix C - Hidden Markov Model}
+
+\vspace*{1em}
+\begin{figure}[h!]
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/appendix_hmm.tex}}
+\caption[Hidden Markov model in plate notation to ERM translation]{Translation of a Hidden Markov model (\cite{bishop2006pattern},~p.~610~ff.; \cite{baum1970maximization}) in plate notation to an ERM. The arcs between the hidden states require constraints that restrict them to only be drawn between consecutive states in the expanded model.}\label{fig:appendix_hmm}
+\end{figure}
+

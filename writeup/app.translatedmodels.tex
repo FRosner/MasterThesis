@@ -5,5 +5,17 @@
 \begin{figure}[h!]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/appendix_gaussian_clustering.tex}}
-\caption[Gaussian mixture model plate model to ERM translation]{Translation a Gaussian mixture model in plate notation (\cite{bishop2006pattern},~p.~433) to an ERM. The matrix $\Sigma$ is split into its individual components $\sigma_{ij}$.}\label{fig:gaussian_mixture}
+\caption[Gaussian mixture model plate model to ERM translation]{Translation of a Gaussian mixture model in plate notation (\cite{bishop2006pattern},~p.~433) to an ERM. The matrix $\Sigma$ is split into its individual components $\sigma_{ij}$.}\label{fig:gaussian_mixture}
+\end{figure}
+
+\newpage
+
+\section*{Appendix B - Bayesian Linear Regression}
+\addcontentsline{toc}{section}{Appendix B - Bayesian Linear Regression}
+
+\vspace*{1em}
+\begin{figure}[h!]
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/appendix_bayesian_regression.tex}}
+\caption[Linear regression plate model to ERM translation]{Translation of a Bayesian linear regression model in plate notation to an ERM. We use a single output, univariate, linear regression model that uses a polynomial function of inputs and a zero-mean isotropic Gaussian prior for the weights (\cite{bishop2006pattern},~p.~153). We extend the standard model to predict multiple output values of new observations $M$. This yields an additional entity type for new observations.}\label{fig:bayesian_regression}
 \end{figure}

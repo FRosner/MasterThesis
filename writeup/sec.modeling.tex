@@ -63,6 +63,7 @@ The variables have the following constraints:
 
 The joint distribution factorization is given as:
 \[P(\vec d, \vec z, \vec \pi, \vec \mu | \vec \alpha, \vec \beta) = P(\vec d | \vec z, \vec \pi) \cdot P(\vec z | \vec \pi) \cdot P(\vec \pi | \vec \alpha) \cdot P(\vec \mu | \vec \beta)\]
+
 The generative process is as follows:
 \begin{enumerate}
 \item draw cluster proportions $\vec \pi \sim \text{Dir}(\vec \alpha)$
@@ -77,15 +78,9 @@ The generative process is as follows:
 
 Beside DGMs, with or without plate notation, there are other ways to express probabilistic models. The most exact way is to use \emph{mathematical formulas}, maybe combined with an algorithmic description. Other graphical modeling languages are \emph{undirected graphical models}, \emph{factor graphs}, that all focus on random variables and independence assumptions, as well as \emph{probabilistic relational models} and \emph{probabilistic entity-relationship models}, that try to combine relational data modeling and probabilistic modeling.
 
-\begin{description}
-\item[Mathematical formulas only]\ 
-\begin{itemize}
-\item Express joint probability factorization with only formulas
-\item quick and effective way
-\item may be hard to talk about it and hard to understand when not supported by graphical representation
-\item can and should be combined with graphical notations, because it is the most exact one
-\end{itemize}
+Mathematical formulas are a quick and effective way to describe a probabilistic process. They are the most exact representation and are ideally used together with a graphical language. A presentation solely based on formulas is not recommended because it might be hard to understand. In case of generative models, an algorithmic description of the generative process like in Example~\ref{ex:clustering-pm} aids the understanding. 
 
+\begin{description}
 \item[Undirected Graphical Models]\ 
 \begin{itemize}
 \item aka Markov random fields

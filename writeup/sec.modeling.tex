@@ -61,6 +61,8 @@ The variables have the following constraints:
 \sum_{v \in V} \mu_{kv} &= 1,\quad \text{the word distribution per cluster sums to one}
 \end{align}
 
+The joint distribution factorization is given as:
+\[P(\vec d, \vec z, \vec \pi, \vec \mu | \vec \alpha, \vec \beta) = P(\vec d | \vec z, \vec \pi) \cdot P(\vec z | \vec \pi) \cdot P(\vec \pi | \vec \alpha) \cdot P(\vec \mu | \vec \beta)\]
 The generative process is as follows:
 \begin{enumerate}
 \item draw cluster proportions $\vec \pi \sim \text{Dir}(\vec \alpha)$

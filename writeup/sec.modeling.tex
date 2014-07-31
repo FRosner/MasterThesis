@@ -36,10 +36,7 @@ Plate models (\cite{buntine1994operations}; \cite{gilks1994language}) introduce 
 		\label{fig:simple_platemodel}
 \end{figure}
 
-\textbf{Problems with traditional plate models}
-\begin{itemize}
-\item implicit constraints (\cite{heckerman2007probabilistic})
-\end{itemize}
+\textcite{heckerman2007probabilistic} state that traditional plate models require edge constraints to be more expressive. Those constraints are often implicit: In the expanded graph of Figure~\ref{fig:simple_platemodel}, there are only edges between variables inside the Students plate if they belong to the same student (have the same index $s$). Each student is statistically independent of all the others.
 
 \begin{Example} Plate model for Dirichlet multinomial text clustering
 \label{ex:clustering-pm}

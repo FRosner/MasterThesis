@@ -97,11 +97,15 @@ The following two subsections focus on inference algorithms for probabilistic mo
 
 \subsubsection{Inference Algorithms for Arbitrary Graphical Models}
 
-\begin{itemize}
-\item Belief propagation / Sum-product algorithm (\cite{pearl1988probabilistic}; \cite{kim1983computational}; \cite{pearl1982reverend})
-\item Max-sum algorithm
-\item Variational message passing
-\end{itemize}
+Depending on the structure of the graphical model and what is to be inferred, there are different algorithms at hand. 
+
+In graphical models with a tree structure, one can use the \emph{sum-product} algorithm (\cite{pearl1988probabilistic}; \cite{kim1983computational}; \cite{pearl1982reverend}), also known as belief propagation, to exactly compute the posterior marginals\footnote{In a Bayesian context, a posterior probability is the probability of hidden variables given the observations. Summing or integrating out all other variables than the one of interest is called \emph{marginalization}.}.
+
+The \emph{max-sum} algorithm (\cite{dawid1992applications}) can be used to infer a variable setting that has maximum probability.
+
+The \emph{junction tree} algorithm (\cite{lauritzen1988local}) is an efficient way to perform exact inference on arbitrary graphs that may contain loops.
+
+In case exact inference is not tractable anymore, variation message passing algorithms like \emph{loopy belief propagation} (\cite{frey1998revolution}) can be used.
 
 \subsubsection{Custom Inference Algorithm Implementations}
 \label{subsec:custom-inference}

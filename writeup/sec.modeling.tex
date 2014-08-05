@@ -82,14 +82,11 @@ Mathematical formulas are a quick and effective way to describe a probabilistic 
 
 Similar to DGMs, undirected graphical models (\cite{kindermann1980markov}) represent variables as vertices, but the edges are undirected. Undirected graphical models, also known as Markov random fields, express the joint probability as a product of potential functions, normalized by the so called partition function. (\cite{bishop2006pattern},~p.~384-386) Reasoning about conditional independence is possible although the concept is slightly different than d-separation for DGMs. (\cite{bishop2006pattern},~p.~383-384)
 
-Factor graphs have been developed by \textcite{kschischang2001factor} and extended by \textcite{frey2002extending} as a generalization of directed and undirected graphical models. A factor graph is a bipartite graph with two kinds of vertices: variables and factors. By modeling the factors as vertices, factor graphs are more explicit about the factorization of the joint probability. General inference algorithms like the sum-product algorithm (\cite{pearl1988probabilistic}; \cite{kim1983computational}; \cite{pearl1982reverend}) are easily expressed on factor graphs. However, the explicit notation brings verbosity and bigger models might become confusing.
+Factor graphs have been developed by \textcite{kschischang2001factor} and extended by \textcite{frey2002extending} as a generalization of directed and undirected graphical models. A factor graph is a bipartite graph with two kinds of vertices: variables and factors. By modeling the factors as vertices, factor graphs are more explicit about the factorization of the joint probability. General inference algorithms like the sum-product algorithm (\cite{pearl1988probabilistic}) are easily expressed on factor graphs. However, the explicit notation brings verbosity and bigger models might become confusing.
+
+Probabilistic relational models (PRMs) are a combination of the relational database model (\cite{codd1970relational}) and a probabilistic component. Developed by \textcite{friedman1999learning}, they have been extended by \textcite{getoor2003learning} to represent uncertainty of foreign keys. PRMs offer a nice way to express probabilistic relationships as an extension to a well-known notation in the database world.
 
 \begin{description}
-\item[Probabilistic Relational Models]\ 
-\begin{itemize}
-\item relational database model having probabilistic relationships between attributes (\cite{friedman1999learning})
-\end{itemize}
-
 \item[Probabilistic Entity-Relationship Models]\ 
 \begin{itemize}
 \item extension of entity-relationship model with probabilistic relationships between attributes of entity types
@@ -104,7 +101,7 @@ Factor graphs have been developed by \textcite{kschischang2001factor} and extend
 \subsubsection{Inference Algorithms for Arbitrary Graphical Models}
 
 \begin{itemize}
-\item Belief propagation / Sum-product algorithm
+\item Belief propagation / Sum-product algorithm (\cite{pearl1988probabilistic}; \cite{kim1983computational}; \cite{pearl1982reverend})
 \item Max-sum algorithm
 \item Variational message passing
 \end{itemize}

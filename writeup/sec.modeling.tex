@@ -101,7 +101,7 @@ Depending on the structure of the graphical model and what is to be inferred, th
 
 In graphical models with a tree structure, one can use the \emph{sum-product} algorithm (\cite{pearl1988probabilistic}; \cite{kim1983computational}; \cite{pearl1982reverend}), also known as belief propagation, to exactly compute posterior marginals\footnote{In a Bayesian context, a posterior probability is the probability of hidden variables given the observations. Summing or integrating out all other variables than the one of interest is called \emph{marginalization}.}. It is efficient in the way that it shares computations in case that more than one marginal is required. By passing functions called messages between vertices, variables are marginalized out successively. This corresponds to a clever interchange of summations and products of the marginalized joint distribution whose factorization is given by the graph structure.
 
-The \emph{max-sum} algorithm (\cite{dawid1992applications}) can be used to infer a variable setting that has maximum probability.
+The \emph{max-sum} algorithm (\cite{bishop2006pattern},~p.~384-386; \cite{dawid1992applications}) can be used to infer a variable setting that has maximum probability. It is a derivate of the sum-product algorithm, where the sum is replaced by a max operator and the logarithm is taken to avoid numerical problems. Thus it can also be seen as a message passing algorithm.
 
 The \emph{junction tree} algorithm (\cite{lauritzen1988local}) is an efficient way to perform exact inference on arbitrary graphs that may contain loops.
 

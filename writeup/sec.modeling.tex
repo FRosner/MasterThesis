@@ -97,7 +97,7 @@ The following two subsections focus on inference algorithms for probabilistic mo
 
 \subsubsection{General Inference Algorithms for Graphical Models}
 
-Depending on the structure of the graphical model and what is to be inferred, there are different algorithms at hand. 
+Depending on the structure of the graphical model and what is to be inferred, there are different algorithms at hand. Exact inference is only suitable for small problems. If the models grow bigger or contain cycles, exact inference can become intractable. This is where approximations jump in. We will focus on algorithms for flat graphical models such as directed and undirected graphical models or factor graphs. Inference for probabilistic relational models is discussed in \textcite{getoor2007introduction},~p.~159~ff.
 
 In graphical models with a tree structure, one can use the \emph{sum-product} algorithm (\cite{pearl1988probabilistic}; \cite{kim1983computational}; \cite{pearl1982reverend}), also known as belief propagation, to exactly compute the posterior marginals\footnote{In a Bayesian context, a posterior probability is the probability of hidden variables given the observations. Summing or integrating out all other variables than the one of interest is called \emph{marginalization}.}.
 

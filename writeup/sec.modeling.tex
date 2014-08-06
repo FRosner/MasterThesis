@@ -105,7 +105,7 @@ The \emph{max-sum} algorithm (\cite{bishop2006pattern},~p.~384-386; \cite{dawid1
 
 The \emph{junction tree} algorithm (\cite{koller2009probabilistic},~p.~348~ff.; \cite{lauritzen1988local}) is an efficient way to perform exact inference on arbitrary graphs that may contain loops. It first triangulates the given graph and builds a junction tree from it. Then a two-stage message passing algorithm is applied to this junction tree. However, the computational complexity of the algorithm is determined by the size of the largest clique and grows exponentially.
 
-In case exact inference is not tractable anymore, variation message passing algorithms like \emph{loopy belief propagation} (\cite{frey1998revolution}) can be used.
+In case exact inference is not tractable anymore, variational message passing algorithms like \emph{loopy belief propagation} (\cite{frey1998revolution}) can be used. The idea is to apply the sum-product algorithm that is constructed for trees on the graph containing loops. However, it is model dependent if passing the messages in circles will converge and not guaranteed to yield good results.
 
 \subsubsection{Custom Inference Algorithm Implementations}
 \label{subsec:custom-inference}

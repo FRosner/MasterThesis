@@ -103,7 +103,7 @@ In graphical models with a tree structure, one can use the \emph{sum-product} al
 
 The \emph{max-sum} algorithm (\cite{bishop2006pattern},~p.~384-386; \cite{dawid1992applications}) can be used to infer a variable setting that has maximum probability. It is a derivate of the sum-product algorithm, where the sum is replaced by a max operator and the logarithm is taken to avoid numerical problems. Thus it can also be seen as a message passing algorithm.
 
-The \emph{junction tree} algorithm (\cite{lauritzen1988local}) is an efficient way to perform exact inference on arbitrary graphs that may contain loops.
+The \emph{junction tree} algorithm (\cite{koller2009probabilistic},~p.~348~ff.; \cite{lauritzen1988local}) is an efficient way to perform exact inference on arbitrary graphs that may contain loops. It first triangulates the given graph and builds a junction tree from it. Then a two-stage message passing algorithm is applied to this junction tree. However, the computational complexity of the algorithm is determined by the size of the largest clique and grows exponentially.
 
 In case exact inference is not tractable anymore, variation message passing algorithms like \emph{loopy belief propagation} (\cite{frey1998revolution}) can be used.
 

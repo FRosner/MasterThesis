@@ -40,7 +40,6 @@ The variables have the following constraints:
 
 The generative process is as follows:
 \begin{enumerate}
-\item Draw a number of tokens per document $\forall n \in N: M_n \sim \text{Poisson}(\vec \xi)$.
 \item Draw word proportions per topic $\forall k \in K: \vec \mu_k \sim \text{Dir}(\vec \beta_k)$.
 \item Draw the topic mixture per document $\forall n \in N: \vec \theta_n \sim \text{Dir}(\vec \alpha)$.
 \item Draw the topic assignments per token $\forall n \in N, m \in M_n: \vec z_{nm} \sim \text{Mult}(\vec \theta_n)$.

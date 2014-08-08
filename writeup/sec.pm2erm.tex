@@ -9,17 +9,17 @@ In this section we propose a technique to transform a given directed graphical m
 \item\label{itm:apm2erm} Convert the APM into an ERM.
 \item Reduce the ERM to avoid translation artifacts.
 \end{enumerate}
-The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors show that the mapping is applicable for every plate model, they do not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs may not be well-formed. Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes that may implicitly encode relationships by acting as foreign keys. Although non-atomic attributes are no problem in ERMs in general, they are a problem in the plate model when it comes to the translation to an ERM.\footnote{Translating the Dirichlet multinomial clustering plate model directly, and not the APM, encodes the relationship between documents and clusters by the attribute $\vec z$ that is assigned to the document entity type. When reading the model, one has to look at the definition and constraints of this variable to see that it acts as a foreign key.}
+The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors show that the mapping is applicable for every plate model, they do not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs may not be well-formed. Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes that may implicitly encode relationships by acting as foreign keys. Although non-atomic attributes are no problem in ERMs in general, they are a problem in the plate model when it comes to the translation to an ERM.\footnote{Translating the Dirichlet multinomial clustering plate model directly rather than its APM, encodes the relationship between documents and clusters by the attribute $\vec z$ that is assigned to the document entity type. When reading the model, one has to look at the definition and constraints of this variable to see that it acts as a foreign key.}
 
 We extend the translation procedure of \textcite{heckerman2007probabilistic} by converting the plate model into an APM first, then map the APM to an ERM, and reduce the ERM afterwards. Applying this extended procedure produces well-formed ERMs. Note that this translation is lossy, i.e. it discards any probabilistic dependencies.
 
-We use the standard ERM notation (\cite{chen1976entity}) with min-max cardinalities (\cite{elmasri2007database},~p.~82). We call an ERM \emph{well-formed} iff it (1) is syntactically correct, (2) uses ERM constructs where possible and (3) does not have redundant constructs. Thus, a well-formed ERM does not contain explicit foreign keys but uses relationships instead. It also may not have 1:1 relationships that could be merged, especially no weak relationships to weak entities that do not extend the primary key.\footnote{A weak entity always must extend the primary key or its weak relationship will otherwise be a malformed 1:1 relationship. It could then be merged with its strong partner.} Having no redundant constructs means that no entity or relationship is duplicate, i.e. semantically expressing the same thing.
+We use the standard ERM notation (\cite{chen1976entity}) with min-max cardinalities (\cite{elmasri2007database},~p.~82). We call an ERM \emph{well-formed} iff it (1) is syntactically correct, (2) is explicit and (3) does not have redundant constructs. There should be no 1:1 relationships that can be merged, especially weak entities that do not extend the primary key are not permitted.\footnote{A weak entity always must extend the primary key or its weak relationship will otherwise be a malformed 1:1 relationship. It could then be merged with its strong partner.} Explicitness means that all real world constructs that have a corresponding construct in the ERM notation are modeled using those. Thus, a well-formed ERM does not contain foreign key attributes but uses relationships instead. Having no redundant constructs means that no entity or relationship is duplicate, i.e. semantically expressing the same thing. Those may be an intermediate result of the translation procedure.
 
-The following sections offer detailed explanations for all steps to translate a plate model to an ERM.
+The following sections offer detailed explanations of all steps to translate a plate model to an ERM.
 
 \subsubsection{Atomic Plate Models}
 
-Plate models may contain multidimensional variables, such as vectors or matrices. To receive an APM, multidimensional variables are split into their components such that there is one variable for each component. A plate containing an indexed component variable represents the multidimensional variable in the APM. Figure~\ref{fig:pm2apm} shows the conversion of plate models containing a vector and a matrix variable, respectively. The multidimensional variables $\vec x$ and $X$ are converted into individual component variables $x_n$ and $x_{nm}$, surrounded by plates of the corresponding dimensionality.
+Plate models may contain multidimensional variables, such as vectors or matrices. To receive an APM, multidimensional variables are split into their components so that there is one variable for each component. A plate containing an indexed component vertex represents the multidimensional variable in the APM. Edges are discarded. Figure~\ref{fig:pm2apm} shows the conversion of plate models containing a vector and a matrix variable, respectively. The multidimensional variables $\vec x$ and $X$ are converted into individual component variables $x_n$ and $x_{nm}$, surrounded by plates of the corresponding dimensionality.
 
 \begin{figure}[t]
 \centering
@@ -27,10 +27,10 @@ Plate models may contain multidimensional variables, such as vectors or matrices
 \caption[Conversion of plate models to atomic plate models]{Conversion of plate models containing multidimensional variables to atomic plate models by modeling the components as individual variables. Subfigure (a) shows the conversion of an $|N|$ dimensional vector variable $\vec x$ to its components $x_n$. In (b), the $|N| \times |M|$ matrix $X$ is converted into a variable inside two plates, one for each dimension. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
 \end{figure}
 
-
-Multidimensional variables are often used as parameters for conditional probability distributions.\footnote{Consider the parameter $\vec \mu$ of a multinomial distribution that contains the probability for each possible outcome or the covariance matrix $\Sigma$ of a multivariate gaussian distribution.} In that case one cannot decompose those variables without losing the relationship between their components concerning the generative process of the model. However, it is not necessary to preserve this relationship in the conversion process to a database model as it will not be used as a generative model anymore. We thus leave out all the arrows after the conversion process to explicitly state that they may not represent conditional probability distributions in the APM.
+Multidimensional variables are often used as parameters for conditional probability distributions. Consider the parameter $\vec \mu$ of a multinomial distribution that contains the probability for each possible outcome or the covariance matrix $\Sigma$ of a multivariate Gaussian distribution. In that case one cannot decompose those variables without losing the relationship between their components concerning the generative process of the model. However, it is not necessary to preserve this relationship in the conversion process to a database model, as it will not be used as a generative model anymore. We thus discard all the edges after the conversion process to explicitly state that they may not represent conditional probability distributions in the APM.
 
 \begin{Example} Atomic plate model creation for Dirichlet multinomial text clustering
+\label{ex:clustering-apm}
 
 Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on the plate model for Dirichlet multinomial text clustering (see Example~\ref{ex:clustering-pm}, page~\pageref{ex:clustering-pm}). The $|V|$ dimensional vocabulary domain Words of the vector variables $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$ is now made explicit and the Clusters plate is extended to the $|K|$ dimensional vector variables $\vec z_n$, $\vec \pi$ and $\vec \alpha$.
 
@@ -56,7 +56,7 @@ Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on 
 
 \subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}
 
-\textcite{heckerman2007probabilistic} proposed a mapping from plate models to DAPER models. DAPER models are essentially ERMs that may contain probabilistic dependencies between attributes of entity classes. They can be expanded to a directed graphical model given a skeleton\footnote{A skeleton of an ERM is a specification of the entity and relationship classes associated with a specific database.}.
+After the plate model is converted to an APM, we will translate it to an ERM. \textcite{heckerman2007probabilistic} propose a mapping from plate models to DAPER models. DAPER models are essentially ERMs that may contain probabilistic dependencies between attributes of entity classes. They can be expanded to a directed graphical model given a skeleton\footnote{A skeleton of an ERM is a specification of the entity and relationship classes associated with a specific database.}.
 
 We adopt this mapping to produce ERMs instead of DAPER models by leaving out the probabilistic dependencies between attributes during the translation process. Additionally we show some special cases of model constraints and their influence on the resulting ERM. The mapping is as follows:
 
@@ -97,33 +97,34 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \caption[Translation of plate intersections with 1-of-K variables to an ERM]{Translation of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The contraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type which index set is summed over will not have a weak relationship to the association entity.}\label{fig:pm2erm_bi_constraints}
 \end{figure}
 
-\item[Translate nested plates to one to many relationships.] If a plate is nested in another plate, the resulting relationship has a one to many cardinality instead of many to many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entities as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity.\footnote{In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the original entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}).} It then does no longer extend the key of the association entity.
+\item[Translate nested plates to one to many relationships.] If a plate is nested in another plate, the resulting relationship has a one to many cardinality instead of many to many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entities as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity.\footnote{In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the other entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}).} It then does no longer extend the key of the association entity.
 \end{description}
 
-In addition to the above rules we propose two additional transformation rules that define the effect of variable constraints on the resulting ERM and cope with self relationships as a result of matrix or tensor variable translation:
+In addition to the above rules we propose two additional transformation rules that define the effect of variable constraints on the resulting ERM and cope with self relationships as a result of matrix or tensor variable translation.
 
 \begin{description}
 \item[Adjust cardinalities depending on variable constraints.] In some applications there are variables that solely express probabilistic or uncertain relationships. Those are often coded as multidimensional binary variables whose components follow certain summation constraints. \textcite{bishop2006pattern} refers to this as the 1-of-K coding scheme.
 
-Given a binary variable that is bound to an association entity and a constraint that requires it to sum to one over either index set of the surrounding plates, this affects the cardinality of the resulting relationship in the same way that nested plates do. The entity type which is summed over will not have a weak relationship to the association entity. The attribute of the association entity is then removed.
+Given a binary variable that is bound to an association entity and a constraint that requires it to sum to one over either index set of the surrounding plates, this affects the cardinality of the resulting relationship in the same way that nested plates do. The entity type which is summed over will not have a weak relationship to the association entity. The constrained attribute of the association entity is then removed.
 
-In case of two overlapping plates this yields a malformed\footnote{Like in Figure~\ref{fig:pm2erm_covered_1} this malformed relationship is merged in the reduction step.} one to many relationship like shown in Figure~\ref{fig:pm2erm_bi_constraints}. It correctly expresses the fact that a given instance of B is only connected to one instance of A, while a given instance of A may be connected to many Bs.
+In case of only two overlapping plates this yields a malformed\footnote{Like in Figure~\ref{fig:pm2erm_covered_1} this malformed relationship is merged in the reduction step.} one to many relationship like shown in Figure~\ref{fig:pm2erm_bi_constraints}. It correctly expresses the fact that a given instance of B is only connected to one instance of A, while a given instance of A may be connected to many Bs.
 
-\item[Translate overlapping plates with same index set to self relationships.] When converting plate models with matrix or tensor variables to APMs, the translation procedure will produce overlapping plates as illustrated in Figure~\ref{fig:pm2apm}b. Given a matrix with equal dimensions $N = M$, this will result in two overlapping plates of the same index set. These are simply translated as a many to many self relationships. The matrix components are then represented as an attribute of the resulting association entity.
+\item[Translate overlapping plates with same index set to self relationships.] When converting plate models with matrix or tensor variables to APMs, the translation procedure will produce overlapping plates as illustrated in Figure~\ref{fig:pm2apm}b. Given a matrix with equal dimensions $N = M$, this will result in two overlapping plates of the same index set. These are simply translated as a many to many self relationships. The matrix components are then represented as an attribute of the resulting association entity. Figure~\ref{fig:gaussian_mixture} in Appendix~A contains a conversion of the matrix variable $\Sigma$.
 \end{description}
 
 With this set of rules it is possible to translate any given plate model into an ERM. However in some cases the resulting model might not be well-formed. It might express simple one to many relationships in a complicated way or even contain modeling errors like weak entitites that do not extend the primary key.
 
 \begin{Example} Translation of the Dirichlet multinomial text clustering APM to a verbose ERM
+\label{ex:clustering-erm-verbose}
 
-Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded}. The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship Word---D-T-W and Cluster---Document, respectively. The Document---D-T-W relationship is not weak because the Token plate is nested. It is easily seen that there are degenerated cases of one to many relationships. In the next section we describe how to reduce such ERMs to obtain syntactically correct and well-formed ones.
+Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded} (Example~\ref{ex:clustering-apm}, p.~\pageref{ex:clustering-apm}). The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship Word---D-T-W and Cluster---Document, respectively. The Document---D-T-W relationship is not weak because the Token plate is nested. It is easily seen that there are degenerated cases of one to many relationships. In the next section we describe how to reduce such ERMs to obtain syntactically correct and well-formed ones.
 
 \end{Example}
 
 \begin{figure}[h]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_erm_good_verbose.tex}}
-\caption[Verbose Dirichlet multinomial text clustering ERM]{Verbose Dirichlet multinomial text clustering ERM, translated from an APM.}\label{fig:clustering_erm_good_verbose}
+\caption[Verbose Dirichlet multinomial text clustering ERM]{Verbose Dirichlet multinomial text clustering ERM, translated from an APM. It contains weak entities that does not extend the primary key.}\label{fig:clustering_erm_good_verbose}
 \end{figure}
 
 \subsubsection{Reduction of Translated Entity Relationship Models}
@@ -131,7 +132,7 @@ Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the tr
 
 In order to produce well-formed ERMs from plate models it is necessary to apply a reduction step on the resulting ERM of the plate model to APM conversion. This reduction will make sure that all artifacts which may result by applying the rules described in the previous section are eliminated. Those artifacts are (1) weak entities with only one weak relationship and (2) duplicate relationships.
 
-Weak entities with only one weak relationship may occur in cases like shown in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables and nested plates change weak relationships to normal ones. If all but one weak relationship gets changed, the construct is not well-formed because the weak entity does not extend a primary key. The weak relationship is then simply a 1:1 relationship and both entities can be merged.
+Weak entities with only one weak relationship may occur in cases like shown in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables and nested plates change weak relationships to normal ones. If all but one weak relationship gets changed, the construct is not well-formed because the weak entity does not extend a primary key. The weak relationship is then simply a 1:1 relationship and both entities are merged, leaving a single relationship.
 
 After merging all entities like described above there may be duplicate relationships. Consider the case in Figure~\ref{fig:erm_reduction_minimal_example} where the two relationships between A and B become redundant after merging the three entities A-B-C, B and A-B-D. There will be a practical example of this situation in the case study in Section~\ref{sec:casestudy}. Note that this merging is only possible if the relationships are really expressing the same thing. The translating person needs to evaluate the merging conditions depending on the situation.
 
@@ -164,6 +165,8 @@ To enable different applications of the probabilistic models (e.g., not only tex
 
 Matching happens by selecting the entity types and attributes in the domain data model that correspond to generic ones from the probabilistic model ERM. Both models are then merged together, replacing the generic names by domain specific ones.
 
+After matching both models the user receives an integrated model containing domain specific constructs enriched by constructs from the probabilistic model. The framework then selects an inference algorithm implementation, uses the provided data and calculates the results. The results are included in the merged database and can be used for further analysis.
+
 \begin{Example} Matching a text data model with the Dirichlet multinomial clustering model
 
 Consider a user that wants to perform text clustering. He has the raw text data available, as well as meta data like a timestamp on the document, an author associated with each document and a part of speech annotation on each token. Figure~\ref{fig:matching_clustering} shows the matching of a Dirichlet multinomial clustering ERM template in this case.
@@ -176,9 +179,3 @@ Consider a user that wants to perform text clustering. He has the raw text data 
 \end{figure}
 
 \end{Example}
-
-After matching both models the user receives an integrated model containing domain specific constructs enriched by constructs from the probabilistic model. The framework then selects an inference algorithm implementation, uses the provided data and calculates the results. The results are included in the merged database and can be used for further analysis.
-
-
-
-

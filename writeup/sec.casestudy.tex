@@ -6,7 +6,7 @@ In the first subsection we explain the probabilistic model behind TopicExplorer'
 
 \subsection{Latent Dirichlet Allocation}
 
-Latent Dirichlet Allocation (LDA) is one of the most popular topic models (\cite{blei2003latent}). Although not limited to this application, it is often used to find a hidden structure in text documents, called \emph{topics}. Such topics are, mathematically speaking, probability distributions over a vocabulary. They are often presented as a list of words having the highest probabilities. The following paragraphs will explain the probabilistic model of LDA and how it is converted to an ERM.\footnote{We will talk about smoothed LDA (\cite{blei2003latent},~p.~1006) whenever we refer to LDA. We use a slightly different notation than in the original paper to be conform with the Dirichlet multinomial clustering model used in previous sections. For demonstration purposes we assume that the prior distribution for the word proportions per topic can be topic dependent and thus the $\vec \beta_k$ is covered by the Topics plate.} This conversion would be done by a machine learning expert that is part of the framework developer team.
+Latent Dirichlet allocation (LDA) is one of the most popular topic models (\cite{blei2003latent}). Although not limited to this application, it is often used to find a hidden structure in text documents, called \emph{topics}. Such topics are, mathematically speaking, probability distributions over a vocabulary. They are often presented as a list of words having the highest probabilities. The following paragraphs will explain the probabilistic model of LDA and how it is converted to an ERM.\footnote{We will talk about smoothed LDA (\cite{blei2003latent},~p.~1006) whenever we refer to LDA. We use a slightly different notation than in the original paper to be conform with the Dirichlet multinomial clustering model used in previous sections. For demonstration purposes we assume that the prior distribution for the word proportions per topic can be topic dependent and thus the $\vec \beta_k$ is covered by the Topics plate.} This conversion would be done by a machine learning expert that is part of the framework developer team.
 
 \subsubsection{Probabilistic Model}
 
@@ -37,6 +37,15 @@ The variables have the following constraints:
 \caption[Transformation of LDA plate model to an APM]{Transformation of the LDA plate model to an APM. The components of the $|K|$ dimensional vector variables $\vec z_{nm}, \vec \theta_n$ and $\vec \alpha$ are then covered by the Topics plate, whereas the Words plate covers the components of the $|V|$ dimensional variables $\vec d_{nm}, \vec \mu_k$ and $\vec \beta_k$.}
 \label{img:topic_platemodels}
 \end{figure}
+
+The joint distribution factorization is given as:
+\begin{multline}
+P(\boldsymbol{d},\boldsymbol{z}, \boldsymbol{\mu}, \boldsymbol{\theta} | \vec \alpha, \boldsymbol{\beta}) =
+ \left(\prod_{n \in N} P(\vec \theta_n | \vec \alpha)\right) \cdot
+ \left(\prod_{n \in N} \prod_{m \in M_n} P(\vec z_{nm} | \vec \theta_n)\right) \cdot \\
+ \left(\prod_{k \in K} P(\vec \mu_k | \vec \beta_k)\right) \cdot
+ \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_{nm}, \vec \mu_k)\right)
+\end{multline}
 
 The generative process is as follows:
 \begin{enumerate}

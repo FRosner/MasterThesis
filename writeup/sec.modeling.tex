@@ -61,13 +61,13 @@ The variables have the following constraints:
 \sum_{v \in V} \mu_{kv} &= 1,\quad \text{the word distribution per cluster sums to one}
 \end{align}
 
-The joint distribution factorization is given as:
+The joint distribution factorization is given as
 \begin{multline}
 P(\boldsymbol{d},\boldsymbol{z}, \boldsymbol{\mu}, \vec \pi | \vec \alpha, \boldsymbol{\beta}) = \\
  P(\vec \pi | \vec \alpha) \cdot
  \left(\prod_{n \in N} P(\vec z_n | \vec \pi)\right) \cdot
  \left(\prod_{k \in K}P(\vec \mu_k | \vec \beta_k)\right) \cdot 
- \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_n, \vec \mu_k)\right)
+ \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_n, \vec \mu_k)\right).
 \end{multline}
 
 The generative process is as follows:

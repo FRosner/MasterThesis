@@ -38,13 +38,13 @@ The variables have the following constraints:
 \label{img:topic_platemodels}
 \end{figure}
 
-The joint distribution factorization is given as:
+The joint distribution factorization is given as
 \begin{multline}
 P(\boldsymbol{d},\boldsymbol{z}, \boldsymbol{\mu}, \boldsymbol{\theta} | \vec \alpha, \boldsymbol{\beta}) =
  \left(\prod_{n \in N} P(\vec \theta_n | \vec \alpha)\right) \cdot
  \left(\prod_{n \in N} \prod_{m \in M_n} P(\vec z_{nm} | \vec \theta_n)\right) \cdot \\
  \left(\prod_{k \in K} P(\vec \mu_k | \vec \beta_k)\right) \cdot
- \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_{nm}, \vec \mu_k)\right)
+ \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_{nm}, \vec \mu_k)\right).
 \end{multline}
 
 The generative process is as follows:
@@ -59,7 +59,7 @@ The generative process is as follows:
 
 To obtain an ERM for LDA we follow the steps described in Section~\ref{sec:pm2erm}. First, transform the plate model into an APM, then translate this APM to an ERM and reduce the ERM afterwards.
 
-The transformation to an APM is illustrated in Figures~\ref{fig:topic_platemodel_expanded} and \ref{fig:topic_platemodel_original}. All vector variables are explicitly modeled as repeated variables for their components. The Topics plate now covers the components of the $|K|$ dimensional vector variables $\vec z_{nm}, \vec \theta_n$ and $\vec \alpha$. A new plate is created for the dimensionality $|V|$ to model the components of $\vec d_{nm}, \vec \mu_k$ and $\vec \beta_k$, representing the vocabulary of the documents.
+The transformation to an APM is illustrated in Figures~\ref{fig:topic_platemodel_original} and \ref{fig:topic_platemodel_expanded}. All vector variables are explicitly modeled as repeated variables for their components. The Topics plate now covers the components of the $|K|$ dimensional vector variables $\vec z_{nm}, \vec \theta_n$ and $\vec \alpha$. A new plate is created for the dimensionality $|V|$ to model the components of $\vec d_{nm}, \vec \mu_k$ and $\vec \beta_k$, representing the vocabulary of the documents.
 
 \begin{figure}[p]
 \centering
@@ -79,7 +79,7 @@ The transformation to an APM is illustrated in Figures~\ref{fig:topic_platemodel
 \caption[Final LDA ERM after applying the reduction step]{Final LDA ERM after applying the reduction step.}\label{fig:topic_erm_good_reduced}
 \end{figure}
 
-In the next step, this APM is translated into a verbose ERM. Figure~\ref{fig:topic_erm_good_verbose} shows the result. The entity types Document, Word, Token and Topic correspond to the existing plates. The association entities D-T-W, D-T-T, D-T and T-W represent the plate intersections. The Token plate is nested inside the Document plate, yielding a non-weak relationship from Document to D-T-W and D-T-T, respectively.
+In the next step, this APM is translated to a verbose ERM. Figure~\ref{fig:topic_erm_good_verbose} shows the result. The entity types Document, Word, Token and Topic correspond to the existing plates. The association entities D-T-W, D-T-T, D-T and T-W represent the plate intersections. The Token plate is nested inside the Document plate, yielding a non-weak relationship from Document to D-T-W and D-T-T, respectively.
 
 Afterwards, the constraints of the 1-of-K coded variables $\vec d_{nm}$ and $\vec z_{nm}$ are taken into account. This yields a transformation of the relationships between Word and D-T-W, and Topic and D-T-T, respectively. These relationships are no longer weak and do not contribute to the primary key of the corresponding association entity, as shown in Figure~\ref{fig:topic_erm_good_constraints}.
 

@@ -1,10 +1,14 @@
 \section{Conclusion}
 
+\subsection{Summary}
+
 We presented a data model driven architecture for rapidly developing customized machine learning applications. This architecture is based on a framework that offers probabilistic models in form of ERMs. This makes the machine learning techniques more accessible to domain experts and application developers. Additionally, providing a data model view of the inference results make it easy to integrate them into domain data. The responsibility of dealing with various inference algorithm implementations and file formats is taken from the application programmer and passed to the framework. The framework user simply matches an ERM of his desired probabilistic model with his domain data model and the inference results are stored in the integrated database. Combined analysis is simple and can partly be precalculated.
 
 We developed a mapping from graphical models in plate notation to ERMs that allows framework developers to easily incorporate their probabilistic model into the set of available models. They can either provide a custom inference algorithm implementation or use generic ones that work with arbitrary graphical models. We show that this mapping produces well-formed ERMs that aid the understanding of the probabilistic model. [TODO: maybe state this explicitly in some place]
 
-The major drawback of this approach is that the utility of this framework still heavily depends on machine learning experts. Although domain experts and applications programmers do not have to cope with probabilistic models directly, there has to be a specialist that adds these methods to the framework. So the success of the data model driven approach stands and falls with the data science community that supplies algorithms for the framework. Additionally, updates in existing inference algorithm implementations need to be included manually if the interface changes.
+\subsection{Problems and Drawbacks}
+
+The major drawback of this approach is that the utility of this framework still heavily depends on machine learning experts. Although domain experts and applications programmers do not have to cope with probabilistic models directly, there has to be a specialist that adds these methods to the framework. So the success of the data model driven approach stands and falls with the data science community that supplies algorithms for the framework. Additionally, updates in existing inference algorithm implementations might need to be included manually.
 
 Another problem arises in the quality of the supplied ERMs. In order to be understandable, they need to have meaningful entity class names. Besides that, having names for relationships and association entities that are not automatically generated is also desirable. The hidden Markov model ERM in Figure~\ref{fig:appendix_hmm}, Appendix~C for example contains an association entity ``H-O'', which represents the emission of observed states by hidden ones. Calling it ``emits'' might aid the understanding.
 
@@ -15,6 +19,8 @@ Additionally, there are issues concerning the translation procedure of plate mod
 \item So many different models possible; bayesian / non-bayesian versions $\rightarrow$ either have all of them or only bayesians and choose uninformed priors; but bayesian stuff in gaussian mixture model may be confusing for ppl familiar with k-means
 \item although not needed when customizing and applying the probabilistic models, machine learning scientists might still be useful to detect formal issues like violated assumptions
 \end{itemize}
+
+\subsection{Extensions and Future Work}
 
 \textbf{Extensions and Future Work}
 \begin{itemize}

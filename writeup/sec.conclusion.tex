@@ -6,13 +6,14 @@ We developed a mapping from graphical models in plate notation to ERMs that allo
 
 The major drawback of this approach is that the utility of this framework still heavily depends on machine learning experts. Although domain experts and applications programmers do not have to cope with probabilistic models directly, there has to be a specialist that adds these methods to the framework. So the success of the data model driven approach stands and falls with the data science community that supplies algorithms for the framework. Additionally, updates in existing inference algorithm implementations need to be included manually if the interface changes.
 
+Another problem arises in the quality of the supplied ERMs. In order to be understandable, they need to have meaningful entity class names. Besides that, having names for relationships and association entities that are not automatically generated is also desirable. The hidden Markov model ERM in Figure~\ref{fig:appendix_hmm}, Appendix~C for example contains an association entity ``H-O'', which represents the emission of observed states by hidden ones. Calling it ``emits'' might aid the understanding.
+
 \textbf{Problems}
 \begin{itemize}
 \item Models that are not formulated in plate notation would either need to be converted to it or the ERM needs to be obtained in a different way.
 \item So many different models possible; bayesian / non-bayesian versions $\rightarrow$ either have all of them or only bayesians and choose uninformed priors; but bayesian stuff in gaussian mixture model may be confusing for ppl familiar with k-means
 \item probabilistic relationships not captured anymore
 \item categorical variables need to be 1-of-K coded or if not, procedure needs to capture dimensionality of categorical variables [TODO: add this information to the place where the translation of 1-of-K coded variables happens]
-\item meaningful names in ER diagrams important (e.g. emission instead of H-O in HMM, name relationships)
 \item although not needed when customizing and applying the probabilistic models, machine learning scientist might still be useful to detect formal issues like violated assumptions
 \end{itemize}
 

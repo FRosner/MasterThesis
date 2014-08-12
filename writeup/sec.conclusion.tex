@@ -8,18 +8,18 @@ The major drawback of this approach is that the utility of this framework still 
 
 Another problem arises in the quality of the supplied ERMs. In order to be understandable, they need to have meaningful entity class names. Besides that, having names for relationships and association entities that are not automatically generated is also desirable. The hidden Markov model ERM in Figure~\ref{fig:appendix_hmm}, Appendix~C for example contains an association entity ``H-O'', which represents the emission of observed states by hidden ones. Calling it ``emits'' might aid the understanding.
 
+Additionally, there are issues concerning the translation procedure of plate models to ERMs. First, models not formulated in plate notation would either need to be converted to it or the ERM needs to be obtained manually. Secondly, the loss of probabilistic dependencies might disturb users familiar with machine learning, because it does not allow to find out more about the underlying probabilistic model. One way to cope with it would be an advanced view which includes the probabilistic components. Thirdly, the current procedure does not work well with categorical variables that are not stored as a 1-of-K coded vector. One either has to make sure all categorical variables are 1-of-K coded or the mapping needs to be extended to work with multi-valued variables and still produce the same ERMs. [TODO: add this information to the place where the translation of 1-of-K coded variables happens?]
+
 \textbf{Problems}
 \begin{itemize}
-\item Models that are not formulated in plate notation would either need to be converted to it or the ERM needs to be obtained in a different way.
 \item So many different models possible; bayesian / non-bayesian versions $\rightarrow$ either have all of them or only bayesians and choose uninformed priors; but bayesian stuff in gaussian mixture model may be confusing for ppl familiar with k-means
-\item probabilistic relationships not captured anymore
-\item categorical variables need to be 1-of-K coded or if not, procedure needs to capture dimensionality of categorical variables [TODO: add this information to the place where the translation of 1-of-K coded variables happens]
-\item although not needed when customizing and applying the probabilistic models, machine learning scientist might still be useful to detect formal issues like violated assumptions
+\item although not needed when customizing and applying the probabilistic models, machine learning scientists might still be useful to detect formal issues like violated assumptions
 \end{itemize}
 
 \textbf{Extensions and Future Work}
 \begin{itemize}
 \item implement framework
+\item extend translation to other modeling languages
 \item translate more models
 \item analyze different types of models (not only unsupervised)
 \item use min-max cardinalities given by plates (needs to be supported by data model language)

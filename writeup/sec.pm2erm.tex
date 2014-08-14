@@ -9,7 +9,16 @@ In this section we propose a technique to transform a given directed graphical m
 \item\label{itm:apm2erm} Convert the APM into an ERM.
 \item Reduce the ERM to avoid translation artifacts.
 \end{enumerate}
-The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors show that the mapping is applicable for every plate model, they do not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs may not be well-formed. Converting plate models containing multidimensional variables directly leads to database models containing non-atomic attributes that may implicitly encode relationships by acting as foreign keys. Although non-atomic attributes are no problem in ERMs in general, they are a problem in the plate model when it comes to the translation to an ERM.\footnote{Translating the Dirichlet multinomial clustering plate model directly rather than its APM, encodes the relationship between documents and clusters by the attribute $\vec z$ that is assigned to the document entity type. When reading the model, one has to look at the definition and constraints of this variable to see that it acts as a foreign key.}
+The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors show that the mapping is applicable for every plate model, they do not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs may not be well-formed. Converting plate models containing multidimensional variables leads to database models containing non-atomic attributes that may implicitly encode relationships by acting as foreign keys. Although non-atomic attributes are permitted in ERMs in general, they are a problem in the plate model when it comes to the translation to an ERM.\footnote{Translating the Dirichlet multinomial clustering plate model directly rather than its APM, encodes the relationship between documents and clusters by the attribute $\vec z$ that is assigned to the document entity type. When reading the model, one has to look at the definition and constraints of this variable to see that it acts as a foreign key.} Avoiding non-atomic attributes makes ERMs easier to extend and to maintain. If desired, vector component attributes can still be stored as arrays or lists in the physical database model.
+
+%\textbf{Why is converting vectors to entities better than adding it to the entity as vector variable?}
+%\begin{itemize}
+%\item You could put the $\mu$ vector as vector attribute to clusters or add them as columns (problem with different sized vectors, e.g. documents of different lengths)
+%\item 1st normal form harmed, but not that bad because there are not update anomalies
+%\item reusable
+%\item extensible
+%\item efficient storage can be done in physical design rather than logical (ERM)
+%\end{itemize}
 
 We extend the translation procedure of \textcite{heckerman2007probabilistic} by converting the plate model into an APM first, then map the APM to an ERM, and reduce the ERM afterwards. Applying this extended procedure produces well-formed ERMs. Note that this translation is lossy, i.e. it discards any probabilistic dependencies.
 

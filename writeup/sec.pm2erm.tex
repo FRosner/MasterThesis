@@ -123,7 +123,7 @@ In case of only two overlapping plates this yields a malformed\footnote{Like in 
 
 With this set of rules it is possible to translate any given plate model into an ERM. However in some cases the resulting model might not be well-formed. It might express simple one-to-many relationships in a complicated way or even contain modeling errors like weak entitites that do not extend the primary key.
 
-\begin{Example} Translation of the Dirichlet multinomial text clustering APM to a verbose ERM
+\begin{Example} Translation of the Dirichlet multinomial clustering APM to a verbose ERM
 \label{ex:clustering-erm-verbose}
 
 Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded} (Example~\ref{ex:clustering-apm}, p.~\pageref{ex:clustering-apm}). The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship Word---D-T-W and Cluster---Document, respectively. The Document---D-T-W relationship is not weak because the Token plate is nested. It is easily seen that there are degenerated cases of one-to-many relationships. In the next section we describe how to reduce such ERMs to obtain syntactically correct and well-formed ones.

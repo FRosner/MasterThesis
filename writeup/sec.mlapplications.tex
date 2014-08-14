@@ -14,15 +14,15 @@ Often, neither domain experts nor application programmers have the required know
 
 \subsection{Traditional Architecture}
 
-\begin{figure}[t]
-\centering
-\scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_typical.tex}}
-\caption[Traditional machine learning application architecture]{Traditional machine learning application architecture.}\label{fig:ml-application-architecture}
-\end{figure}
-
 The traditional architecture is visualized in Figure~\ref{fig:ml-application-architecture}. In step (A), the data are plugged into an inference algorithm implementation, which (B) outputs a parameter estimate or some hidden variable values. In (C), the results are combined with the data to be available for further analysis, which happens in (D). Afterwards the results are visualized.
 
 Here the domain expert provides the data and the problem to solve. He may select a model on his own or with the help of a machine learning expert. He will analyze and interpret the results. The application programmer then has to select a standard implementation of the desired probabilistic model together with an inference algorithm. He must implement an interface to plug in the data in (A) and has to understand the output of the inference algorithm in (B). This can sometimes be difficult to do, especially if not all required information are provided.\footnote{In a Bayesian approach parameters are often marginalized over. An implementation using collapsed Gibbs sampling (\cite{liu1994collapsed}) like the topic modeling component of the machine learning for language toolkit (\cite{mccallum2002mallet}) might not output a point estimate for those parameters.} The application programmer needs to understand the probabilistic model to calculate the missing parameters and variables. In (C), the results of the inference algorithm need to be combined with the original data. Although this can be done easily by reading the documentation of the implementation, it can be quite tedious to cope with different file formats or a lack of documentation. The analysis in (D) is straightforward when (C) is completed successfully. Typical analysis tasks are group-by aggregations, transformations and filters on both original and inferred data.
+
+\begin{figure}[t]
+\centering
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_typical.tex}}
+\caption[Traditional machine learning application architecture]{Traditional machine learning application architecture. The data is (A) first piped into a selected inference algorithm implementation, then (B) the parameter estimate is retrieved and (C) integrated with the data. Afterwards, (D) analysis is done on the integrated results, usually followed by some visualization.}\label{fig:ml-application-architecture}
+\end{figure}
 
 All the tasks from (A) to (D) require different knowledge, often related to statistics and probabilistic modeling, that may not be available to the application programmer or domain expert. The traditional architecture suffers from the lack of a machine learning expert and does not allow to rapidly develop customized machine learning applications by ordinary software developers. Our data model driven architecture on the other hand enables any person that is familiar with simple data models like ERMs to build a customized machine learning application without touching any complex mathematical equations or probabilistic models at any time.
 
@@ -31,7 +31,7 @@ All the tasks from (A) to (D) require different knowledge, often related to stat
 \begin{figure}
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_dmdriven.tex}}
-\caption[Data model driven machine learning application architecture]{Data model driven machine learning application architecture.}\label{fig:ml-application-architecture-dm}
+\caption[Data model driven machine learning application architecture]{Data model driven machine learning application architecture. A probabilistic model with inference algorithm is selected by selecting an ERM. Data integration is trivial after (C) matching both, the domain and the probabilistic model ERM. The framework (A + B) computes the inference results, which (D) are used for analysis just like in the traditional architecture.}\label{fig:ml-application-architecture-dm}
 \end{figure}
 
 The data model driven architecture transforms most of the problems stated above into working with data models. The architecture is shown in Figure~\ref{fig:ml-application-architecture-dm}. It requires a framework that hides all probabilistic and mathematical details behind simple data models. By translating probabilistic models into ERMs the problem of data integration (C) is moved to a higher abstraction level. The translation process has to be done during the framework development. It is described further in Section~\ref{sec:pm2erm}. Instead of coping with files and complex mathematical formulas, the analyst can simply select a probabilistic model by integrating its data model into the domain data model. Section~\ref{sec:erm_matching} goes into detail about matching both models.

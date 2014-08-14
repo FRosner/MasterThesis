@@ -9,7 +9,7 @@ In this section we propose a technique to transform a given directed graphical m
 \item\label{itm:apm2erm} Convert the APM into an ERM.
 \item Reduce the ERM to avoid translation artifacts.
 \end{enumerate}
-The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors show that the mapping is applicable for every plate model, they do not go into detail about the concrete form of the resulting DAPER models / ERMs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs may not be well-formed. Converting plate models containing multidimensional variables leads to database models containing non-atomic attributes that may implicitly encode relationships by acting as foreign keys. Although non-atomic attributes are permitted in ERMs in general, they are a problem in the plate model when it comes to the translation to an ERM.\footnote{Translating the Dirichlet multinomial clustering plate model directly rather than its APM, encodes the relationship between documents and clusters by the attribute $\vec z$ that is assigned to the document entity type. When reading the model, one has to look at the definition and constraints of this variable to see that it acts as a foreign key.} Avoiding non-atomic attributes makes ERMs easier to extend and to maintain. If desired, vector component attributes can still be stored as arrays or lists in the physical database model.
+The translation of APMs to ERMs is based on the mapping from plate models to directed acyclic probabilistic entity-relationship (DAPER) models proposed by \textcite{heckerman2007probabilistic}. Although the authors show that the mapping is applicable for every plate model, they do not go into detail about the concrete structure of the resulting DAPER models in terms of quality criteria for logical database designs. If the mapping is applied directly to arbitrary plate models, the resulting ERMs may not be well-formed. Converting plate models containing multidimensional variables leads to database models containing non-atomic attributes that may implicitly encode relationships by acting as foreign keys. Although non-atomic attributes are permitted in ERMs in general, they are a problem in the plate model when it comes to the translation to an ERM.\footnote{Translating the Dirichlet multinomial clustering plate model directly rather than its APM, encodes the relationship between documents and clusters by the attribute $\vec z$ that is assigned to the document entity type. When reading the model, one has to look at the definition and constraints of this variable to see that it acts as a foreign key.} Avoiding non-atomic attributes makes ERMs easier to extend and to maintain. If an efficient storage solution is desired, vector component attributes can still be stored as arrays or lists in the physical database model.
 
 %\textbf{Why is converting vectors to entities better than adding it to the entity as vector variable?}
 %\begin{itemize}
@@ -30,20 +30,13 @@ The following sections offer detailed explanations of all steps to translate a p
 
 Plate models may contain multidimensional variables, such as vectors or matrices. To receive an APM, multidimensional variables are split into their components so that there is one variable for each component. A plate containing an indexed component vertex represents the multidimensional variable in the APM. Edges are discarded. Figure~\ref{fig:pm2apm} shows the conversion of plate models containing a vector and a matrix variable, respectively. The multidimensional variables $\vec x$ and $X$ are converted into individual component variables $x_n$ and $x_{nm}$, surrounded by plates of the corresponding dimensionality.
 
-\begin{figure}[t]
+\begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/apm_vectors.tex}}
-\caption[Conversion of plate models to atomic plate models]{Conversion of plate models containing multidimensional variables to atomic plate models by modeling the components as individual variables. Subfigure (a) shows the conversion of an $|N|$ dimensional vector variable $\vec x$ to its components $x_n$. In (b), the $|N| \times |M|$ matrix $X$ is converted into a variable inside two plates, one for each dimension. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
+\caption[Conversion of plate models to atomic plate models]{Conversion of plate models containing multidimensional variables to atomic plate models by creating the components as individual variables. Subfigure (a) shows the conversion of an $|N|$ dimensional vector variable $\vec x$ to its components $x_n$. In (b), the $|N| \times |M|$ matrix $X$ is converted into a variable inside two plates, one for each dimension. Arrows are removed because they do not express conditional distributions anymore.}\label{fig:pm2apm}
 \end{figure}
 
-Multidimensional variables are often used as parameters for conditional probability distributions. Consider the parameter $\vec \mu$ of a multinomial distribution that contains the probability for each possible outcome or the covariance matrix $\Sigma$ of a multivariate Gaussian distribution. In that case one cannot decompose those variables without losing the relationship between their components concerning the generative process of the model. However, it is not necessary to preserve this relationship in the conversion process to a database model, as it will not be used as a generative model anymore. We thus discard all the edges after the conversion process to explicitly state that they may not represent conditional probability distributions in the APM.
-
-\begin{Example} Atomic plate model creation for Dirichlet multinomial text clustering
-\label{ex:clustering-apm}
-
-Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on the plate model for Dirichlet multinomial text clustering (see Example~\ref{ex:clustering-pm}, page~\pageref{ex:clustering-pm}). The $|V|$ dimensional vocabulary domain Words of the vector variables $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$ is now made explicit and the Clusters plate is extended to the $|K|$ dimensional vector variables $\vec z_n$, $\vec \pi$ and $\vec \alpha$.
-
-\begin{figure}[h!]
+\begin{figure}[p]
 \begin{minipage}[t]{0.49\linewidth}
 	\begin{center}
 		\subfloat[Original clustering plate model]{\label{fig:clustering_platemodel_original}
@@ -61,6 +54,13 @@ Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on 
 \label{fig:clustering_platemodels}
 \end{figure}
 
+Multidimensional variables are often used as parameters for conditional probability distributions. Consider the parameter $\vec \mu$ of a multinomial distribution that contains the probability for each possible outcome or the covariance matrix $\Sigma$ of a multivariate Gaussian distribution. In that case one cannot decompose those variables without losing the relationship between their components concerning the generative process of the model. However, it is not necessary to preserve this relationship in the conversion process to a database model, as it will not be used as a generative model anymore. We thus discard all edges after the conversion process to explicitly state that they may not represent conditional probability distributions in the APM.
+
+\begin{Example} Atomic plate model creation for Dirichlet multinomial text clustering
+\label{ex:clustering-apm}
+
+Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on the plate model for Dirichlet multinomial text clustering (see Example~\ref{ex:clustering-pm}, page~\pageref{ex:clustering-pm}). The $|V|$ dimensional vocabulary domain Words of the vector variables $\vec d_{nm}$, $\vec \mu_k$ and $\vec \beta_k$ is now made explicit and the Clusters plate is extended to the $|K|$ dimensional vector variables $\vec z_n$, $\vec \pi$ and $\vec \alpha$.
+
 \end{Example}
 
 \subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}
@@ -72,13 +72,13 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \begin{description}
 \item[Translate plates to entity types.] Each plate is represented as an entity type. Usually there is an index set associated with each plate. The cardinality of this set states how many entities of the given type will be present in the database. Each entity type gets an artificial key (ID). Figure~\ref{fig:pm2erm_uno_local} illustrates the translation of a plate representing $n$ Objects to the Object entity type.
 
+\item[Translate plate intersections to relationships.] In general, plate intersections represent many-to-many relationships between the corresponding entity types. In contrast to the original mapping we express all relationships as association entity types\footnote{For brevity we refer to association entity types as association entities from now on. This is just an abbreviation and not to be confused with the concrete entities in a database that correspond to rows in a table.} (\cite[p.~86-88]{elmasri2007database}). This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
+
 \begin{figure}[t]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_uno_local.tex}}
 \caption[Translation of a plate containing a single variable to an ERM]{Translation of a plate containing a variable $x_n$ to an entity type having an artificial key ID and an attribute $x$.}\label{fig:pm2erm_uno_local}
 \end{figure}
-
-\item[Translate plate intersections to relationships.] In general, plate intersections represent many-to-many relationships between the corresponding entity types. In contrast to the original mapping we express all relationships as association entity types\footnote{For brevity we refer to association entity types as association entities from now on. This is just an abbreviation and not to be confused with the concrete entities in a database that correspond to rows in a table.} (\cite[p.~86-88]{elmasri2007database}). This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
 
 \begin{figure}[t]
 \centering
@@ -121,12 +121,12 @@ In case of only two overlapping plates this yields a malformed\footnote{Like in 
 \item[Translate overlapping plates with same index set to self relationships.] When converting plate models with matrix or tensor variables to APMs, the translation procedure will produce overlapping plates as illustrated in Figure~\ref{fig:pm2apm}b. Given a matrix with equal dimensions $N = M$, this will result in two overlapping plates of the same index set. These are simply translated as a many-to-many self relationships. The matrix components are then represented as an attribute of the resulting association entity. Figure~\ref{fig:gaussian_mixture} in Appendix~A contains a conversion of the matrix variable $\Sigma$.
 \end{description}
 
-With this set of rules it is possible to translate any given plate model into an ERM. However in some cases the resulting model might not be well-formed. It might express simple one-to-many relationships in a complicated way or even contain modeling errors like weak entitites that do not extend the primary key.
+With this set of rules it is possible to translate any given plate model into an ERM. However in some cases the resulting model might not be well-formed. It might express simple one-to-many relationships in a complicated way or even contain modeling errors like weak entitites that do not extend the primary key. The reduction step described in the next section deals with those problems.
 
 \begin{Example} Translation of the Dirichlet multinomial clustering APM to a verbose ERM
 \label{ex:clustering-erm-verbose}
 
-Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded} (Example~\ref{ex:clustering-apm}, p.~\pageref{ex:clustering-apm}). The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship Word---D-T-W and Cluster---Document, respectively. The Document---D-T-W relationship is not weak because the Token plate is nested. It is easily seen that there are degenerated cases of one-to-many relationships. In the next section we describe how to reduce such ERMs to obtain syntactically correct and well-formed ones.
+Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded} (Example~\ref{ex:clustering-apm}, p.~\pageref{ex:clustering-apm}). The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship Word---D-T-W and Cluster---Document, respectively. The Document---D-T-W relationship is not weak because the Token plate is nested. It is easily seen that there are degenerated cases of one-to-many relationships.
 
 \end{Example}
 
@@ -139,7 +139,7 @@ Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the tr
 \subsubsection{Reduction of Translated Entity Relationship Models}
 \label{sec:erm_reduction}
 
-In order to produce well-formed ERMs from plate models it is necessary to apply a reduction step on the resulting ERM of the plate model to APM conversion. This reduction will make sure that all artifacts which may result by applying the rules described in the previous section are eliminated. Those artifacts are (1) weak entities with only one weak relationship and (2) duplicate relationships.
+In order to produce well-formed ERMs from plate models it is necessary to apply a reduction step on the resulting ERM of the plate model to APM conversion. This reduction will make sure that all translation artifacts which may result by applying the rules described in the previous section are eliminated. Those artifacts are (1) weak entities with only one weak relationship and (2) duplicate relationships.
 
 Weak entities with only one weak relationship may occur in cases like shown in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables and nested plates change weak relationships to normal ones. If all but one weak relationship gets changed, the construct is not well-formed because the weak entity does not extend a primary key. The weak relationship is then simply a one-to-one relationship and both entities are merged, leaving a single relationship.
 
@@ -168,7 +168,7 @@ The resulting ERM is well-formed and expresses the data model of Dirichlet multi
 \subsection{Matching Data Models and Translated Entity Relationship Models}
 \label{sec:erm_matching}
 
-Given a set of probabilistic models the user selects a suiting model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. It can either be matched on ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, p.~218-224.
+Given a set of probabilistic models the user selects a suitable model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. It can either be matched on ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, p.~218-224.
 
 To enable different applications of the probabilistic models (e.g., not only text clustering but also document clustering or clustering of supermarket customers), the ERM templates need to be generic. Instead of using domain specific terms like \emph{document}, \emph{word} and \emph{token} one should use generic ones like \emph{entity}, \emph{feature} and \emph{occurrence}. Depending on the use case a feature can then be a word or a product for document and customer clustering, respectively.
 

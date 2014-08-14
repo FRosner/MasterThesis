@@ -1,10 +1,10 @@
 \section{Machine Learning Application Architectures}
 
-This section gives an overview of two machine learning application architectures: The traditional one and the data model driven architecture. We compare both approaches, identify the roles involved in the development process and challenges that arise from choosing either architecture. We conclude this chapter by discussing why the data model driven approach is superior to the traditional one in terms of usability, comprehensibility and flexibility for the common users.
+This section gives an overview of two machine learning application architectures: The traditional one and the data model driven architecture. We compare both approaches and identify the roles and challenges involved in the development process. We conclude this chapter by discussing why the data model driven approach is superior to the traditional one in terms of usability, comprehensibility and flexibility for the common users.
 
-\subsection{Roles}
+\subsection{Roles and Challenges}
 
-In a typical machine learning application there is a \emph{domain expert} who has data available and a problem that needs to be solved. Common tasks are exploratory analysis or hypothesis testing (\cite{tukey1980we}). A popular technique to perform such analysis is to use probabilistic models. By selecting a model that fits the given data one can then use an inference algorithm to calculate values of hidden variables. Those variables correspond to some hidden structure of the data that is of interest for the analyst.
+In a typical machine learning application environment there is a \emph{domain expert} who has data available and a problem that needs to be solved. Common tasks are exploratory analysis or hypothesis testing (\cite{tukey1980we}). A popular technique to perform such analysis is to use probabilistic models. By selecting a model that fits the given data one can then use an inference algorithm to calculate values of hidden variables. Those variables correspond to some hidden structure of the data that is of interest for the analyst.
 
 Most of the time the domain expert will either have an \emph{application programmer} at hand or do the work himself. The application programmer is responsible for implementing the analysis pipeline, plugging the data and performing/preparing the analysis.
 
@@ -26,18 +26,22 @@ Here the domain expert provides the data and the problem to solve. He may select
 
 All the tasks from (A) to (D) require different knowledge, often related to statistics and probabilistic modeling, that may not be available to the application programmer or domain expert. The traditional architecture suffers from the lack of a machine learning expert and does not allow to rapidly develop customized machine learning applications by ordinary software developers. Our data model driven architecture on the other hand enables any person that is familiar with simple data models like ERMs to build a customized machine learning application without touching any complex mathematical equations or probabilistic models at any time.
 
+\newpage %manual page break to avoid footnote being pushed away
+
 \subsection{Data Model Driven Architecture}
 
 \begin{figure}
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/MLApplication_dmdriven.tex}}
-\caption[Data model driven machine learning application architecture]{Data model driven machine learning application architecture. A probabilistic model with inference algorithm is selected by selecting an ERM. Data integration is trivial after (C) matching both, the domain and the probabilistic model ERM. The framework (A + B) computes the inference results, which (D) are used for analysis just like in the traditional architecture.}\label{fig:ml-application-architecture-dm}
+\caption[Data model driven machine learning application architecture]{Data model driven machine learning application architecture. A probabilistic model with inference algorithm is chosen by selecting an ERM. Data integration (C) is trivial after matching both, the domain and the probabilistic model ERM. The framework (A + B) computes the inference results, which (D) are used for analysis just like in the traditional architecture.}\label{fig:ml-application-architecture-dm}
 \end{figure}
 
-The data model driven architecture transforms most of the problems stated above into working with data models. The architecture is shown in Figure~\ref{fig:ml-application-architecture-dm}. It requires a framework that hides all probabilistic and mathematical details behind simple data models. By translating probabilistic models into ERMs the problem of data integration (C) is moved to a higher abstraction level. The translation process has to be done during the framework development. It is described further in Section~\ref{sec:pm2erm}. Instead of coping with files and complex mathematical formulas, the analyst can simply select a probabilistic model by integrating its data model into the domain data model. Section~\ref{sec:erm_matching} goes into detail about matching both models.
+The data model driven architecture transforms most of the problems stated above into working with data models. The architecture is shown in Figure~\ref{fig:ml-application-architecture-dm}. It requires a framework that hides all probabilistic and mathematical details behind simple data models. By translating probabilistic models into ERMs, the problem of data integration (C) is moved to a higher abstraction level. The translation process has to be done during the framework development. It is described further in Section~\ref{sec:pm2erm}. Instead of coping with files and complex mathematical formulas, the analyst can simply select a probabilistic model by integrating its data model into the domain data model. Section~\ref{sec:erm_matching} goes into detail about matching both models.
 
 This moves the integration step (C) being the first step in the development process. Selecting an inference algorithm, plugging the input data into it and reading the results (A~+~B) is done entirely by the framework. This is possible because the framework offers a fixed data model which the inference results match. The inference result data are simply included into the schema, depending on the underlying architecture, e.g. as SQL statements into a relational database.
 
-This leaves the analyst only with the analysis on the integrated data (D). However, as the data model template of each probabilistic model is known it is possible to provide a set of standard analysis tasks based on the inference results.
+This leaves the analyst only with the analysis on the integrated data (D). However, as the data model template of each probabilistic model is known during framework development time, it is possible to provide a set of standard analysis tasks based on the inference results.
 
 By hiding probabilistic details and using a well-known and simple graphical language like entity relationship diagrams, the data model driven approach creates a more comprehensible view on machine learning methods for users with no advanced knowledge in these tools. Choosing and integrating probabilistic models for different applications by selecting ERMs increases usability compared to the traditional approach. By working on the logical database design layer, inference algorithm implementations or the physical data model can be exchanged easily without any negative effect on the integrated data model. The framework could, for example, operate on relational databases or file level locally on a single machine or in a distributed environment.
+
+[TODO: How to implement the framework? Standalone? Extension to existing software like Rapid Miner?]

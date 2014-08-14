@@ -51,7 +51,7 @@ A typical way to model text data is to model documents as a list of independent 
 		\label{fig:clustering_platemodel}
 \end{figure}
 
-Given a collection of documents $N$, where each document $n \in N$ consists of a set of tokens $M_n$, each document is assigned to a cluster $k \in K$. The vector $\vec z_{n}$ is a 1-of-K coded variable (\cite{bishop2006pattern},~p.~424) having a 1 at position $k$ if the document $n$ is assigned to cluster $k$. Each cluster has its own word distribution parameterized by $\vec \mu_k$. The plate model is shown in Figure~\ref{fig:clustering_platemodel}.
+Given a collection of documents $N$, where each document $n \in N$ consists of a set of tokens $M_n$. A token $m$ is of exactly one token type, called \emph{word}, that comes from a vocabulary $V$. The type of each token is denoted by $\vec d_{nm}$, which is a $|V|$ dimensional 1-of-K coded variable (\cite{bishop2006pattern},~p.~424) having exactly a single 1 at position $v$ if the token $m$ is of word type $v$. Each document is assigned to a cluster $k \in K$, 1-of-K coded in $\vec z_{n}$, which has a 1 at position $k$ if the document $n$ is assigned to cluster $k$. Each cluster has its own word distribution parameterized by $\vec \mu_k$. The plate model is shown in Figure~\ref{fig:clustering_platemodel}.
 
 The variables have the following constraints:
 \begin{align}

@@ -1,6 +1,6 @@
 \section{Machine Learning Application Architectures}
 
-This section gives an overview of two machine learning application architectures: The traditional one and the data model driven architecture. We compare both approaches, identify the roles involved in the development process and challenges that arise from choosing either architecture.
+This section gives an overview of two machine learning application architectures: The traditional one and the data model driven architecture. We compare both approaches, identify the roles involved in the development process and challenges that arise from choosing either architecture. We conclude this chapter by discussing why the data model driven approach is superior to the traditional one in terms of usability, comprehensibility and flexibility for the common users.
 
 \subsection{Roles}
 
@@ -40,4 +40,4 @@ This moves the integration step (C) being the first step in the development proc
 
 This leaves the analyst only with the analysis on the integrated data (D). However, as the data model template of each probabilistic model is known it is possible to provide a set of standard analysis tasks based on the inference results.
 
-Thus compared to the traditional architecture, the data model driven one enables domain experts and application programmers to use probabilistic models and customize them by integrating application specific meta data. No statistical knowledge is required, only the understanding of data models like ERMs and/or the relational model. Using ERMs allows to use different physical data models depending on the desired infrastructure. The framework could, for example, operate on relational databases or file level in a distributed environment or locally on a single machine.
+By hiding probabilistic details and using a well-known and simple graphical language like entity relationship diagrams, the data model driven approach creates a more comprehensible view on machine learning methods for users with no advanced knowledge in these tools. Choosing and integrating probabilistic models for different applications by selecting ERMs increases usability compared to the traditional approach. By working on the logical database design layer, inference algorithm implementations or the physical data model can be exchanged easily without any negative effect on the integrated data model. The framework could, for example, operate on relational databases or file level locally on a single machine or in a distributed environment.

@@ -51,7 +51,7 @@ A typical way to model text data is to model documents as a list of independent 
 		\label{fig:clustering_platemodel}
 \end{figure}
 
-Given a collection of documents $N$, where each document $n \in N$ consists of a set of tokens $M_n$. A token $m$ is of exactly one token type, called \emph{word}, that comes from a vocabulary $V$. The type of each token is denoted by $\vec d_{nm}$, which is a $|V|$ dimensional 1-of-K coded variable (\cite{bishop2006pattern},~p.~424) having exactly a single 1 at position $v$ if the token $m$ is of word type $v$. Each document is assigned to a cluster $k \in K$, 1-of-K coded in $\vec z_{n}$, which has a 1 at position $k$ if the document $n$ is assigned to cluster $k$. Each cluster has its own word distribution parameterized by $\vec \mu_k$. The plate model is shown in Figure~\ref{fig:clustering_platemodel}.
+Let $N$ be a collection of documents, where each document $n \in N$ consists of a set of tokens $M_n$. A token $m \in M_n$ is of exactly one token type, called \emph{word}, that comes from a vocabulary $V$. The type of each token is denoted by $\vec d_{nm}$, which is a $|V|$ dimensional 1-of-K coded variable (\cite{bishop2006pattern},~p.~424) having exactly a single 1 at position $v$ if the token $m$ is of word type $v$. Each document is assigned to a cluster $k \in K$, 1-of-K coded in $\vec z_{n}$, which has a 1 at position $k$ if the document $n$ is assigned to cluster $k$. Each cluster has its own word distribution parameterized by $\vec \mu_k$. The global cluster proportions are represented as $\vec \pi$. To adopt a Bayesian view, we add hyper-parameters $\vec \alpha$ and $\vec \beta_k$ for $\vec \pi$ and $\vec \mu_k$, respectively. The plate model is shown in Figure~\ref{fig:clustering_platemodel}.
 
 The variables have the following constraints:
 \begin{align}
@@ -67,8 +67,9 @@ P(\boldsymbol{d},\boldsymbol{z}, \boldsymbol{\mu}, \vec \pi | \vec \alpha, \bold
  P(\vec \pi | \vec \alpha) \cdot
  \left(\prod_{n \in N} P(\vec z_n | \vec \pi)\right) \cdot
  \left(\prod_{k \in K}P(\vec \mu_k | \vec \beta_k)\right) \cdot 
- \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_n, \vec \mu_k)\right).
+ \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_n, \vec \mu_k)\right),
 \end{multline}
+where $\boldsymbol{d} = \{\vec d_{nm} : n \in N \land m \in M_n \}$ is a short notation for all token vectors, $\boldsymbol{z} = \{ \vec z_n : n \in N \}$ are the cluster assignments of all documents, $\boldsymbol{\mu} = \{ \vec \mu_k : k \in K \}$ represents the word proportions of all clusters and $\boldsymbol{\beta} = \{ \vec \beta_k : k \in K \}$ denotes the set of all hyper-parameters for the word proportions.
 
 The generative process is as follows:
 \begin{enumerate}

@@ -10,7 +10,7 @@ Latent Dirichlet allocation (LDA) is one of the most popular topic models (\cite
 
 \subsubsection{Probabilistic Model}
 
-Given a collection of documents $N$, where each document $n \in N$ consists of a set of tokens $M_n$, LDA assigns a topic $k \in K$ to each token $m \in M_n$. $\vec z_{nm}$ is a 1-of-K coded variable having a 1 at position $k$ if the token $m$ in document $n$ is assigned to topic $k$. Each topic has its own word distribution parameterized by $\vec \mu_k$. Figure~\ref{fig:topic_platemodel_original} shows LDA in plate notation.
+Let $N$ be a collection of documents, where each document $n \in N$ consists of a set of tokens $M_n$. A token $m \in M_n$ is of exactly one token type that comes from a vocabulary $V$. The type of each token 1-of-K coded in $\vec d_{nm}$ having exactly a single 1 at position $v$ if the token $m$ is of word type $v$. LDA assigns a topic $k \in K$ to each token $m \in M_n$. $\vec z_{nm}$ is a 1-of-K coded variable having a 1 at position $k$ if the token $m$ in document $n$ is assigned to topic $k$. Each topic has its own word distribution parameterized by $\vec \mu_k$. The topic proportions per document are represented as $\vec \theta_n$. To adopt a Bayesian view, hyper-parameters $\vec \alpha$ and $\vec \beta_k$ for $\vec \theta_n$ and $\vec \mu_k$ are added. Figure~\ref{fig:topic_platemodel_original} shows LDA in plate notation.
 
 The variables have the following constraints:
 \begin{align}
@@ -44,8 +44,9 @@ P(\boldsymbol{d},\boldsymbol{z}, \boldsymbol{\mu}, \boldsymbol{\theta} | \vec \a
  \left(\prod_{n \in N} P(\vec \theta_n | \vec \alpha)\right) \cdot
  \left(\prod_{n \in N} \prod_{m \in M_n} P(\vec z_{nm} | \vec \theta_n)\right) \cdot \\
  \left(\prod_{k \in K} P(\vec \mu_k | \vec \beta_k)\right) \cdot
- \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_{nm}, \vec \mu_k)\right).
+ \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_{nm}, \vec \mu_k)\right),
 \end{multline}
+where $\boldsymbol{d} = \{\vec d_{nm} : n \in N \land m \in M_n \}$ is a short notation for all token vectors, $\boldsymbol{z} = \{ \vec z_{nm} : n \in N \land m \in M_n \}$ are the cluster assignments of all tokens, $\boldsymbol{\mu} = \{ \vec \mu_k : k \in K \}$ represents the word proportions of all topics, $\boldsymbol{\theta} = \{ \vec \theta_n : n \in N \}$ stands for the topic mixtures of all documents and $\boldsymbol{\beta} = \{ \vec \beta_k : k \in K \}$ denotes the set of all hyper-parameters for the word proportions.
 
 The generative process is as follows:
 \begin{enumerate}

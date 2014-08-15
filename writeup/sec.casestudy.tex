@@ -1,6 +1,6 @@
 \section{Case Study: Text Topic Modeling}\label{sec:casestudy}
 
-As a greater practical example we present a complete use case of our approach. For this purpose we use TopicExplorer, an application to explore document collections using probabilistic topic models (\cite{hinneburg2012topicexplorer}) [TODO: cite current paper as well]. In this case study, TopicExplorer will be used to explore and analyze Japanese blogs about the Fukushima disaster (\cite{ines2011fukushima}).
+As a greater practical example we present a complete use case of our approach. For this purpose we use TopicExplorer, an application to explore document collections using probabilistic topic models (\cite{hinneburg2014topic}; \cite{hinneburg2012topicexplorer}). In this case study, TopicExplorer will be used to explore and analyze Japanese blogs about the Fukushima disaster (\cite{ines2011fukushima}).
 
 In the first subsection we explain the probabilistic model behind TopicExplorer's topic modeling and demonstrate the translation of this plate model to an ERM. This is followed by a description of the domain specific input data. The next subsection shows how the inference results and the meta data are integrated. In the last part we showcase some typical analysis on the results.
 
@@ -119,7 +119,7 @@ To analyze the topic structure of given Japanese blog entries, the framework use
 
 As a basic visualization it is possible to present entities just as their attribute values using simple relational algebra operations such as selections, projections and joins. One could visualize the document collection by presenting a list of blog entry titles that expand to the full text when selected. Tokens can be visualized in their preprocessed form or, together with their position index, in the full text of their assigned document. Visualizing the vocabulary might happen as a list of words. However, it is not trivial to visualize a topic as it is mathematically speaking just a probability distribution. Although displaying a probability distribution as a bar plot for example is a well-known practice it may be hard to understand for normal users. Additionally, the vocabulary is usually rather big and a simple bar plot of all probabilities can be difficult to draw.
 
-For a sophisticated visualization that is aimed to be better interpretable, more complex analysis steps on the integrated data are required. We present a few of them that are part of the current version of TopicExplorer [TODO: cite demo paper].
+For a sophisticated visualization that is aimed to be better interpretable, more complex analysis steps on the integrated data are required. We present a few of them that are part of the current version of TopicExplorer (\cite{hinneburg2014topic}).
 
 \begin{description}
 \item[Entry topic mixture.] LDA assigns a vector of topic probabilities stored in D-T.$\theta$ for each entry, called a topic mixture. This could either be presented as a list of topics with decreasing order of probabilities or as a pie chart like in the Topic Model Visualization Engine by \textcite{chaney2012visualizing}.

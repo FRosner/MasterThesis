@@ -14,11 +14,4 @@ Ranking operations order entities by stored or calculated attributes and values.
 
 Note that usually, implementations of inference algorithms for probabilistic models work with generic IDs. Depending on the application, different preprocessing steps may be necessary to assign IDs to entities. When working with customer data for example, one can use the customer ID from the customer relationship management system. On the other hand when working with image or text data, preprocessing steps are necessary to cope with these unstructured data. [TODO: move this paragraph somewhere else?]
 
-It might come in handy if the framework offers some precalculated operations that solely depend on data of the probabilistic model. One could perform rankings or filters on the inferred data using the generic IDs or other variables of the model. This way, users that do not have a specific analysis plan in mind might use these as suggestions or to quickly explore their data without any further queries.
-
-[TODO: \textbf{Questions}]
-\begin{itemize}
-\item how is the analysis related to the statistical model or similar ones?
-\item what are the assumptions made when new probabilities are computed?
-\item when can OLAP / POLAP be applied?
-\end{itemize}
+It might come in handy if the framework offers some precalculated operations that solely depend on data of the probabilistic model. One could perform rankings or filters on the inferred data using the generic IDs or other variables of the model. This way, users that do not have a specific analysis plan in mind might use these as suggestions or to quickly explore their data without any further queries. The question if and how online analytical processing (OLAP) can be utilized remains to be investigated. \textcite{burdick2007olap} extend the OLAP data model to work with uncertainty, which might be useful in this setting.

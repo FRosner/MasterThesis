@@ -11,3 +11,17 @@ We present a technique to build an entity relationship model (ERM) from any prob
 We discuss how our data model driven approach surpasses the traditional architecture in terms of usability, comprehensibility and flexibility for the end users, that are typically domain experts and application programmers.
 
 The thesis is structured as follows. First, we give an overview of the data model driven architecture and how it differs from the traditional approach. In the next section we briefly introduce the concept of probabilistic modeling and inference, mainly using directed graphical models in plate notation (plate models). The fourth section describes the integration of those plate models and domain specific ERMs by translating the plate models to ERMs and matching both ERMs. The fifth section provides a quick insight what different analysis can be done with the integrated model. The last section offers a complete case study of a real world application to show how the techniques from this work can be applied. In addition to the models translated in the main part of this work, plate model to ERM translations for common models are found in Appendix~A (Gaussian mixture model), B (Bayesian linear regression) and C (hidden Markov model).
+
+\newpage
+
+\section{Related Work}
+
+Providing easy-to-use interfaces of machine learning algorithms is highly topical. The MLbase team of the University of California, Berkeley currently works on an application programming interface (API) to build distributed machine learning algorithm implementations with minimal complexity and competitive performance and scalability (\cite{sparks2013mli}). They focus on closing the gap between an algorithm prototype written by a scientist and the final product created by software engineers.
+
+The Hazy project (\cite{kumar2013hazy}) tries to provide programming and infrastructure abstractions to enable a user to quickly build new systems. Goal is to integrate statistical processing techniques with data processing systems. MADlib (\cite{hellerstein2012madlib}) is an analytics library for relational database systems built on structured query language (SQL) statements.
+
+[TODO: More related work like MLbase MLI]
+
+Traditional machine learning algorithm libraries like Weka (\cite{hall2009weka}) and scikit-learn (\cite{scikit-learn}) use a graphical user interface to enable users to quickly select and try different algorithms. The problem is that they do not offer an easy way to integrate the results with domain specific meta data and offer only a textual explanation of what the algorithms do. Our data model driven approach allows better data integration and visualizes how the inference results look like.
+
+However, all these approaches do not provide such an easy way to select and understand inference algorithms and to integrate existing meta data into the analysis like our approach does.

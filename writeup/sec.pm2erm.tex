@@ -114,7 +114,7 @@ In addition to the above rules we propose two additional transformation rules th
 \begin{description}
 \item[Adjust cardinalities depending on variable constraints.] In some applications there are variables that solely express probabilistic or uncertain relationships. Those are often coded as multidimensional binary variables whose components follow certain summation constraints. \textcite{bishop2006pattern} refers to this as the 1-of-K coding scheme.
 
-Given a binary variable that is bound to an association entity and a constraint that requires it to sum to one over either index set of the surrounding plates, this affects the cardinality of the resulting relationship in the same way that nested plates do. The entity type whose index set is summed over will not have a weak relationship to the association entity. The constrained attribute of the association entity is then removed.
+Let there be a binary variable that is bound to an association entity and a constraint that requires it to sum to one over either index set of the surrounding plates. This affects the cardinality of the resulting relationship in the same way that nested plates do. The entity type whose index set is summed over will not have a weak relationship to the association entity. The constrained attribute of the association entity is then removed.
 
 In case of only two overlapping plates this yields a malformed\footnote{Like in Figure~\ref{fig:pm2erm_covered_1} this malformed relationship is merged in the reduction step.} one-to-many relationship like shown in Figure~\ref{fig:pm2erm_bi_constraints}. It correctly expresses the fact that a given instance of B is only connected to one instance of A, while a given instance of A may be connected to many Bs.
 
@@ -168,11 +168,11 @@ The resulting ERM is well-formed and expresses the data model of Dirichlet multi
 \subsection{Matching Data Models and Translated Entity Relationship Models}
 \label{sec:erm_matching}
 
-Given a set of probabilistic models the user selects a suitable model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. It can either be matched on ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, p.~218-224.
+Given a set of probabilistic models the user selects a suitable model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. Matching can happen on an ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, p.~218-224.
 
 To enable different applications of the probabilistic models (e.g., not only text clustering but also document clustering or clustering of supermarket customers), the ERM templates need to be generic. Instead of using domain specific terms like \emph{document}, \emph{word} and \emph{token} one should use generic ones like \emph{entity}, \emph{feature} and \emph{occurrence}. Depending on the use case a feature can then be a word or a product for document and customer clustering, respectively.
 
-Matching happens by selecting the entity types and attributes in the domain data model that correspond to generic ones from the probabilistic model ERM. Both models are then merged together, replacing the generic names by domain specific ones.
+Matching is done by selecting the entity types and attributes in the domain data model that correspond to generic ones from the probabilistic model ERM. Both models are then merged together, replacing the generic names by domain specific ones.
 
 After matching both models the user receives an integrated model containing domain specific constructs enriched by constructs from the probabilistic model. The framework then selects an inference algorithm implementation, uses the provided data and calculates the results. The results are included in the merged database and can be used for further analysis.
 

@@ -116,7 +116,7 @@ The \emph{junction tree} algorithm (\cite{koller2009probabilistic},~p.~348~ff.; 
 
 In case exact inference is not tractable anymore, approximations like \emph{loopy belief propagation} (\cite{frey1998revolution}) can be used. The idea is to apply the sum-product algorithm that is constructed for trees on the graph containing loops. However, it is model dependent if passing the messages in circles will converge and not guaranteed to yield good results.
 
-Another approximation technique is variational message passing (\cite{winn2005variational}), another message passing algorithm. In contrast to belief propagation, it uses factorized variational approximation. This corresponds to additional independence assumptions for the posterior distribution which results in an approximation of the true posterior. There is no general rule which independence assumptions to make but the quality of the results depends on the chosen factorization.
+Another approximation technique is variational message passing (\cite{winn2005variational}). In contrast to belief propagation, it uses factorized variational approximation. This corresponds to additional independence assumptions for the posterior distribution which results in an approximation of the true posterior. There is no general rule which independence assumptions to make but the quality of the results depends on the chosen factorization.
 
 \subsubsection{Inference Algorithm Implementations}
 \label{subsec:custom-inference}

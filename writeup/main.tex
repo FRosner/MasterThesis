@@ -8,6 +8,10 @@
 \makeatother% siehe \makeatletter
 
 \usepackage[english]{babel}
+	\addto\captionsenglish{% Replace "english" with the language you use
+	  \renewcommand{\contentsname}%
+	    {Table of Contents}%
+	}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -54,19 +58,19 @@
 % \setcounter{page}{0}\clearpage\newpage
 \renewcommand{\baselinestretch}{1.4}\normalsize
 
-\addcontentsline{toc}{section}{Contents}
+\addcontentsline{toc}{section}{Table of Contents}
 \tableofcontents
 
 \renewcommand{\baselinestretch}{1.5}\normalsize
 
 \newpage
 
-\addcontentsline{toc}{section}{List of Figures}
-\listoffigures
+\input{pre.abbreviations.tex}
 
 \newpage
 
-\input{pre.abbreviations.tex}
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
 
 \newpage
 

@@ -63,7 +63,7 @@ Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on 
 
 \end{Example}
 
-\subsubsection{Translation of Atomic Plate Models to Entitiy Relationship Models}
+\subsubsection{Translation of Atomic Plate Models to Entity Relationship Models}
 
 After the plate model is converted to an APM, we will translate it to an ERM. \textcite{heckerman2007probabilistic} propose a mapping from plate models to DAPER models. DAPER models are essentially ERMs that may contain probabilistic dependencies between attributes of entity classes. They can be expanded to a directed graphical model given a skeleton\footnote{A skeleton of an ERM is a specification of the entity and relationship classes associated with a specific database.}.
 
@@ -103,10 +103,10 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/pm2erm_bi_constraints.tex}}
-\caption[Translation of plate intersections with 1-of-K variables to an ERM]{Translation of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The contraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type which index set is summed over will not have a weak relationship to the association entity.}\label{fig:pm2erm_bi_constraints}
+\caption[Translation of plate intersections with 1-of-K variables to an ERM]{Translation of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The contraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type whose index set is summed over will not have a weak relationship to the association entity.}\label{fig:pm2erm_bi_constraints}
 \end{figure}
 
-\item[Translate nested plates to one-to-many relationships.] If a plate is nested in another plate, the resulting relationship has a one-to-many cardinality instead of many-to-many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entities as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity.\footnote{In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the other entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}).} It then does no longer extend the key of the association entity.
+\item[Translate nested plates to one-to-many relationships.] If a plate is nested in another plate, the resulting relationship has a one-to-many cardinality instead of many-to-many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entities as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity.\footnote{In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the other entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}).} It then does no longer extend the key of the association entity. [TODO]
 \end{description}
 
 In addition to the above rules we propose two additional transformation rules that define the effect of variable constraints on the resulting ERM and cope with self relationships as a result of matrix or tensor variable translation.
@@ -114,7 +114,7 @@ In addition to the above rules we propose two additional transformation rules th
 \begin{description}
 \item[Adjust cardinalities depending on variable constraints.] In some applications there are variables that solely express probabilistic or uncertain relationships. Those are often coded as multidimensional binary variables whose components follow certain summation constraints. \textcite{bishop2006pattern} refers to this as the 1-of-K coding scheme.
 
-Given a binary variable that is bound to an association entity and a constraint that requires it to sum to one over either index set of the surrounding plates, this affects the cardinality of the resulting relationship in the same way that nested plates do. The entity type which is summed over will not have a weak relationship to the association entity. The constrained attribute of the association entity is then removed.
+Given a binary variable that is bound to an association entity and a constraint that requires it to sum to one over either index set of the surrounding plates, this affects the cardinality of the resulting relationship in the same way that nested plates do. The entity type whose index set is summed over will not have a weak relationship to the association entity. The constrained attribute of the association entity is then removed.
 
 In case of only two overlapping plates this yields a malformed\footnote{Like in Figure~\ref{fig:pm2erm_covered_1} this malformed relationship is merged in the reduction step.} one-to-many relationship like shown in Figure~\ref{fig:pm2erm_bi_constraints}. It correctly expresses the fact that a given instance of B is only connected to one instance of A, while a given instance of A may be connected to many Bs.
 
@@ -126,7 +126,7 @@ With this set of rules it is possible to translate any given plate model into an
 \begin{Example} Translation of the Dirichlet multinomial clustering APM to a verbose ERM
 \label{ex:clustering-erm-verbose}
 
-Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded} (Example~\ref{ex:clustering-apm}, p.~\pageref{ex:clustering-apm}). The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship Word---D-T-W and Cluster---Document, respectively. The Document---D-T-W relationship is not weak because the Token plate is nested. It is easily seen that there are degenerated cases of one-to-many relationships.
+Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded} (Example~\ref{ex:clustering-apm}, p.~\pageref{ex:clustering-apm}). The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship Word--D-T-W and Cluster--Document, respectively. The Document--D-T-W relationship is not weak because the Token plate is nested. It is easily seen that there are degenerated cases of one-to-many relationships.
 
 \end{Example}
 

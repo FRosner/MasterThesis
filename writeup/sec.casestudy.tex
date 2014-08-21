@@ -92,21 +92,21 @@ A document consists of one or more tokens which are of exactly one word type. Ea
 
 \subsubsection{Text Input Data}
 
-Input data for this example will be from Japanese blogs about the Fukushima disaster. A crawler collects blog entries using Kizasi, a Japanese blog search engine.\footnote{\url{http://kizasi.jp}} Kizasi indexes and stores blog entries from different blog providers. The search engine is queried using keywords such as ``nuclear power'' or ``nuclear power plant'' (\begin{CJK}{UTF8}{}原発\end{CJK}) and the results are filtered depending on the concrete question, e.g. using additional keywords like ``caesium'' (\begin{CJK}{UTF8}{}セシウム\end{CJK}) and ``beef'' (\begin{CJK}{UTF8}{}ビーフ\end{CJK}) to investigate opinions about caesium in beef as a result of the maximum credible accident.
+Input data for this example will be from Japanese blogs about the Fukushima disaster. A crawler collects blog entries using Kizasi, a Japanese blog search engine.\footnote{\url{http://kizasi.jp} indexes and stores blog entries from different blog providers.} The search engine is queried using keywords such as ``nuclear power'' (\begin{CJK}{UTF8}{}原発\end{CJK}) and the results are filtered depending on the concrete question, e.g. using additional keywords like ``caesium'' (\begin{CJK}{UTF8}{}セシウム\end{CJK}) and ``beef'' (\begin{CJK}{UTF8}{}ビーフ\end{CJK}) to investigate opinions about caesium in beef as a result of the maximum credible accident.
 
-Every blog entry is then preprocessed. Most of the preprocessing tasks are done by MeCab, a Japanese morphological analyzer.\footnote{\url{http://sourceforge.net/projects/mecab/} or \url{http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html}} A tokenizer extracts tokens from the full text, which are then used for detecting sentence boundaries. Afterwards, MeCab performs lemmatizing and part-of-speech tagging. The tokens are stored in their lemmatized form together with their part-of-speech tag (noun, verb or adjective) and their position in the text. The full text of each entry is stored in raw format as well to be able to view it in the user interface. Additionally, the blog entry title, its URL and the publication time are stored. Same types of tokens are called a \emph{word} or \emph{word type}. Word types are extracted from all the tokens and stored with UTF-8 characters as their name.
+Every blog entry is then preprocessed. Most of the preprocessing tasks are done by MeCab, a Japanese morphological analyzer.\footnote{\url{http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html}} A tokenizer extracts tokens from the full text, which are then used for detecting sentence boundaries. Afterwards, MeCab performs lemmatizing and part-of-speech tagging. The tokens are stored in their lemmatized form together with their part-of-speech tag (noun, verb or adjective) and their position in the text. The full text of each entry is stored in raw format as well to be able to view it in the user interface. Additionally, the blog entry title, its URL and the publication time are stored. Same types of tokens are called a \emph{word} or \emph{word type}. Word types are extracted from all the tokens and stored with UTF-8 characters as their name.
 
 To allow further analysis for a better visualization of the topics, tokens are combined to \emph{frames}. A frame in this case is defined as a noun verb combination appearing together in a window of a predefined size inside a document.\footnote{\textcite{minsky1977frame} defined frames as basic units for transmitting semantic context. More information about this concept can also be found in the book ``Natural language semantics'' by \textcite{allan2001natural}.} Frames are later filtered depending on the topic that is assigned to the participating tokens. This is explained in Section~\ref{subsec:casestudy_analysis}
 
 The resulting ERM after the crawling, preprocessing and frame extraction is shown in Figure~\ref{fig:TopicExplorer_data_erm}. The domain expert provides this ERM together with his application programmer who implements the preprocessing steps that are required to fill the ERM with data.
 
-\begin{figure}
+\begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/TopicExplorer_data_erm.tex}}
 \caption[TopicExplorer input data model]{TopicExplorer input data model. Japanese blog entries are tokenized, lemmatized and part-of-speech tagged and stored together with additional meta data.}\label{fig:TopicExplorer_data_erm}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[p]
 \centering
 \scalebox{0.7}{\adjustTikzSize \input{img/TopicExplorer_integrated_erm.tex}}
 \caption[Integrated TopicExplorer data model]{Integrated TopicExplorer data model. The general LDA ERM template (Figure~\ref{fig:topic_erm_good_reduced}) is integrated into the text input data model (Figure~\ref{fig:TopicExplorer_data_erm}).}\label{fig:TopicExplorer_integrated_erm}

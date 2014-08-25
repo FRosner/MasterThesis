@@ -8,20 +8,21 @@ The Hazy project (\cite{kumar2013hazy}) tries to provide programming and infrast
 
 Traditional machine learning algorithm libraries like Weka (\cite{hall2009weka}) and scikit-learn (\cite{scikit-learn}) use a graphical user interface to enable users to quickly select and try different algorithms. The problem is that they do not offer an easy way to integrate the results with domain specific meta data and offer only a textual explanation of what the algorithms do. Our data model driven approach allows better data integration and visualizes how the inference results look like.
 
-All these approaches do not provide an easy way to select and understand inference algorithms and to integrate existing meta data into the analysis like our approach does, without requiring to have a machine learning expert at hand.
+All these approaches do not provide an easy way to select and understand inference algorithms and to integrate existing meta data into the analysis like our approach does, without requiring to have a machine learning expert at hand. [TODO: expand section a lil bit]
 
 \begin{table}[t]
 \centering
-\begin{tabular}{llll} %\parbox[t]{3cm}{A\\B} for line breaks in tabulars
-\textbf{Name} & \textbf{Focus} & \textbf{Audience} [TODO] & \textbf{Interface}\\
+\begin{tabular}{llccl} %\parbox[t]{3cm}{A\\B} for line breaks in tabulars
+& & \multicolumn{2}{c}{\textbf{Target Audience}} &\\
+\textbf{Name} & \textbf{Focus} &						Techn.     & Non-techn. & \textbf{Interface}\\
 \hline
-MLbase & implementation of distributed algorithms & techn. & Scala\\
-Longview & data-driven predictive analysis & techn. & SQL\\
-MADlib & machine learning in SQL & techn. & SQL\\
-Hazy & abstractions to combine existing algorithms & techn. & Markov logic\\
-Weka & algorithms and visualization collection & techn. and non-techn. & GUI\\
-Scikit & algorithms and visualization collection & techn. & Python\\
-& [TODO: name my approach?]
+MLbase & implementation of distributed algorithms &		\checkmark & $\times$ & Scala\\
+Longview & data-driven predictive analysis &			\checkmark & $\times$ & SQL\\
+MADlib & machine learning in SQL &						\checkmark & $\times$ & SQL\\
+Hazy & abstractions to combine existing algorithms &	\checkmark & $\times$ & Markov logic\\
+Weka & algorithms and visualization collection &		\checkmark & \checkmark & GUI\\
+Scikit & algorithms and visualization collection &		\checkmark & $\times$ & Python\\
+Our approach & algorithm selection and customization &	\checkmark & \checkmark & 
 \end{tabular}
 \caption[Comparison of related projects]{Comparison of related projects.}\label{tab:related_work}
 \end{table}

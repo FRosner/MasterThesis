@@ -1,6 +1,6 @@
-\section{Integration of Plate Models and Entity Relationship Models}
+\section{Integration of Plate Models and Entity-Relationship Models}
 
-\subsection{Translation of Plate Models to Entity Relationship Models}
+\subsection{Translation of Plate Models to Entity-Relationship Models}
 \label{sec:pm2erm}
 
 In this section we propose a technique to transform a given directed graphical model in plate notation into a well-formed database model. This is done in three steps:
@@ -63,7 +63,7 @@ Figure~\ref{fig:clustering_platemodels} illustrates the conversion procedure on 
 
 \end{Example}
 
-\subsubsection{Translation of Atomic Plate Models to Entity Relationship Models}
+\subsubsection{Translation of Atomic Plate Models to Entity-Relationship Models}
 
 After the plate model is converted to an APM, we will translate it to an ERM. \textcite{heckerman2007probabilistic} propose a mapping from plate models to DAPER models. DAPER models are essentially ERMs that may contain probabilistic dependencies between attributes of entity classes. They can be expanded to a directed graphical model given a skeleton\footnote{A skeleton of an ERM is a specification of the entity and relationship classes associated with a specific database.}.
 
@@ -136,7 +136,7 @@ Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the tr
 \caption[Verbose Dirichlet multinomial text clustering ERM]{Verbose Dirichlet multinomial text clustering ERM, translated from an APM. It contains weak entities that does not extend the primary key.}\label{fig:clustering_erm_good_verbose}
 \end{figure}
 
-\subsubsection{Reduction of Translated Entity Relationship Models}
+\subsubsection{Reduction of Translated Entity-Relationship Models}
 \label{sec:erm_reduction}
 
 In order to produce well-formed ERMs from plate models it is necessary to apply a reduction step on the resulting ERM of the plate model to APM conversion. This reduction will make sure that all translation artifacts which may result by applying the rules described in the previous section are eliminated. Those artifacts are (1) weak entities with only one weak relationship and (2) duplicate relationships.
@@ -165,7 +165,7 @@ The resulting ERM is well-formed and expresses the data model of Dirichlet multi
 
 \end{Example}
 
-\subsection{Matching Data Models and Translated Entity Relationship Models}
+\subsection{Matching Data Models and Translated Entity-Relationship Models}
 \label{sec:erm_matching}
 
 Given a set of probabilistic models the user selects a suitable model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. Matching can happen on an ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, p.~218-224.

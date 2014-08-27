@@ -106,7 +106,7 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \caption[Translation of plate intersections with 1-of-K variables to an ERM]{Translation of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The constraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type whose index set is summed over will not have a weak relationship.}\label{fig:pm2erm_bi_constraints}
 \end{figure}
 
-\item[Translate nested plates to one-to-many relationships.] If a plate is nested in another plate, the resulting relationship has a one-to-many cardinality instead of many-to-many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entities as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity. In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the other entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}). It then does no longer extend the key of the association entity.
+\item[Translate nested plates to one-to-many relationships.] If a plate is nested in another plate, the resulting relationship has a one-to-many cardinality instead of many-to-many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entities as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity. In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the other entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}). It then no longer extends the key of the association entity.
 \end{description}
 
 In addition to the above rules we propose two additional transformation rules that define the effect of variable constraints on the resulting ERM and cope with self relationships as a result of matrix or tensor variable translation.
@@ -131,7 +131,7 @@ Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the tr
 \begin{figure}[h]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_erm_good_verbose.tex}}
-\caption[Verbose Dirichlet multinomial text clustering ERM]{Verbose Dirichlet multinomial text clustering ERM, translated from an APM. It contains weak entities that does not extend the primary key.}\label{fig:clustering_erm_good_verbose}
+\caption[Verbose Dirichlet multinomial text clustering ERM]{Verbose Dirichlet multinomial text clustering ERM, translated from an APM. It contains weak entities that do not extend the primary key.}\label{fig:clustering_erm_good_verbose}
 \end{figure}
 
 \subsubsection{Reduction of Translated Entity-Relationship Models}

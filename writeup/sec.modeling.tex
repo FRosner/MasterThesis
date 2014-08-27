@@ -49,7 +49,7 @@ A typical way to model text data is to model documents as a list of independent 
 	\begin{center}
     	\scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_transformation_platemodel.tex}}
 	\end{center}
-\caption[Plate model for Dirichlet multinomial clustering of text documents]{Plate model for Dirichlet multinomial clustering of text documents. [TODO: longer description]}
+\caption[Plate model for Dirichlet multinomial clustering of text documents]{Plate model for Dirichlet multinomial clustering of text documents. A document $n$ consists of a set of tokens $M_n$. Each token is of exactly one word type, denoted by $\vec d_{nm}$. The cluster assignment per document is encoded by $z_n$. The cluster proportions are represented by $\vec \pi$, while each cluster $k$ has its own word distribution parameterized by $\vec \mu_k$.}
 		\label{fig:clustering_platemodel}
 \end{figure}
 

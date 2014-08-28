@@ -72,7 +72,7 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \begin{description}
 \item[Translate plates to entity types.] Each plate is represented as an entity type. Usually there is an index set associated with each plate. The cardinality of this set states how many entities of the given type will be present in the database. Each entity type gets an artificial key (ID). Figure~\ref{fig:pm2erm_uno_local} illustrates the translation of a plate representing $n$ Objects to the Object entity type.
 
-\item[Translate plate intersections to relationships.] In general, plate intersections represent many-to-many relationships between the corresponding entity types. In contrast to the original mapping we express all relationships as association entity types\footnote{For brevity we refer to association entity types as association entities from now on. This is just an abbreviation and not to be confused with the concrete entities in a database that correspond to rows in a table.} (\cite[p.~86-88]{elmasri2007database}). This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
+\item[Translate plate intersections to relationships.] In general, plate intersections represent many-to-many relationships between the corresponding entity types. In contrast to the original mapping we express all relationships as association entity types\footnote{For brevity we refer to association entity types as association entities from now on. This is just an abbreviation and not to be confused with the concrete entities in a database that correspond to rows in a table.} (\cite[pp.~86-88]{elmasri2007database}). This allows a generic translation procedure that can easily be used for n-ary relationships. Figure~\ref{fig:pm2erm_bi_noconstraints} shows the translation of two entity types having a binary relationship.
 
 \begin{figure}[h!]
 \centering
@@ -166,7 +166,7 @@ The resulting ERM is well-formed and expresses the data model of Dirichlet multi
 \subsection{Matching Data Models and Translated Entity-Relationship Models}
 \label{sec:erm_matching}
 
-Given a set of probabilistic models the user selects a suitable model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. Matching can happen on an ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, p.~218-224.
+Given a set of probabilistic models the user selects a suitable model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. Matching can happen on an ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, pp.~218-224.
 
 To enable different applications of the probabilistic models (e.g., not only text clustering but also document clustering or clustering of supermarket customers), the ERM templates need to be generic. Instead of using domain specific terms like \emph{document}, \emph{word}, and \emph{token}, one should use generic ones like \emph{entity}, \emph{feature}, and \emph{occurrence}. Depending on the use case a feature can then be a word or a product for document and customer clustering, respectively.
 

@@ -20,7 +20,7 @@ The translation of APMs to ERMs is based on the mapping from plate models to dir
 %\item efficient storage can be done in physical design rather than logical (ERM)
 %\end{itemize}
 
-We extend the translation procedure of \textcite{heckerman2007probabilistic} by converting the plate model into an APM first, then map the APM to an ERM, and reduce the ERM afterwards. Applying this extended procedure produces well-formed ERMs. Note that this translation is lossy: It discards any probabilistic dependencies.
+We extend the translation procedure of \textcite{heckerman2007probabilistic} by converting the plate model into an APM first, then map the APM to an ERM reduce the ERM afterwards. Applying this extended procedure produces well-formed ERMs. Note that this translation is lossy: It discards any probabilistic dependencies.
 
 We use the standard ERM notation (\cite{chen1976entity}) with min-max cardinalities (\cite{elmasri2007database},~p.~82). We call an ERM \emph{well-formed} iff it (1) is syntactically correct, (2) is explicit and (3) does not have redundant constructs. There should be no one-to-one relationships that can be merged, especially weak entities that do not extend the primary key are not permitted.\footnote{A weak entity always must extend the primary key or its weak relationship will otherwise be a malformed one-to-one relationship. It could then be merged with its strong partner.} Explicitness means that all real world constructs that have a corresponding construct in the ERM notation are modeled using those. Thus, a well-formed ERM does not contain foreign key attributes but uses relationships instead. Having no redundant constructs means that no entity or relationship is duplicate, i.e.~semantically expressing the same thing. Those duplicates may be an intermediate result of the translation procedure.
 
@@ -106,7 +106,7 @@ We adopt this mapping to produce ERMs instead of DAPER models by leaving out the
 \caption[Translation of plate intersections with 1-of-K variables to an ERM]{Translation of a plate intersection to an association entity given a 1-of-K relationship variable constraint ($z_{nm}$). The constraint ensures that every instance of B can only be connected to one instance of A. Instead of representing this variable directly, it will affect the cardinality of the resulting relationship. The entity type whose index set is summed over will not have a weak relationship.}\label{fig:pm2erm_bi_constraints}
 \end{figure}
 
-\item[Translate nested plates to one-to-many relationships.] If a plate is nested in another plate, the resulting relationship has a one-to-many cardinality instead of many-to-many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entities as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity. In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the other entity. It will be merged in the reduction step (see Section~\ref{sec:erm_reduction}). It then no longer extends the key of the association entity.
+\item[Translate nested plates to one-to-many relationships.] If a plate is nested in another plate, the resulting relationship has a one-to-many cardinality instead of many-to-many. For each entity from the covering plate there may exist many covered entities. We adjust this mapping rule to the concept of association entities as demonstrated in Figure~\ref{fig:pm2erm_covered_1}. If a plate covers another plate, it will not have a weak relationship to the association entity. In case of binary relationships like in Figure~\ref{fig:pm2erm_covered_1} this will result in a malformed ERM. A weak entity with only one weak relationship is simply an extension of the other entity. It is merged in the reduction step and no longer extends the key of the association entity.
 \end{description}
 
 In addition to the above rules we propose two additional transformation rules that define the effect of variable constraints on the resulting ERM and cope with self relationships as a result of matrix or tensor variable translation.
@@ -124,14 +124,14 @@ With this set of rules it is possible to translate any given plate model into an
 \begin{Example} Translation of the Dirichlet multinomial clustering APM to a verbose ERM
 \label{ex:clustering-erm-verbose}
 
-Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded} (Example~\ref{ex:clustering-apm}, p.~\pageref{ex:clustering-apm}). The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship Word--D-T-W and Cluster--Document, respectively. The Document--D-T-W relationship is not weak because the Token plate is nested. It is easily seen that there are degenerated cases of one-to-many relationships.
+Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the translation rules to the text clustering APM from Figure~\ref{fig:clustering_platemodel_expanded} (Example~\ref{ex:clustering-apm}, p.~\pageref{ex:clustering-apm}). The variables $\vec d$ and $\vec z$ are 1-of-K coded and affect the relationship Word--D-T-W and Cluster--Document, respectively. The Document--D-T-W relationship is not weak because the Token plate is nested. It is easily seen that there are degenerated cases of one-to-many relationships, e.g. between Document and Cluster.
 
 \end{Example}
 
 \begin{figure}[h]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/clustering_erm_good_verbose.tex}}
-\caption[Verbose Dirichlet multinomial text clustering ERM]{Verbose Dirichlet multinomial text clustering ERM, translated from an APM. It contains weak entities that do not extend the primary key.}\label{fig:clustering_erm_good_verbose}
+\caption[Verbose Dirichlet multinomial text clustering ERM]{Verbose Dirichlet multinomial text clustering ERM, translated from an APM. It contains two weak entities that do not extend the primary key: D-T-W and C-D. They are merged in the reduction step.}\label{fig:clustering_erm_good_verbose}
 \end{figure}
 
 \subsubsection{Reduction of Translated Entity-Relationship Models}
@@ -139,7 +139,7 @@ Figure~\ref{fig:clustering_erm_good_verbose} shows the result of applying the tr
 
 In order to produce well-formed ERMs from plate models it is necessary to apply a reduction step on the resulting ERM of the plate model to APM conversion. This reduction will make sure that all translation artifacts which may result by applying the rules described in the previous section are eliminated. Those artifacts are (1) weak entities with only one weak relationship and (2) duplicate relationships.
 
-Weak entities with only one weak relationship may occur in cases like shown in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables and nested plates change weak relationships to normal ones. If all but one weak relationship gets changed, the construct is not well-formed because the weak entity does not extend a primary key. The weak relationship is then simply a one-to-one relationship and both entities are merged, leaving a single relationship.
+Weak entities with only one weak relationship may occur in cases like in Figure~\ref{fig:pm2erm_covered_1} and \ref{fig:pm2erm_bi_constraints}. Plate intersections are translated to association entities having a weak relationship to all entities that form the intersection. However, 1-of-K coded variables and nested plates result in normal relationships instead of weak ones. If there is only one weak relationship left, the construct is not well-formed because it does not extend a primary key. The weak relationship is then a degenerated one-to-one relationship and the weak and the strong entity is merged, resulting in a single entity.
 
 After merging all entities like described above there may be duplicate relationships. Consider the case in Figure~\ref{fig:erm_reduction_minimal_example} where the two relationships between A and B become redundant after merging the three entities A-B-C, B and A-B-D. There will be a practical example of this situation in the case study in Section~\ref{sec:casestudy}. Note that this merging is only possible if the relationships are really expressing the same thing. The translating person needs to evaluate the merging conditions depending on the situation.
 
@@ -159,7 +159,7 @@ Figure~\ref{fig:clustering_erm_good_reduced} illustrates the result of reducing 
 \caption[Reduced Dirichlet multinomial text clustering ERM]{Reduced Dirichlet multinomial text clustering ERM.}\label{fig:clustering_erm_good_reduced}
 \end{figure}
 
-The resulting ERM is well-formed and expresses the data model of Dirichlet multinomial text clustering that one would expect. Documents consist of one or more tokens. A token belongs to one word type and there may be one or more tokens of one type. Documents are assigned to clusters and one cluster may have multiple documents assigned. The cluster distribution is expressed in Cluster.$\pi$ and Cluster.$\alpha$. The word distribution of each cluster is expressed in C-W.$\mu$ and C-W.$\beta$, respectively.
+The resulting ERM is well-formed and expresses the data model of Dirichlet multinomial text clustering that one would expect. Documents consist of one or more tokens. A token belongs to one word type and there may be one or more tokens of one type. Documents are assigned to clusters and each cluster may have multiple documents assigned. The cluster distribution parameters are stored in Cluster.$\pi$ and Cluster.$\alpha$. The word distribution parameters of each cluster are stored in C-W.$\mu$ and C-W.$\beta$, respectively.
 
 \end{Example}
 
@@ -168,17 +168,17 @@ The resulting ERM is well-formed and expresses the data model of Dirichlet multi
 
 Given a set of probabilistic models the user selects a suitable model by matching the translated ERM templates of the probabilistic models with his problem specific data model. The set of probabilistic models and their ERM translation is provided by the framework. Matching can happen on an ERM or relational model basis. A mapping from ERMs to relational models is described by \textcite{elmasri2007database}, p.~218-224.
 
-To enable different applications of the probabilistic models (e.g., not only text clustering but also document clustering or clustering of supermarket customers), the ERM templates need to be generic. Instead of using domain specific terms like \emph{document}, \emph{word} and \emph{token} one should use generic ones like \emph{entity}, \emph{feature} and \emph{occurrence}. Depending on the use case a feature can then be a word or a product for document and customer clustering, respectively.
+To enable different applications of the probabilistic models (e.g., not only text clustering but also document clustering or clustering of supermarket customers), the ERM templates need to be generic. Instead of using domain specific terms like \emph{document}, \emph{word}, and \emph{token}, one should use generic ones like \emph{entity}, \emph{feature}, and \emph{occurrence}. Depending on the use case a feature can then be a word or a product for document and customer clustering, respectively.
 
 Matching is done by selecting the entity types and attributes in the domain data model that correspond to generic ones from the probabilistic model ERM. Both models are then merged together, replacing the generic names by domain specific ones.
 
-After matching both models the user receives an integrated model containing domain specific constructs enriched by constructs from the probabilistic model. The framework then selects an inference algorithm implementation, uses the provided data and calculates the results. The results are included in the merged database and can be used for analysis.
+After matching both models the user receives an integrated model containing domain specific constructs enriched by constructs from the probabilistic model. The framework then selects an inference algorithm implementation, and calculates the results using the provided data. The results are included in the merged database and can be analyzed.
 
 \vspace*{-1em}
 
 \begin{Example} Matching a text data model with the Dirichlet multinomial clustering model
 
-Consider a user that wants to perform text clustering. He has the raw text data available, as well as meta data like a timestamp on the document, an author associated with each document and a part of speech annotation on each token. Figure~\ref{fig:matching_clustering} shows the matching of a Dirichlet multinomial clustering ERM template in this case.
+Consider a user who wants to perform text clustering. He has the raw text data available, as well as meta data like a timestamp on the document, an author associated with each document, and a part-of-speech annotation on each token. Figure~\ref{fig:matching_clustering} shows the matching of a Dirichlet multinomial clustering ERM template in this case. Each entity type matches a generic one: Document $\triangleq$ Entity, Token $\triangleq$ Occurrence, and Word $\triangleq$ Feature. The attributes of both matching entity types are combined in the integrated ERM.
 
 \vspace*{1em}
 \begin{figure}[h!]

@@ -71,7 +71,7 @@ P(\boldsymbol{d},\boldsymbol{z}, \boldsymbol{\mu}, \vec \pi | \vec \alpha, \bold
  \left(\prod_{k \in K}P(\vec \mu_k | \vec \beta_k)\right) \cdot 
  \left(\prod_{n \in N} \prod_{m \in M_n} \prod_{k \in K}P(\vec d_{nm} | \vec z_n, \vec \mu_k)\right),
 \end{multline}
-where $\boldsymbol{d} = \{\vec d_{nm} : n \in N \land m \in M_n \}$ is a short notation [TODO: set comprising?] for all token vectors, $\boldsymbol{z} = \{ \vec z_n : n \in N \}$ are the cluster assignments of all documents, $\boldsymbol{\mu} = \{ \vec \mu_k : k \in K \}$ represents the word proportions of all clusters and $\boldsymbol{\beta} = \{ \vec \beta_k : k \in K \}$ denotes the set of all hyper-parameters for the word proportions.
+where $\boldsymbol{d} = \{\vec d_{nm} : n \in N \land m \in M_n \}$ is the set comprising all token vectors, $\boldsymbol{z} = \{ \vec z_n : n \in N \}$ are the cluster assignments of all documents, $\boldsymbol{\mu} = \{ \vec \mu_k : k \in K \}$ represents the word proportions of all clusters and $\boldsymbol{\beta} = \{ \vec \beta_k : k \in K \}$ denotes the set of all hyper-parameters for the word proportions.
 
 The generative process is as follows:
 \begin{enumerate}

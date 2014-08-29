@@ -1,10 +1,12 @@
 \section{Conclusion}
 
-\subsection{Summary}
+\subsection{Summary and Contribution}
 
 We presented a data model driven architecture for rapidly developing customized machine learning applications. This architecture is based on a framework that offers probabilistic models in form of ERMs. It makes machine learning techniques more accessible to domain experts and application developers. Additionally, providing a data model view of the inference results makes it easy to integrate them into domain specific data. The responsibility of dealing with various inference algorithm implementations and file formats is taken from the application programmer and passed to the framework. The framework user simply matches an ERM of his desired probabilistic model with his domain data model and the inference results are stored in the integrated database. Combined analysis is simple and can partly be precalculated.
 
-We developed a mapping from graphical models in plate notation to ERMs that allows framework developers to easily incorporate their probabilistic model into the set of available models. They can either provide a custom inference algorithm implementation or use generic ones that work with arbitrary graphical models. We showed that this mapping produces well-formed ERMs that aid the understanding of the probabilistic model.
+We developed a mapping from graphical models in plate notation to ERMs that allows framework developers to easily incorporate their probabilistic model into the set of available models. They can either provide a custom inference algorithm implementation or use generic ones that work with arbitrary graphical models. We showed that this mapping produces well-formed ERMs which aid the understanding of the translated probabilistic models.
+
+Compared to the current state of the art, our data model driven approach stands out for three reasons: First, it is suitable for technical and non-technical users, because it operates on ERMs. Secondly, it allows easy meta data integration to build rich, customized machine learning applications. Thirdly, by presenting a data model view of available inference algorithms, no knowledge in probabilistic modeling is required to understanding the inference results. While some of the existing solutions use GUIs to be more accessible to non-technical users, they have shortcomings in terms of intuitive data integration.
 
 \subsection{Limitations and Drawbacks}
 

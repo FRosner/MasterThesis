@@ -8,7 +8,9 @@ The Hazy project (\cite{kumar2013hazy}) provides programming and infrastructure 
 
 Traditional machine learning algorithm libraries like Weka (\cite{hall2009weka}) and scikit-learn (\cite{scikit-learn}) enable users to quickly select and try different algorithms. While Weka has a graphical user interface (GUI), the algorithms in scikit-learn are accessed using the Python programming language. The problem is that both programs do not offer an easy way to integrate the results with domain specific meta data, and have only textual explanations of what the algorithms do. Our data model driven approach allows better data integration and visualizes how the inference results look like.
 
-We compare all related projects mentioned above using different criteria in Table~\ref{tab:related_work}. For each project, we specify the user interface, whether it is suitable for a technical and / or a non-technical audience, and if it offers an intuitive and easy way to integrate meta data. While all applications are suitable for a technical audience by having a flexible API, only Weka, and related projects which include a GUI, allow non-technical users to apply machine learning techniques. Alone our data-model driven framework is flexible enough for technical users, provides a comprehensible user interface via ERMs for a non-technical audience, and allows easy meta data integration by matching two ERMs.
+\newpage
+
+We compare all related projects mentioned above in Table~\ref{tab:related_work}. For each project, we specify the given user interface, whether it is suitable for a technical and / or a non-technical audience, and if it offers an intuitive and easy way to integrate meta data. While all applications are suitable for a technical audience by having a flexible API, only Weka, and related projects which include a GUI, allow non-technical users to apply machine learning techniques. Our data-model driven framework is flexible enough for technical users, provides a comprehensible user interface via ERMs for a non-technical audience, and allows easy meta data integration by matching two ERMs.
 
 \begin{table}[t]
 \centering
@@ -22,7 +24,8 @@ MADlib & SQL & 		\checkmark & $\times$ & $\times$\\
 Hazy & Markov logic & 			\checkmark & $\times$ & $\times$\\
 Weka & Java / GUI & 			\checkmark & \checkmark & $\times$\\
 Scikit & Python & 		\checkmark & $\times$ & $\times$\\
+\hline
 Our approach & ERM / GUI &	\checkmark & \checkmark & \checkmark
 \end{tabular}
-\caption[Comparison of related projects]{Comparison of related projects. [TODO: Description]}\label{tab:related_work}
+\caption[Comparison of related projects]{Comparison of related projects. We present the given user interface, whether it is suitable for a technical and / or a non-technical audience, and if it offers an intuitive and easy way to integrate meta data.}\label{tab:related_work}
 \end{table}

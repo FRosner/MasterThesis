@@ -1,12 +1,12 @@
 \section{Analysis on Integrated Domain Data and Inference Results}
 
-The next step, after selecting a probabilistic model, is to perform analysis on the domain data and inference results. This analysis allows users to gain insight into their data and create meaningful visualizations. Typical analysis operations are:
+The next step, after selecting a probabilistic model, is to perform analysis on the domain data and inference results. This analysis allows users to gain insight into their data and create meaningful visualizations. Typical operations are:
 \begin{itemize}
 \item Transformations,
 \item Filters,
 \item Rankings,
 \item Aggregations.
-\end{itemize} On a theoretical level, these operations can be defined in relational algebra (\cite{ozsoyouglu1987extending, klug1982equivalence}) and its extensions (\cite{rajaraman2011mining},~p.~34). Depending on how the data is stored, different languages could be used to express these operations. As SQL (\cite{iso2011sql}) is a popular language known to a broad set of people, we present our examples in SQL. However, it is straightforward to express them in any other language, e.g. sequence functions in Scala (\cite{odersky2008programming}), Pig Latin (\cite{gates2011programming}) or MapReduce (\cite{dean2008mapreduce}).
+\end{itemize} On a theoretical level, these operations can be defined in relational algebra (\cite{ozsoyouglu1987extending, klug1982equivalence}) and its extensions (\cite{rajaraman2011mining},~p.~34). Depending on how the data is stored, different languages could be used to express these operations. As SQL (\cite{iso2011sql}) is a standardized language known to a broad set of people, we present our examples in SQL. However, it is straightforward to express them in any other language, e.g. sequence functions in Scala (\cite{odersky2008programming}), Pig Latin (\cite{gates2011programming}) or MapReduce (\cite{dean2008mapreduce}).
 
 Transformations change attributes or calculate new ones without affecting the number of entities or their order. Transformations can be very diverse and range from adding a constant to a number over concatenation of strings to numerical scaling or normalization. Especially when working with probabilistic models, scaling counts to the interval (0,1) allows to interpret them as probabilities. Note that such transformations might require intermediate results from aggregation operations, like the sum of all values in order to scale each individual value to (0,1).
 

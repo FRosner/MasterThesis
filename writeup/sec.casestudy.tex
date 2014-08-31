@@ -94,12 +94,6 @@ A document consists of one or more tokens which are of exactly one word type. Ea
 
 Input data for this case study will be from Japanese blogs about the Fukushima disaster. A crawler collects blog entries using Kizasi, a Japanese blog search engine.\footnote{\url{http://kizasi.jp} indexes and stores blog entries from different blog providers.} The search engine is queried using keywords such as ``nuclear power'' (\begin{CJK}{UTF8}{}原発\end{CJK}) and the results are filtered depending on the concrete question, e.g. using additional keywords like ``caesium'' (\begin{CJK}{UTF8}{}セシウム\end{CJK}) and ``beef'' (\begin{CJK}{UTF8}{}ビーフ\end{CJK}), to investigate public opinions regarding caesium concentrations in beef following the accident at the nuclear power plant.
 
-Every blog entry is then preprocessed. Most of the preprocessing tasks are done by MeCab, a Japanese morphological analyzer.\footnote{\url{http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html}} A tokenizer extracts tokens from the full text, which are then used for detecting sentence boundaries. Afterwards, MeCab performs lemmatizing and part-of-speech tagging. The tokens are stored in their lemmatized form together with their part-of-speech tag (noun, verb or adjective) and their position in the text. The full text of each entry is stored in raw format as well to be able to view it in the user interface. Additionally, the blog entry title, its URL and the publication time are stored. Identical types of tokens are called a \emph{word} or \emph{word type}. Word types are extracted from all the tokens.
-
-To allow further analysis for a better visualization of the topics, tokens are combined to \emph{frames}. A frame is defined as a noun-verb combination appearing together in a fixed-size window inside a document.\footnote{\textcite{minsky1977frame} defines frames as basic units for transmitting semantic context. More information about this concept can also be found in the book ``Natural language semantics'' (\cite{allan2001natural}).} Frames are later filtered depending on the topic that is assigned to the participating tokens.
-
-The resulting ERM after the crawling, preprocessing, and frame extraction is shown in Figure~\ref{fig:TopicExplorer_data_erm}. The domain expert provides this ERM together with his application programmer who implements the preprocessing steps that are required to fill the ERM with data.
-
 \begin{figure}[p]
 \centering
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/TopicExplorer_data_erm.tex}}
@@ -111,6 +105,13 @@ The resulting ERM after the crawling, preprocessing, and frame extraction is sho
 \scalebox{0.7}{\adjustTikzSize \input{img/TopicExplorer_integrated_erm.tex}}
 \caption[Integrated TopicExplorer data model]{Integrated TopicExplorer data model. The general LDA ERM template (Figure~\ref{fig:topic_erm_good_reduced}) is integrated into the text input data model (Figure~\ref{fig:TopicExplorer_data_erm}).}\label{fig:TopicExplorer_integrated_erm}
 \end{figure}
+
+
+Every blog entry is then preprocessed. Most of the preprocessing tasks are done by MeCab, a Japanese morphological analyzer.\footnote{\url{http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html}} A tokenizer extracts tokens from the full text, which are then used for detecting sentence boundaries. Afterwards, MeCab performs lemmatizing and part-of-speech tagging. The tokens are stored in their lemmatized form together with their part-of-speech tag (noun, verb or adjective) and their position in the text. The full text of each entry is stored in raw format as well to be able to view it in the user interface. Additionally, the blog entry title, its URL and the publication time are stored. Identical types of tokens are called a \emph{word} or \emph{word type}. Word types are extracted from all the tokens.
+
+To allow further analysis for a better visualization of the topics, tokens are combined to \emph{frames}. A frame is defined as a noun-verb combination appearing together in a fixed-size window inside a document.\footnote{\textcite{minsky1977frame} defines frames as basic units for transmitting semantic context. More information about this concept can also be found in the book ``Natural language semantics'' (\cite{allan2001natural}).} Frames are later filtered depending on the topic that is assigned to the participating tokens.
+
+The resulting ERM after the crawling, preprocessing, and frame extraction is shown in Figure~\ref{fig:TopicExplorer_data_erm}. The domain expert provides this ERM together with his application programmer who implements the preprocessing steps that are required to fill the ERM with data.
 
 \subsubsection{Analysis and Visualization}
 \label{subsec:casestudy_analysis}

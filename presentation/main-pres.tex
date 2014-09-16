@@ -1,0 +1,123 @@
+\documentclass{beamer}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{array,arydshln} % dashed hlines
+\usepackage{CJKutf8}
+\usepackage{bxcjkjatype}
+\usepackage{tikz}
+	\newcommand{\adjustTikzSize}[0]{\Large}
+	\newcommand{\tikzScale}[0]{0.75}
+\usepackage{amssymb}
+\usepackage{graphicx}
+	\graphicspath{{img/}}
+\usepackage{nicefrac}
+\usepackage{csquotes}
+\usetheme{Frankfurt}
+\usefonttheme{structurebold}
+\usecolortheme{rose}
+\newtheorem*{bem}{Bemerkung}
+\newtheorem*{bsp}{Beispiel}
+\usepackage{parskip}
+%absolute figure positioning
+\usepackage[absolute,overlay]{textpos}
+  \setlength{\TPHorizModule}{1mm}
+  \setlength{\TPVertModule}{1mm}
+\usepackage[backend=bibtex, style=authoryear]{biblatex} 
+\addbibresource{literature.bib}
+
+\defbibenvironment{bibliography}
+{\list{}
+{\setlength{\leftmargin}{\bibhang}%
+\setlength{\itemindent}{-\leftmargin}%
+\setlength{\itemsep}{6px}%
+\setlength{\parsep}{\bibparsep}}}
+{\endlist}
+{\item \scriptsize}
+
+\definecolor{mygrey}{RGB}{80,80,80}
+
+\setbeamertemplate{headline}
+{%
+\hfill
+\textbf{\insertsection} \
+\insertsubsection \
+\insertframenumber / \inserttotalframenumber
+}
+\setbeamertemplate{navigation symbols}{}
+
+\title{Integrating Probabilistic and Database Models for Rapidly Building Customized Machine Learning Applications}
+\author{
+Frank Rosner
+}
+
+\institute{
+Martin-Luther-Universität Halle-Wittenberg
+}
+\date{26. September 2014}
+
+\begin{document}
+
+\frame{\titlepage 
+\parbox{0cm}{\tiny 
+\vspace{-30pt}\color{mygrey}
+\begin{tabbing}
+XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
+\>Gutachter:\> Dr. Alexander Hinneburg \\
+\>\> Prof. Stefan Brass
+\end{tabbing}
+}}
+
+\begin{frame}{Test}
+
+x
+\begin{definition}[Definition]
+y
+\end{definition}
+
+\begin{bem}[Bemsss]
+x
+\end{bem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Gliederung}
+\tableofcontents
+\end{frame}
+
+\section{Problemstellung}
+\frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
+\begin{frame}
+
+\end{frame}
+
+\section{Zielstellung}
+\frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
+\begin{frame}
+
+\end{frame}
+
+\section{Hauptteil}
+\frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
+\begin{frame}
+
+\end{frame}
+
+\section{Zusammenfassung}
+\frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
+\begin{frame}
+
+\end{frame}
+
+\section{Ausblick}
+\frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
+\begin{frame}
+
+\end{frame}
+
+\end{document}

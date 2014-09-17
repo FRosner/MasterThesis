@@ -3,9 +3,12 @@
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{color}
-\usepackage{enumitem}
+\usepackage{lmodern}
+%\usepackage{enumitem}
+%	\setitemize{label=\usebeamerfont*{itemize item}%
+%	\usebeamercolor[fg]{itemize item}
+%	\usebeamertemplate{itemize item}}
 \usepackage{amsmath}
 \usepackage{array,arydshln} % dashed hlines
 \usepackage{CJKutf8}
@@ -19,8 +22,8 @@
 \usepackage{nicefrac}
 \usepackage{csquotes}
 \usetheme{Frankfurt}
-\usefonttheme{structurebold}
-\usecolortheme{rose}
+	\usefonttheme{structurebold}
+	\usecolortheme{rose}
 \newtheorem*{bem}{Bemerkung}
 \newtheorem*{bsp}{Beispiel}
 \usepackage{parskip}
@@ -31,11 +34,14 @@
 \usepackage[backend=bibtex, style=authoryear]{biblatex} 
 \addbibresource{literature.bib}
 
+\definecolor{cgray}{gray}{0.35}
+\newcommand{\scite}[1]{ {\scriptsize \textcolor{cgray}{(\cite{#1})}} }
+
+
+  
 \defbibenvironment{bibliography}
 {\list{}
-{\setlength{\leftmargin}{\bibhang}%
-\setlength{\itemindent}{-\leftmargin}%
-\setlength{\itemsep}{6px}%
+{\setlength{\itemsep}{6px}%
 \setlength{\parsep}{\bibparsep}}}
 {\endlist}
 {\item \scriptsize}
@@ -51,8 +57,10 @@
 }
 \setbeamertemplate{navigation symbols}{}
 
-\title{Integrating Probabilistic and Database Models for Rapidly Building Customized Machine Learning Applications}
+\title{Integrating Probabilistic and Database Models for Rapidly Building Customized Machine Learning Applications\vspace*{.4em}}
+%Integration von probablistischen und Datenbankmodellen zur schnellen Entwicklung individuell zugeschnittener Machine-Learning-Anwendungen
 \author{
+\vspace*{-1em}
 Frank Rosner
 }
 
@@ -73,6 +81,65 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 \end{tabbing}
 }}
 
+\begin{frame}[t]{Motivation}
+\vspace*{1.5em}
+\begin{itemize}
+\item wachsende Datenmassen weltweit
+\item Daten als wirtschaftliches Gut\scite{forum2012bigdata}
+\end{itemize}
+
+\begin{textblock}{50}(70,70)
+	\includegraphics[width=1\linewidth]{electropherogram}
+\end{textblock}
+\begin{textblock}{25}(10,50)
+	\includegraphics[width=1\linewidth]{binary-file}
+\end{textblock}
+\begin{textblock}{20}(70,45)
+	\includegraphics[width=1\linewidth]{globe}
+\end{textblock}
+\begin{textblock}{10}(90,40)
+	\includegraphics[width=1\linewidth]{satellite}
+\end{textblock}
+\begin{textblock}{10}(100,50)
+	\includegraphics[width=1\linewidth]{gps}
+\end{textblock}
+\begin{textblock}{25}(40,60)
+	\includegraphics[width=1\linewidth]{db}
+\end{textblock}
+\end{frame}
+
+\begin{frame}[t]{Motivation}
+\begin{itemize}
+\vspace*{1em}
+\item \enquote{Data Scientist: Der attraktivste Beruf des 21. Jahrhunderts} \scite{davenport2012data}
+	\begin{itemize}
+	\item Statistik, Machine-Learning, Mustererkennung, Data Mining
+	\item Informatik, effiziente Algorithmen, Datenverwaltung
+	\end{itemize}
+\end{itemize}
+
+\vspace*{1em}
+\textbf{Problem:} Datenflut nicht von Flut an Data Scientists begleitet
+
+\vspace*{3em}
+\begin{center}
+{\Large Individuell zugeschnittene Analysen}\hspace*{4em}
+
+{\Large ohne Data Scientists?}\hspace*{4em}
+\end{center}
+
+\begin{textblock}{30}(93,57)
+	\includegraphics[width=1\linewidth]{scientist}
+\end{textblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Gliederung}
+\tableofcontents
+\end{frame}
+
+\section{Problemstellung}
+\frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
 \begin{frame}{Test}
 
 x
@@ -83,17 +150,6 @@ y
 \begin{bem}[Bemsss]
 x
 \end{bem}
-\end{frame}
-
-\begin{frame}
-\frametitle{Gliederung}
-\tableofcontents
-\end{frame}
-
-\section{Problemstellung}
-\frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
-\begin{frame}
-
 \end{frame}
 
 \section{Zielstellung}
@@ -118,6 +174,14 @@ x
 \frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
 \begin{frame}
 
+\end{frame}
+
+\section{Quellen}
+\frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
+\begin{frame}
+\frametitle{Quellen}
+\def\bibfont{\scriptsize}
+\printbibliography
 \end{frame}
 
 \end{document}

@@ -27,6 +27,7 @@
 \newtheorem*{bem}{Bemerkung}
 \newtheorem*{bsp}{Beispiel}
 \usepackage{parskip}
+\RequirePackage{ragged2e} %blocksatz in bloecken
 %absolute figure positioning
 \usepackage[absolute,overlay]{textpos}
   \setlength{\TPHorizModule}{1mm}
@@ -169,6 +170,23 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 \end{textblock}
 \begin{textblock}{22}(100,81)
 	\includegraphics[width=1\linewidth]{scikit}
+\end{textblock}
+\end{frame}
+
+\begin{frame}{Zielstellung}
+\begin{block}{Zielstellung}\justifying
+	Entwickeln einer \emph{Datenmodell-getriebenen} Anwendungsarchitektur, welche Anwendungsentwicklern und Domänenexperten erlaubt, \emph{vorhandene Machine-Learning Algorithmen} individuell für ihr Problem \emph{anzupassen}, ohne einen Data Scientist einstellen zu müssen.
+\end{block}
+
+\textbf{Idee}
+\begin{itemize}
+\item probabilistische Modelle in Form von Entity-Relationship-Modellen (ERMs)
+\item Anpassung durch Erweiterung und\\ Integration von ERMs
+\item[$\Rightarrow$] kein Wissen über probabilistische Modelle notwendig
+\end{itemize}
+
+\begin{textblock}{30}(85,52)
+	\scalebox{0.25}{\adjustTikzSize \input{img/joined-erms}}
 \end{textblock}
 \end{frame}
 

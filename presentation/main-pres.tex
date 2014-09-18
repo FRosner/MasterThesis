@@ -15,7 +15,7 @@
 \usepackage{bxcjkjatype}
 \usepackage{tikz}
 	\newcommand{\adjustTikzSize}[0]{\Large}
-	\newcommand{\tikzScale}[0]{0.75}
+	\newcommand{\tikzScale}[0]{0.55}
 \usepackage{amssymb}
 \usepackage{graphicx}
 	\graphicspath{{img/}}
@@ -175,7 +175,7 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 
 \begin{frame}{Zielstellung}
 \begin{block}{Zielstellung}\justifying
-	Entwickeln einer \emph{Datenmodell-getriebenen} Anwendungsarchitektur, welche Anwendungsentwicklern und Domänenexperten erlaubt, \emph{vorhandene Machine-Learning Algorithmen} individuell für ihr Problem \emph{anzupassen}, ohne einen Data Scientist einstellen zu müssen.
+	Entwickeln einer \emph{Datenmodell-getriebenen} Anwendungsarchitektur, welche Anwendungsentwicklern und Domänenexperten erlaubt, \emph{vorhandene Machine-Learning-Algorithmen} individuell für ihr Problem \emph{anzupassen}, ohne einen Data Scientist einstellen zu müssen.
 \end{block}
 
 \textbf{Idee}
@@ -190,10 +190,14 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 \end{textblock}
 \end{frame}
 
-\section{Machine-Learning Anwendungsarchitekturen}
+\section{Machine-Learning-Anwendungsarchitekturen}
 \frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
-\begin{frame}
+\begin{frame}{Traditionelle Architektur}
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/architecture-traditional}}
+\end{frame}
 
+\begin{frame}{Datenmodell-getriebene Architektur}
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/architecture-dmd}}
 \end{frame}
 
 \section{Integration probabilistischer und Datenbankmodelle}

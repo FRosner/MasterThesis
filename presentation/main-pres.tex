@@ -232,8 +232,26 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 
 \section{Integration probabilistischer und Datenbankmodelle}
 \frame{\frametitle{Gliederung} \tableofcontents[currentsection]}
-\begin{frame}
+\begin{frame}{Gerichtete graphische Modelle}
+\textbf{Aufbau}
+\begin{itemize}
+\item gerichteter Graph
+\item Knoten = Zufallsvariablen
+\item Kanten = Abhängigkeitsbeziehungen
+\item Abwesenheit von Kanten = Unabhängigkeitsannahmen
+\item beobachtete Variablen = grau schattiert,\\Hyperparameter = schwarz ausgefüllt
+\end{itemize}
 
+\vspace*{.15em}
+\textbf{Ziele}
+\begin{itemize}
+\item graphische Modellierung von Unabhängigkeitsannahmen\\$\Rightarrow$ Faktorisierung der Verbundverteilung
+\item Schlüsse über (bedingte) Unabhängigkeitsbeziehungen auf Basis der Graphstruktur ziehen: \emph{d-Separation}\scite{pearl1988probabilistic}
+\end{itemize}
+
+\begin{textblock}{10}(85,18)
+	\scalebox{\tikzScale}{\adjustTikzSize \input{img/simple-dgm}}
+\end{textblock}
 \end{frame}
 
 \section{Schlussbetrachtung}

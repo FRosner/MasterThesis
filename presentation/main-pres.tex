@@ -38,6 +38,7 @@
 \addbibresource{literature.bib}
 
 \definecolor{cgray}{gray}{0.35}
+\definecolor{mred}{HTML}{A52A2A}
 \newcommand{\scite}[1]{ {\scriptsize \textcolor{cgray}{(\cite{#1})}} }
 
 
@@ -49,7 +50,6 @@
 {\endlist}
 {\item \scriptsize}
 
-\definecolor{mygrey}{RGB}{80,80,80}
 
 \setbeamertemplate{headline}
 {%
@@ -76,7 +76,7 @@ Martin-Luther-Universität Halle-Wittenberg
 
 \frame{\titlepage 
 \parbox{0cm}{\tiny 
-\vspace{-30pt}\color{mygrey}
+\vspace{-30pt}\color{cgray}
 \begin{tabbing}
 XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 \>Gutachter:\> Dr. Alexander Hinneburg \\
@@ -286,6 +286,46 @@ z.B. Münzenwürfe $x_m$ unterschiedlicher Münzen $m \in M$ mit eigenem Paramet
 	\scalebox{\tikzScale}{\adjustTikzSize \input{img/regression-pm}}
 \end{textblock}
 \end{frame}
+
+\begin{frame}[t]{Modellintegration}
+\begin{center}
+\scalebox{\tikzScale}{\adjustTikzSize \input{img/integration-int-1}}
+\end{center}
+\begin{enumerate}
+\item Plate-Modell in ERM-Vorlage übersetzen
+\item ERM-Vorlage und domänenspezifisches ERM zusammenführen
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[t]{Übersetzung von Plate-Modellen zu ERMs}
+\begin{onlyenv}<1>
+	\begin{center}
+	\scalebox{\tikzScale}{\adjustTikzSize \input{img/integration-int-2}}
+	\end{center}
+	\begin{enumerate}
+	\item \textcolor{mred}{\emph{Plate-Modell in ERM-Vorlage übersetzen}}
+	\item ERM-Vorlage und domänenspezifisches ERM zusammenführen
+	\end{enumerate}
+\end{onlyenv}
+
+\only<2>{
+	\begin{textblock}{10}(77,15)
+	\scalebox{0.25}{\adjustTikzSize \input{img/integration-int-2}}
+	\end{textblock}
+}
+
+\begin{onlyenv}<2>
+	\vspace*{1em}
+	\textbf{Vorgehen}
+	\begin{enumerate}
+	\item mehrdimensionale Variablen zerlegen\\$\Rightarrow$ Atomares Plate-Modell (APM)
+	\item APM in ein ERM übersetzen
+	\item entstandenes ERM reduzieren $\Rightarrow$ entf. Übersetzungsartefakte
+	\end{enumerate}
+\end{onlyenv}
+\end{frame}
+
+
 
 \section{Schlussbetrachtung}
 \frame{\frametitle{Gliederung} \tableofcontents[currentsection]}

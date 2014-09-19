@@ -19,6 +19,8 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 	\graphicspath{{img/}}
+	\newcommand{\ptick}[0]{\includegraphics[height=.65em]{tick}}
+	\newcommand{\pcross}[0]{\includegraphics[height=.65em]{cross}}
 \usepackage{nicefrac}
 \usepackage{csquotes}
 \usetheme{Frankfurt}
@@ -198,6 +200,34 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 
 \begin{frame}{Datenmodell-getriebene Architektur}
 \scalebox{\tikzScale}{\adjustTikzSize \input{img/architecture-dmd}}
+\end{frame}
+
+\begin{frame}{Vergleich}
+\begin{columns}[t]
+	\column{0.5\linewidth}
+	\textbf{Traditionelle Architektur}
+	
+	\vspace*{0.5em}
+	\begin{itemize}\setlength{\itemsep}{.45em}
+		\item[\pcross] manuelle Datenanbindung an Inferenzalgorithmus
+		\item[\pcross] komplexe Modellierungssprache
+		\item[\pcross] Inferenzergebnisse nicht einheitlich dokumentiert
+		\item[\pcross] Algorithmenauswahl für Laien schwer
+		\item[\ptick] lose Kopplung aller Schritte\\
+		$\Rightarrow$ kein Wartungsaufwand
+	\end{itemize}
+	\column{0.5\linewidth}
+	\textbf{Datenmodell-getr. Architektur}
+	
+	\vspace*{0.5em}
+	\begin{itemize}\setlength{\itemsep}{.45em}
+		\item[\ptick] autom. Datenanbindung nach Modellintegration
+		\item[\ptick] einfache Modellierungssprache
+		\item[\ptick] Inferenzergebnisse in ERM modelliert
+		\item[\ptick] gewählte Algorithmen passend zu Daten
+		\item[\pcross] neue Modelle müssen eingepflegt werden
+	\end{itemize}
+\end{columns}
 \end{frame}
 
 \section{Integration probabilistischer und Datenbankmodelle}

@@ -114,15 +114,15 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 \begin{frame}[t]{Motivation}
 \begin{itemize}
 \vspace*{1em}
-\item \enquote{Data Scientist: Der attraktivste Beruf des 21. Jahrhunderts} \scite{davenport2012data}
+\item \enquote{Data Scientist: Der attraktivste Beruf des 21. Jahrhunderts} \scite{davenport2012data}\pause
 	\begin{itemize}
 	\item Statistik, Machine-Learning, Mustererkennung, Data Mining
 	\item Informatik, effiziente Algorithmen, Datenverwaltung
 	\end{itemize}
-\end{itemize}
+\end{itemize}\pause
 
 \vspace*{1em}
-\textbf{Problem:} Datenflut nicht von Flut an Data Scientists begleitet
+\textbf{Problem:} Datenflut nicht von Flut an Data Scientists begleitet\pause
 
 \vspace*{3em}
 \begin{center}
@@ -131,9 +131,11 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 {\Large ohne Data Scientists?}\hspace*{4em}
 \end{center}
 
+\only<4>{
 \begin{textblock}{30}(93,57)
 	\includegraphics[width=1\linewidth]{scientist}
 \end{textblock}
+}
 \end{frame}
 
 \begin{frame}
@@ -152,7 +154,7 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 	\item Anwendungsentwickler \hfill (z.B. Java + JavaScript)
 	\item Data Scientist \hfill (z.B. Dr. Alexander Hinneburg)
 	\end{itemize}
-\end{block}
+\end{block}\pause
 
 \textbf{Probleme}
 \begin{itemize}
@@ -161,6 +163,7 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 	\item verfügbare Standardsoftware und -modelle evtl. unzureichend
 \end{itemize}
 
+\only<2>{
 \begin{textblock}{22}(10,77)
 	\includegraphics[width=1\linewidth]{weka}
 \end{textblock}
@@ -173,12 +176,13 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 \begin{textblock}{22}(100,81)
 	\includegraphics[width=1\linewidth]{scikit}
 \end{textblock}
+}
 \end{frame}
 
 \begin{frame}{Zielstellung}
 \begin{block}{Zielstellung}\justifying
 	Entwickeln einer \emph{Datenmodell-getriebenen} Anwendungsarchitektur, welche Anwendungsentwicklern und Domänenexperten erlaubt, \emph{vorhandene Machine-Learning-Algorithmen} individuell für ihr Problem \emph{anzupassen}, ohne einen Data Scientist einstellen zu müssen.
-\end{block}
+\end{block}\pause
 
 \textbf{Idee}
 \begin{itemize}
@@ -187,9 +191,11 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 \item[$\Rightarrow$] kein Wissen über probabilistische Modelle notwendig
 \end{itemize}
 
+\only<2>{
 \begin{textblock}{30}(85,52)
 	\scalebox{0.25}{\adjustTikzSize \input{img/joined-erms}}
 \end{textblock}
+}
 \end{frame}
 
 \section{Machine-Learning-Anwendungsarchitekturen}
@@ -209,23 +215,23 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 	
 	\vspace*{0.5em}
 	\begin{itemize}\setlength{\itemsep}{.45em}
-		\item[\pcross] manuelle Datenanbindung an Inferenzalgorithmus
-		\item[\pcross] komplexe Modellierungssprache
-		\item[\pcross] Inferenzergebnisse nicht einheitlich dokumentiert
-		\item[\pcross] Algorithmenauswahl für Laien schwer
-		\item[\ptick] lose Kopplung aller Schritte\\
-		$\Rightarrow$ kein Wartungsaufwand
+		\visible<2->{\item[\pcross] manuelle Datenanbindung an Inferenzalgorithmus}
+		\visible<3->{\item[\pcross] komplexe Modellierungssprache}
+		\visible<4->{\item[\pcross] Inferenzergebnisse nicht einheitlich dokumentiert}
+		\visible<5->{\item[\pcross] Algorithmenauswahl für Laien schwer}
+		\visible<6->{\item[\ptick] lose Kopplung aller Schritte\\
+		$\Rightarrow$ kein Wartungsaufwand}
 	\end{itemize}
 	\column{0.5\linewidth}
 	\textbf{Datenmodell-getr. Architektur}
 	
 	\vspace*{0.5em}
 	\begin{itemize}\setlength{\itemsep}{.45em}
-		\item[\ptick] autom. Datenanbindung nach Modellintegration
-		\item[\ptick] einfache Modellierungssprache
-		\item[\ptick] Inferenzergebnisse in ERM modelliert
-		\item[\ptick] gewählte Algorithmen passend zu Daten
-		\item[\pcross] neue Modelle müssen eingepflegt werden
+		\visible<2->{\item[\ptick] autom. Datenanbindung nach Modellintegration}
+		\visible<3->{\item[\ptick] einfache Modellierungssprache}
+		\visible<4->{\item[\ptick] Inferenzergebnisse in ERM modelliert}
+		\visible<5->{\item[\ptick] gewählte Algorithmen passend zu Daten}
+		\visible<6->{\item[\pcross] neue Modelle müssen eingepflegt werden}
 	\end{itemize}
 \end{columns}
 \end{frame}
@@ -240,7 +246,7 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 \item Kanten = Abhängigkeitsbeziehungen
 \item Abwesenheit von Kanten = Unabhängigkeitsannahmen
 \item beobachtete Variablen = grau schattiert,\\Hyperparameter = schwarz ausgefüllt
-\end{itemize}
+\end{itemize}\pause
 
 \textbf{Ziele}
 \begin{itemize}
@@ -260,7 +266,7 @@ XXXXXXXXXXXXXXXXXXXXXIXXX\=XXXXXXXX\= \kill \\
 \item hierarchische Daten erfordern wiederholte Variablen:\\
 z.B. Münzenwürfe $x_m$ unterschiedlicher Münzen $m \in M$ mit eigenem Parameter $\theta_m$
 \item jede Variable einzeln zu zeichnen führt zu hohem Platzbedarf und ist schnell unübersichtlich
-\end{itemize}
+\end{itemize}\pause
 
 \vspace*{0.5em}
 \textbf{Plate-Modell}
@@ -270,9 +276,11 @@ z.B. Münzenwürfe $x_m$ unterschiedlicher Münzen $m \in M$ mit eigenem Paramet
 \item indiziere alle Variablen innerhalb der Plate über diese Menge
 \end{itemize}
 
+\only<2>{
 \begin{textblock}{10}(80,60)
 	\scalebox{\tikzScale}{\adjustTikzSize \input{img/simple-pm}}
 \end{textblock}
+}
 \end{frame}
 
 \begin{frame}{Exkurs: Praktische Beispiele für Plate-Modelle}
@@ -308,37 +316,37 @@ z.B. Münzenwürfe $x_m$ unterschiedlicher Münzen $m \in M$ mit eigenem Paramet
 	\end{enumerate}
 \end{onlyenv}
 
-\only<2>{
+\only<2->{
 	\begin{textblock}{10}(77,15)
 	\scalebox{0.25}{\adjustTikzSize \input{img/integration-int-2}}
 	\end{textblock}
 }
 
-\only<2>{
+\only<5->{
 	\begin{textblock}{10}(10,51)
 	\scalebox{0.33}{\adjustTikzSize \input{img/clustering-pm}}
 	\end{textblock}
 }
 
-\only<2>{
+\only<5->{
 	\begin{textblock}{10}(65,53)
 	\scalebox{0.33}{\adjustTikzSize \input{img/clustering-erm}}
 	\end{textblock}
 }
 
-\only<2>{
+\only<5->{
 	\begin{textblock}{10}(49,70)
 	\scalebox{0.5}{\adjustTikzSize \input{img/arrow}}
 	\end{textblock}
 }
 
-\begin{onlyenv}<2>
+\begin{onlyenv}<2->
 	\vspace*{1em}
 	\textbf{Vorgehen}
 	\begin{enumerate}
-	\item mehrdimensionale Variablen zerlegen\\$\Rightarrow$ Atomares Plate-Modell (APM)
-	\item APM in ein ERM übersetzen
-	\item entstandenes ERM reduzieren $\Rightarrow$ Übersetzungsartefakte entf.
+	\visible<2->{\item mehrdimensionale Variablen zerlegen\\$\Rightarrow$ Atomares Plate-Modell (APM)}
+	\visible<3->{\item APM in ein ERM übersetzen}
+	\visible<4->{\item entstandenes ERM reduzieren $\Rightarrow$ Übersetzungsartefakte entf.}
 	\end{enumerate}
 \end{onlyenv}
 \end{frame}
@@ -399,7 +407,7 @@ z.B. Münzenwürfe $x_m$ unterschiedlicher Münzen $m \in M$ mit eigenem Paramet
 \begin{itemize}
 \item Auswahl probabilistischer Modelle in Form von ERM-Vorlagen
 \item[\ptick] einfach verständlich, benutzbar, erweiterbar
-\end{itemize}
+\end{itemize}\pause
 
 \vspace*{2em}
 \textbf{Übersetzung von Plate-Modellen zu ERMs}
@@ -416,7 +424,7 @@ z.B. Münzenwürfe $x_m$ unterschiedlicher Münzen $m \in M$ mit eigenem Paramet
 \item Einpflegen existierender Modelle in Rahmenwerk 
 \item Implementierung benötigter Inferenzalgorithmen
 \item Erkennen von Modellierungsfehlern, Annahmenverletzungen
-\end{itemize}
+\end{itemize}\pause
 
 \vspace*{1em}
 \textbf{Übersetzungsmethode Plate-Modell zu ERM nicht perfekt}
@@ -432,7 +440,7 @@ z.B. Münzenwürfe $x_m$ unterschiedlicher Münzen $m \in M$ mit eigenem Paramet
 \begin{itemize}
 \item Prototypen entwickeln
 \item Experimente durchführen
-\end{itemize}
+\end{itemize}\pause
 
 \vspace*{2em}
 \textbf{Übersetzung: Plate-Modell zu ERM}
